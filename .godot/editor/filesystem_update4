@@ -1,8 +1,7 @@
-res://main.tscn
-res://Resources/zude_tools_theme.tres
-res://config.json
-res://zude_tools.gd
-res://Scenes/episode.gd
-res://Scenes/episode.tscn
-res://Scenes/details_panel.tscn
 res://zude_tools.tscn
+res://Resources/zude_tools_theme.tres
+res://zude_tools.gd
+res://Scenes/episode.tscn
+res://Scenes/thumbnail.tscn
+res://Scenes/thumbnail.gd
+res://Scenes/episode.gd

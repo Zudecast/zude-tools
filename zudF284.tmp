@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtmi8h8ws7tf4"]
+[gd_scene load_steps=4 format=3 uid="uid://dtmi8h8ws7tf4"]
 
 [ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
+[ext_resource type="PackedScene" uid="uid://bym82tb1vnqxt" path="res://Scenes/details_panel.tscn" id="2_atfmp"]
 
 [sub_resource type="Theme" id="Theme_1cqkd"]
 Button/constants/h_separation = 10
@@ -91,6 +92,7 @@ text = "Open Production"
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_vertical = 3
+split_offset = 300
 
 [node name="HeroPanelContainer" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer"]
 custom_minimum_size = Vector2(250, 0)
@@ -108,6 +110,7 @@ layout_mode = 2
 
 [node name="HeroPreview" type="TextureRect" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/HeroPanelContainer/HeroMarginContainer/HeroVBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 expand_mode = 5
 stretch_mode = 5
@@ -125,69 +128,21 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="Thumbnails" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ThumbnailsMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Thumbnails"]
-layout_mode = 2
-
-[node name="ThumbnailsScrollContainer" type="ScrollContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Thumbnails/ThumbnailsMarginContainer"]
-layout_mode = 2
-
-[node name="ThumbnailsHFlowContainer" type="HFlowContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Thumbnails/ThumbnailsMarginContainer/ThumbnailsScrollContainer"]
+[node name="Footage" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer" instance=ExtResource("2_atfmp")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="Footage" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer"]
+[node name="Thumbnails" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer" instance=ExtResource("2_atfmp")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="FootageMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Footage"]
-layout_mode = 2
-
-[node name="FootageScrollContainer" type="ScrollContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Footage/FootageMarginContainer"]
-layout_mode = 2
-
-[node name="FootageHFlowContainer" type="HFlowContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Footage/FootageMarginContainer/FootageScrollContainer"]
+[node name="Clips" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer" instance=ExtResource("2_atfmp")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Clips" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="ClipsMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Clips"]
-layout_mode = 2
-
-[node name="ClipsScrollContainer" type="ScrollContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Clips/ClipsMarginContainer"]
-layout_mode = 2
-
-[node name="ClipsHFlowContainer" type="HFlowContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Clips/ClipsMarginContainer/ClipsScrollContainer"]
+[node name="Reels" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer" instance=ExtResource("2_atfmp")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Reels" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ReelsMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Reels"]
-layout_mode = 2
-
-[node name="ReelsScrollContainer" type="ScrollContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Reels/ReelsMarginContainer"]
-layout_mode = 2
-
-[node name="ReelsHFlowContainer" type="HFlowContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabContainer/Reels/ReelsMarginContainer/ReelsScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
