@@ -1,11 +1,22 @@
 class_name Thumbnail
 extends Control
 
-@onready var thumb_title: Label = %ThumbTitle
-@onready var thumb_preview: TextureRect = %ThumbPreview
+#region Onready Variables
 
+@onready var thumb_button = %ThumbButton
+@onready var thumb_title: Label = %ThumbTitle
+@onready var thumb_preview: TextureRect = %ThumbImage
+
+#endregion
+
+#region Variables
+
+## A file name.
 var title: String
+## An image file path.
 var preview: String
+
+#endregion
 
 func _ready() -> void:
 	set_title()

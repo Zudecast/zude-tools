@@ -3,5 +3,6 @@ res://Resources/zude_tools_theme.tres
 res://zude_tools.gd
 res://Scenes/episode.tscn
 res://Scenes/thumbnail.tscn
-res://Scenes/thumbnail.gd
 res://Scenes/episode.gd
+res://default_thumbnail.tres
+res://Scenes/thumbnail.gd

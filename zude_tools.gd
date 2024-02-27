@@ -10,7 +10,6 @@ extends Control
 @onready var open_production_button_mid: Button = %OpenProductionButtonMid
 @onready var new_episode_button: Button = %NewEpisodeButton
 @onready var episode_flow: HFlowContainer = %EpisodesHFlowContainer
-@onready var tab_container: TabContainer = %TabContainer
 @onready var footage_flow: HFlowContainer = %FootageHFlowContainer
 @onready var thumbnails_flow: HFlowContainer = %ThumbnailsHFlowContainer
 @onready var clips_flow: HFlowContainer = %ClipsHFlowContainer
@@ -23,22 +22,21 @@ extends Control
 const CONFIG = "res://config.json"
 const EPISODE: PackedScene = preload("res://Scenes/episode.tscn")
 const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
-const DEFAULT_THUMB: String = "res://zudecast.png"
 
 #endregion
 
 #region Variables
 
-var episode_dictionary: Dictionary
+var file_dialog: FileDialog = preload("res://Scenes/file_dialog.tscn").instantiate()
+var episodes: Dictionary
 var directory: String:
 	set(string):
 		directory = string
 		show_hide_open_production_button()
-		clear_zude_tool()
-		find_episodes()
-var file_dialog: FileDialog = preload("res://Scenes/file_dialog.tscn").instantiate()
+		clear_zude_tools()
+		update_zude_tools()
 
-#endregion
+#endregions
 
 func _ready() -> void:
 	read_directory()
@@ -81,15 +79,23 @@ func write_directory(dir: String) -> void:
 	
 	prints("Wrote directory to config:", directory)
 
-func find_episodes() -> void:
+func update_zude_tools() -> void:
+	add_episodes()
+	update_episode_flow()
+
+func clear_zude_tools() -> void:
+	episodes.clear()
+	clear_episode_flow()
+	clear_detail_flows()
+	clear_hero()
+
+func add_episodes() -> void:
 	var list: PackedStringArray = DirAccess.get_directories_at(directory)
 	
 	list.reverse()
 	
 	for title in list:
 		add_episode(title)
-	
-	update_episode_flow()
 
 func add_episode(title: String = "New Episode") -> void:
 	if directory == null:
@@ -99,31 +105,31 @@ func add_episode(title: String = "New Episode") -> void:
 	var episode: Episode = EPISODE.instantiate()
 	
 	episode.title = title
-	episode.preview = DEFAULT_THUMB
 	episode.directory = directory.path_join(title)
 	
 	episode.entered.connect(update_hero)
 	episode.entered.connect(update_detail_flows)
 	
-	episode_dictionary.merge({episode : episode.title})
+	episodes.merge({episode.title : episode})
 
 func update_episode_flow() -> void:
-	for episode in episode_dictionary.keys():
-		episode_flow.add_child(episode)
+	for episode in episodes:
+		episode_flow.add_child(episodes.get(episode))
 
 func clear_episode_flow() -> void:
 	for child in episode_flow.get_children():
 		child.queue_free()
 
+# FIXME
 func update_hero(episode: Episode) -> void:
 	clear_hero()
 	
 	hero_title.text = episode.title
 	hero_preview.texture = episode.episode_preview.texture
 	
-	#var stream := VideoStream.new()
-	#stream.file = episode.hero_video
-	#hero_video.stream = stream
+	var stream := FFmpegVideoStream.new()
+	stream.set_file(episode.video)
+	hero_video.stream = stream
 
 func clear_hero() -> void:
 	hero_preview.texture = null
@@ -144,48 +150,43 @@ func clear_detail_flows() -> void:
 func update_thumbnail_flow(episode: Episode) -> void:
 	clear_thumbnail_flow()
 	
-	for file: String in episode.files["clips_thumb"]:
-		if file.contains(".jpg"):
-			var image := Image.new()
-			var image_path = episode.directory.path_join("clips").path_join("clips_thumb").path_join(file)
-			image.load(image_path)
-			var texture := ImageTexture.new()
-			texture.create_from_image(image)
+	for file_name: String in episode.files["clips_thumb"]:
+		if file_name.contains(".jpg"):
+			var image_path = episode.directory.path_join("clips").path_join("clips_thumb").path_join(file_name)
+			
 			var thumb: Thumbnail = THUMBNAIL.instantiate()
-			thumb.title = file
+			thumb.title = file_name
 			thumb.preview = image_path
+			
 			thumbnails_flow.add_child(thumb)
 
 func clear_thumbnail_flow() -> void:
 	for child in thumbnails_flow.get_children():
 		child.queue_free()
 
-func update_footage_flow(episode: Episode) -> void:
+# TODO
+func update_footage_flow(_episode: Episode) -> void:
 	clear_footage_flow()
 
 func clear_footage_flow() -> void:
 	for child in footage_flow.get_children():
 		child.queue_free()
 
-func update_clips_flow(episode: Episode) -> void:
+# TODO
+func update_clips_flow(_episode: Episode) -> void:
 	clear_clips_flow()
 
 func clear_clips_flow() -> void:
 	for child in clips_flow.get_children():
 		child.queue_free()
 
-func update_reels_flow(episode: Episode) -> void:
+# TODO
+func update_reels_flow(_episode: Episode) -> void:
 	clear_reels_flow()
 
 func clear_reels_flow() -> void:
 	for child in reels_flow.get_children():
 		child.queue_free()
-
-func clear_zude_tool() -> void:
-	episode_dictionary.clear()
-	clear_episode_flow()
-	clear_detail_flows()
-	clear_hero()
 
 func _exit_tree():
 	new_episode_button.pressed.disconnect(add_episode)

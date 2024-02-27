@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dohvqb6c1613p"]
+[gd_scene load_steps=4 format=3 uid="uid://dohvqb6c1613p"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_qpk3o"]
 [ext_resource type="Script" path="res://Scenes/thumbnail.gd" id="2_7di5e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50ba4"]
 
 [node name="Thumb" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 150)
@@ -19,7 +21,7 @@ layout_mode = 2
 [node name="ThumbVBox" type="VBoxContainer" parent="ThumbMargin"]
 layout_mode = 2
 
-[node name="ThumbPreview" type="TextureRect" parent="ThumbMargin/ThumbVBox"]
+[node name="ThumbImage" type="TextureRect" parent="ThumbMargin/ThumbVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -32,3 +34,8 @@ custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Title"
 autowrap_mode = 3
+
+[node name="ThumbButton" type="Button" parent="ThumbMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_50ba4")
