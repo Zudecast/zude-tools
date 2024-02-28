@@ -1,1 +1,3 @@
+ThumbnailProperties
+Resource
 Image

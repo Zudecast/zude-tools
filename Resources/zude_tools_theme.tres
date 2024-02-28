@@ -1,4 +1,50 @@
-[gd_resource type="Theme" format=3 uid="uid://blbl1uhbtj7qj"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://blbl1uhbtj7qj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlhh"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxawi"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4g4b"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8geml"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwumr"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
 
 [resource]
 resource_local_to_scene = true
@@ -14,4 +60,9 @@ MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 TabContainer/constants/icon_separation = 5
 TabContainer/constants/side_margin = 10
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_gjlhh")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_mxawi")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_x4g4b")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_8geml")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fwumr")
 VBoxContainer/constants/separation = 10

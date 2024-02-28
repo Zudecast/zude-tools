@@ -20,6 +20,7 @@ script = ExtResource("1_icpdn")
 
 [node name="EpisodeMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+theme = ExtResource("1_liwn8")
 
 [node name="EpisodeVBoxContainer" type="VBoxContainer" parent="EpisodeMarginContainer"]
 layout_mode = 2
@@ -36,6 +37,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_vertical = 2
+mouse_filter = 1
 text = "Title"
 autowrap_mode = 3
 

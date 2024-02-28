@@ -15,8 +15,7 @@ config/version="0.1"
 run/main_scene="res://zude_tools.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://logo.png"
-boot_splash/fullsize=false
-config/icon="res://icon.svg"
+config/icon="res://zude_tools.svg"
 
 [display]
 

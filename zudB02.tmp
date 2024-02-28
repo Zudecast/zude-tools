@@ -29,17 +29,16 @@ layout_mode = 2
 [node name="ZudeToolsVBoxContainer" type="VBoxContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer"]
 layout_mode = 2
 
-[node name="ButtonsBar" type="HBoxContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer"]
-unique_name_in_owner = true
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer"]
 layout_mode = 2
 
-[node name="NewEpisodeButton" type="Button" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ButtonsBar"]
+[node name="NewEpisodeButton" type="Button" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ButtonsHBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "New Episode
 "
 
-[node name="OpenProductionButtonTop" type="Button" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ButtonsBar"]
+[node name="OpenProductionButtonTop" type="Button" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ButtonsHBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -129,26 +128,20 @@ focus_previous = NodePath("../HeroPanelContainer")
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0yafr")
 
-[node name="TabsVBoxContainer" type="VBoxContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer"]
-layout_mode = 2
-
-[node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
+[node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-drag_to_rearrange_enabled = true
 
-[node name="SizePanelContainer" type="PanelContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
+[node name="SizeMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 
-[node name="SizeMarginContainer" type="MarginContainer" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/SizePanelContainer"]
-layout_mode = 2
-
-[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/SizePanelContainer/SizeMarginContainer"]
+[node name="SizeVSlider" type="HSlider" parent="ZudeToolsPanelContainer/ZudeToolsMarginContainer/ZudeToolsVBoxContainer/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/SizeMarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_horizontal = 4
 min_value = 250.0
 max_value = 500.0
 value = 250.0
