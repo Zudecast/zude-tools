@@ -1,11 +1,8 @@
-res://Resources/zude_tools_theme.tres
 res://zude_tools.tscn
 res://zude_tools.gd
-res://Scenes/tab_pane.tscn
-res://Scenes/thumbnail.tscn
-res://Scenes/episode.tscn
-res://Scenes/episode.gd
-res://Scenes/tab_pane.gd
-res://Scenes/thumbnail.gd
+res://Resources/zude_tools_theme.tres
+res://Scenes/zude_tools_splash.tscn
+res://Scenes/zude_tools_splash.gd
+res://Scenes/zude_tools_editor.gd
 res://Scenes/tab_flow.tscn
-res://Scenes/tab_flow.gd
+res://README.md
