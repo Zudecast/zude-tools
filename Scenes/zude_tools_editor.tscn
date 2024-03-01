@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3i64a5qg7iv"]
+[gd_scene load_steps=10 format=3 uid="uid://d3i64a5qg7iv"]
 
 [ext_resource type="Script" path="res://Scenes/zude_tools_editor.gd" id="1_2osj4"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_o4ffb"]
 [ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://Icons/refresh.svg" id="3_r3i7s"]
 [ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://Icons/settings.svg" id="4_kkos4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyrdy"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_vjsuv"]
 action = &"Refresh"
@@ -45,14 +43,14 @@ layout_mode = 2
 [node name="ZudeToolsVBox" type="VBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin"]
 layout_mode = 2
 
-[node name="ButtonsPanel" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox"]
+[node name="ButtonsPanel" type="HBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fyrdy")
+alignment = 1
 
 [node name="ButtonsPanelHBoxLeft" type="HBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 
 [node name="NewEpisodeButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsPanelHBoxLeft"]
 unique_name_in_owner = true
@@ -67,17 +65,27 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Open Production"
 
-[node name="Label" type="Label" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
+[node name="ButtonsHBoxCenter" type="HBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Zude Tools"
-horizontal_alignment = 1
-metadata/_edit_lock_ = true
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="EpisodeSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsHBoxCenter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 250.0
+max_value = 1000.0
+step = 25.0
+value = 500.0
 
 [node name="ButtonsPanelHBoxRight" type="HBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
+alignment = 2
 
 [node name="RefreshButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsPanelHBoxRight"]
 unique_name_in_owner = true
@@ -181,23 +189,30 @@ layout_mode = 2
 
 [node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
-drag_to_rearrange_enabled = true
 
-[node name="SizePanelContainer" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
+[node name="BottomPanel" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
 layout_mode = 2
 
-[node name="SizeMarginContainer" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/SizePanelContainer"]
+[node name="BottomPanelMargin" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel"]
 layout_mode = 2
 
-[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/SizePanelContainer/SizeMarginContainer"]
+[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 min_value = 250.0
-max_value = 500.0
+max_value = 1000.0
+step = 25.0
 value = 250.0
 rounded = true
 scrollable = false
+
+[node name="ItemCountLabel" type="Label" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Item Count: 0"

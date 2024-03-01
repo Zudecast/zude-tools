@@ -14,6 +14,7 @@ const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
 @onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
 @onready var file_dialog: ZudeToolsFileDialog = $"../ZudeToolsFileDialog"
 
+@onready var episode_size_slider = %EpisodeSizeSlider
 @onready var episode_flow: HFlowContainer = %EpisodesHFlowContainer
 @onready var tabs_container: TabContainer = %TabsContainer
 
@@ -30,6 +31,8 @@ const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
 @onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
+# TODO - item count for tabs
+@onready var item_count_label = %ItemCountLabel
 
 #endregion
 
@@ -46,7 +49,6 @@ func _ready() -> void:
 	refresh_button.pressed.connect(refresh)
 	settings_button.pressed.connect(settings.popup)
 	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
-	preview_size_slider.value_changed.connect(resize_tab_flow_previews)
 
 func _exit_tree() -> void:
 	new_episode_button.pressed.disconnect(add_episode)
@@ -54,7 +56,6 @@ func _exit_tree() -> void:
 	refresh_button.pressed.disconnect(refresh)
 	settings_button.pressed.disconnect(settings.popup)
 	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
-	preview_size_slider.value_changed.disconnect(resize_tab_flow_previews)
 
 ## Clear hero, clear tabs, and update episodes. Called when settings directory is updated.
 func refresh() -> void:
@@ -81,6 +82,11 @@ func add_episode(title: String = "New Episode") -> void:
 	episode.entered.connect(update_hero)
 	episode.entered.connect(update_tabs)
 	
+	var set_episode_size = func(size: int) -> void:
+		episode.custom_minimum_size.x = size
+	
+	episode_size_slider.value_changed.connect(set_episode_size)
+	
 	episodes.merge({episode.title : episode})
 	episode_flow.add_child(episode)
 
@@ -92,11 +98,11 @@ func update_episodes() -> void:
 		print("No directory selected!")
 		return
 	
-	var list: PackedStringArray = DirAccess.get_directories_at(settings.directory)
+	var episode_list: PackedStringArray = DirAccess.get_directories_at(settings.directory)
 	
-	list.reverse()
+	episode_list.reverse()
 	
-	for title in list:
+	for title in episode_list:
 		add_episode(title)
 
 ## Free all episodes in the episodes dictionary and clear it.
@@ -151,13 +157,19 @@ func update_tabs(episode: Episode) -> void:
 				image.title = file_name
 				image.preview = episode.directories[dir_name].path_join(file_name)
 				load_item_into_tab_flow(dir_name, image)
-		
-		# Check each tab flow for children to determine if a "nothing here" label should be shown.
-		tab_flows[dir_name].check_for_children()
+	
+	# Check each tab flow for children to determine if a "nothing here" label should be shown.
+	for tab_flow in tab_flows.values():
+		tab_flow.check_for_children()
 
 ## Add any item to the specified tab flow.
-func load_item_into_tab_flow(tab_name: String, node: Node) -> void:
-	tab_flows[tab_name].flow.add_child(node)
+func load_item_into_tab_flow(tab_name: String, item: Control) -> void:
+	var set_item_size = func(size: float) -> void:
+		item.custom_minimum_size.x = size
+	
+	preview_size_slider.value_changed.connect(set_item_size)
+	
+	tab_flows[tab_name].flow.add_child(item)
 
 ## Remove any item from the specified tab flow.
 func free_item_from_tab_flow(tab_name: String, node: Node) -> void:
@@ -175,7 +187,4 @@ func clear_tab_container() -> void:
 	
 	tab_flows.clear()
 
-# TODO - ## Resize item preview sizes for tab flows.
-func resize_tab_flow_previews() -> void:
-	pass
 

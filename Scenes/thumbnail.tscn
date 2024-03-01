@@ -6,12 +6,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50ba4"]
 
 [node name="ThumbPanelContainer" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 150)
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 55.0
 grow_horizontal = 2
-grow_vertical = 2
 theme = ExtResource("1_qpk3o")
 script = ExtResource("2_7di5e")
 
@@ -23,17 +21,16 @@ layout_mode = 2
 
 [node name="ThumbImage" type="TextureRect" parent="ThumbMarginContainer/ThumbVBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_vertical = 0
 expand_mode = 5
 stretch_mode = 5
 
 [node name="ThumbTitle" type="Label" parent="ThumbMarginContainer/ThumbVBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 text = "Title"
-autowrap_mode = 3
+max_lines_visible = 2
 
 [node name="ThumbButton" type="Button" parent="."]
 unique_name_in_owner = true
