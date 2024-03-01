@@ -14,7 +14,7 @@ func _ready() -> void:
 	flow.child_exiting_tree.connect(check_for_children)
 
 ## Update the nothing_label node's visibility based on the amount of children in the flow node.
-func check_for_children(node: Node = null) -> void:
+func check_for_children() -> void:
 	if flow.get_children().size() == 0:
 		nothing_label.set_visible(true)
 	else:

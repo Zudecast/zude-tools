@@ -1,8 +1,10 @@
 res://zude_tools.tscn
-res://zude_tools.gd
 res://Resources/zude_tools_theme.tres
-res://Scenes/zude_tools_splash.tscn
-res://Scenes/zude_tools_splash.gd
+res://zude_tools.gd
 res://Scenes/zude_tools_editor.gd
-res://Scenes/tab_flow.tscn
-res://README.md
+res://Scenes/zude_tools_editor.tscn
+res://Scenes/zude_tools_settings.tscn
+res://Scenes/zude_tools_settings.gd
+res://Scenes/file_dialog.gd
+res://Scenes/zude_tools_splash.gd
+res://config.json

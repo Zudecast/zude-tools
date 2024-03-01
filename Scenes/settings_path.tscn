@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://77w2btfiqbof"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_isyab"]
+[ext_resource type="Script" path="res://Scenes/settings_path.gd" id="2_0sdn6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uuoq4"]
+
+[node name="SettingsPath" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 35.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_isyab")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uuoq4")
+script = ExtResource("2_0sdn6")
+
+[node name="SettingsPathVBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SettingsPathHBox" type="HBoxContainer" parent="SettingsPathVBox"]
+layout_mode = 2
+
+[node name="SettingsPathLabel" type="Label" parent="SettingsPathVBox/SettingsPathHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Default project thumbnail:"
+
+[node name="SettingsPathLineEdit" type="LineEdit" parent="SettingsPathVBox/SettingsPathHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsPathButton" type="Button" parent="SettingsPathVBox/SettingsPathHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Select file path..."
+
+[node name="SettingsItemHSep" type="HSeparator" parent="SettingsPathVBox"]
+layout_mode = 2
+theme_override_constants/separation = 0

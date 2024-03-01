@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://dtmi8h8ws7tf4"]
+[gd_scene load_steps=15 format=3 uid="uid://bic483r5u4pm4"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_cxk3m"]
-[ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
-[ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://Scenes/zude_tools_editor.tscn" id="2_fm3jj"]
-[ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://Scenes/zude_tools_settings.tscn" id="5_bvsle"]
-[ext_resource type="Script" path="res://Scenes/file_dialog.gd" id="5_romr8"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_mwlox"]
+[ext_resource type="Script" path="res://Scenes/settings_category.gd" id="2_4m658"]
+[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/settings_path.tscn" id="2_e8hl0"]
+[ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="3_a820m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f0nf"]
 content_margin_left = 4.0
@@ -112,10 +111,9 @@ bg_color = Color(0, 0, 0, 0.6)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
-[sub_resource type="Theme" id="Theme_8q4ov"]
+[sub_resource type="Theme" id="Theme_2glyo"]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
-Button/constants/icon_max_width = 15
 GridContainer/constants/h_separation = 10
 GridContainer/constants/v_separation = 10
 HBoxContainer/constants/separation = 10
@@ -138,110 +136,59 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_8geml")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fwumr")
 VBoxContainer/constants/separation = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dbp8"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.415686, 0.658824, 0.309804, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mqht"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_665bm"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lbsj"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cloit"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqeva"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="Theme" id="Theme_x3t8b"]
-resource_local_to_scene = true
-Button/constants/h_separation = 10
-GridContainer/constants/h_separation = 10
-GridContainer/constants/v_separation = 10
-HBoxContainer/constants/separation = 10
-HFlowContainer/constants/h_separation = 10
-HFlowContainer/constants/v_separation = 10
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_1dbp8")
-TabContainer/constants/icon_separation = 5
-TabContainer/constants/side_margin = 10
-TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_3mqht")
-TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_665bm")
-TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_3lbsj")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_cloit")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_wqeva")
-VBoxContainer/constants/separation = 10
-
-[node name="ZudeTools" type="Control"]
-layout_mode = 3
+[node name="SettingsCategory" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_cxk3m")
-script = ExtResource("1_epjjy")
+size_flags_vertical = 3
+theme = ExtResource("1_mwlox")
+script = ExtResource("2_4m658")
 metadata/_edit_lock_ = true
 
-[node name="ZudeToolsEditor" parent="." instance=ExtResource("2_fm3jj")]
-layout_mode = 1
-theme = SubResource("Theme_8q4ov")
+[node name="SettingsCategoryMargin" type="MarginContainer" parent="."]
+layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="ZudeToolsSettings" parent="." instance=ExtResource("5_bvsle")]
-visible = false
-layout_mode = 1
-theme = SubResource("Theme_x3t8b")
+[node name="SettingsCategoryVBox" type="VBoxContainer" parent="SettingsCategoryMargin"]
+layout_mode = 2
+metadata/_edit_lock_ = true
 
-[node name="ZudeToolsFileDialog" type="FileDialog" parent="."]
-size = Vector2i(507, 197)
-popup_window = true
-access = 2
-use_native_dialog = true
-script = ExtResource("5_romr8")
+[node name="SettingsCategoryLabel" type="Label" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Global Settings"
+metadata/_edit_lock_ = true
+
+[node name="ShowHideCategoryButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("3_a820m")
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="SettingsCategoryListPanel" type="PanelContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="SettingsCategoryListMargin" type="MarginContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel"]
+layout_mode = 2
+
+[node name="SettingsCategoryListVBox" type="VBoxContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel/SettingsCategoryListMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SettingsItemPanel" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel/SettingsCategoryListMargin/SettingsCategoryListVBox" instance=ExtResource("2_e8hl0")]
+layout_mode = 2
+theme = SubResource("Theme_2glyo")

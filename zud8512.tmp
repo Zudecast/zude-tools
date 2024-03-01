@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://dtmi8h8ws7tf4"]
+[gd_scene load_steps=31 format=3 uid="uid://dtmi8h8ws7tf4"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_cxk3m"]
 [ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
 [ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://Scenes/zude_tools_editor.tscn" id="2_fm3jj"]
+[ext_resource type="PackedScene" uid="uid://ddr404nsb64xm" path="res://Scenes/zude_tools_splash.tscn" id="3_5d74j"]
 [ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://Scenes/zude_tools_settings.tscn" id="5_bvsle"]
-[ext_resource type="Script" path="res://Scenes/file_dialog.gd" id="5_romr8"]
+[ext_resource type="PackedScene" uid="uid://dp0lwpce2knjq" path="res://Scenes/file_dialog.tscn" id="6_vfwng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f0nf"]
 content_margin_left = 4.0
@@ -218,6 +219,86 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_cloit")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_wqeva")
 VBoxContainer/constants/separation = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kj6w"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.415686, 0.658824, 0.309804, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dc4v8"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sbko"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvs6a"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iu4cq"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okem7"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="Theme" id="Theme_vhmr0"]
+resource_local_to_scene = true
+Button/constants/h_separation = 10
+GridContainer/constants/h_separation = 10
+GridContainer/constants/v_separation = 10
+HBoxContainer/constants/separation = 10
+HFlowContainer/constants/h_separation = 10
+HFlowContainer/constants/v_separation = 10
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_6kj6w")
+TabContainer/constants/icon_separation = 5
+TabContainer/constants/side_margin = 10
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_dc4v8")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_8sbko")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_cvs6a")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_iu4cq")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_okem7")
+VBoxContainer/constants/separation = 10
+
 [node name="ZudeTools" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -227,21 +308,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_cxk3m")
 script = ExtResource("1_epjjy")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsEditor" parent="." instance=ExtResource("2_fm3jj")]
+unique_name_in_owner = true
 layout_mode = 1
 theme = SubResource("Theme_8q4ov")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettings" parent="." instance=ExtResource("5_bvsle")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 theme = SubResource("Theme_x3t8b")
 
-[node name="ZudeToolsFileDialog" type="FileDialog" parent="."]
-size = Vector2i(507, 197)
-popup_window = true
-access = 2
-use_native_dialog = true
-script = ExtResource("5_romr8")
+[node name="ZudeToolsSplash" parent="." instance=ExtResource("3_5d74j")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+theme = SubResource("Theme_vhmr0")
+
+[node name="FileDialog" parent="." instance=ExtResource("6_vfwng")]
+unique_name_in_owner = true

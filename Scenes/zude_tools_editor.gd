@@ -13,6 +13,9 @@ const DEFAULT_THUMBNAIL: String = "res://zudecast.png"
 
 #region Onready Variables
 
+@onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
+@onready var file_dialog: ZudeToolsFileDialog = $"../ZudeToolsFileDialog"
+
 @onready var episode_flow: HFlowContainer = %EpisodesHFlowContainer
 @onready var tabs_container: TabContainer = %TabsContainer
 
@@ -20,9 +23,12 @@ const DEFAULT_THUMBNAIL: String = "res://zudecast.png"
 @onready var hero_preview: TextureRect = %HeroPreview
 @onready var hero_video: VideoStreamPlayer = %HeroVideo
 
-@onready var open_production_button_top: Button = %OpenProductionButtonTop
-@onready var open_production_button_mid: Button = %OpenProductionButtonMid
+@onready var buttons_panel_h_box_left: HBoxContainer = %ButtonsPanelHBoxLeft
 @onready var new_episode_button: Button = %NewEpisodeButton
+@onready var open_production_button_top: Button = %OpenProductionButtonTop
+@onready var buttons_panel_h_box_right: HBoxContainer = %ButtonsPanelHBoxRight
+@onready var open_settings_button: Button = %OpenSettingsButton
+@onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
 
@@ -30,65 +36,37 @@ const DEFAULT_THUMBNAIL: String = "res://zudecast.png"
 
 #region Variables
 
-var directory: String:
-	set(dir):
-		directory = dir
-		show_hide_open_production_button()
-		clear_hero()
-		clear_tab_container()
-		update_episodes()
-
 var episodes: Dictionary
 var tab_flows: Dictionary
 
-var file_dialog: FileDialog = preload("res://Scenes/file_dialog.tscn").instantiate()
-
 #endregions
 
-## Read config for stored directory and connect all signals.
-func init() -> void:
-	read_directory()
+func _ready() -> void:
+	open_settings_button.pressed.connect(settings.popup)
 	
 	new_episode_button.pressed.connect(add_episode)
-	open_production_button_mid.pressed.connect(popup_directory_dialog)
-	open_production_button_top.pressed.connect(popup_directory_dialog)
+	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
+	open_production_button_top.pressed.connect(file_dialog.popup_directory_dialog)
 	preview_size_slider.value_changed.connect(resize_tab_flow_previews)
 
-## Read the last known directory from the config file and set it internally.
-func read_directory() -> void:
-	var config = FileAccess.open(CONFIG, FileAccess.READ)
-	var dir = JSON.parse_string(config.get_line())
-	if dir != null:
-		directory = dir
+func _exit_tree() -> void:
+	open_settings_button.pressed.disconnect(settings.popup)
 	
-	config.close()
-	
-	prints("Read directory from config:", directory)
+	new_episode_button.pressed.disconnect(add_episode)
+	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
+	open_production_button_top.pressed.disconnect(file_dialog.popup_directory_dialog)
+	preview_size_slider.value_changed.disconnect(resize_tab_flow_previews)
 
-## Write the current directory to the config file and set it internally.
-func write_directory(dir: String) -> void:
-	directory = dir
-	var config = FileAccess.open(CONFIG, FileAccess.WRITE_READ)
-	config.store_string(JSON.stringify(directory))
-	config.close()
-	
-	prints("Wrote directory to config:", directory)
+## Clear hero, clear tabs, and update episodes. Called when settings directory is updated.
+func refresh() -> void:
+	update_buttons_visibility()
+	clear_hero()
+	clear_tab_container()
+	update_episodes()
 
-## Pop up file explorer dialog with configued settings.
-func popup_dialog(title: String = "Open...", file_mode: FileDialog.FileMode = FileDialog.FILE_MODE_OPEN_ANY) -> void:
-	file_dialog.title = title
-	file_dialog.file_mode = file_mode
-	file_dialog.use_native_dialog = true
-	file_dialog.visible = true
-
-## Pop up file explorer dialog to select a directory.
-func popup_directory_dialog() -> void:
-	file_dialog.dir_selected.connect(write_directory, CONNECT_ONE_SHOT)
-	popup_dialog("Open a directory...", FileDialog.FILE_MODE_OPEN_DIR)
-
-## Show or hide button to select directory depending on if a directory is set.
-func show_hide_open_production_button() -> void:
-	if directory:
+## Show buttons when they're needed, hide them when they're not.
+func update_buttons_visibility() -> void:
+	if settings.config.directory != null:
 		open_production_button_mid.visible = false
 	else:
 		open_production_button_mid.visible = true
@@ -98,8 +76,8 @@ func add_episode(title: String = "New Episode") -> void:
 	var episode: Episode = EPISODE.instantiate()
 	
 	episode.title = title
-	episode.preview = DEFAULT_THUMBNAIL
-	episode.directory = directory.path_join(title)
+	episode.preview = settings.config.default_preview
+	episode.directory = settings.directory.path_join(title)
 	
 	episode.entered.connect(update_hero)
 	episode.entered.connect(update_tabs)
@@ -111,11 +89,11 @@ func add_episode(title: String = "New Episode") -> void:
 func update_episodes() -> void:
 	clear_episodes()
 	
-	if directory == null:
+	if settings.directory == null:
 		print("No directory selected!")
 		return
 	
-	var list: PackedStringArray = DirAccess.get_directories_at(directory)
+	var list: PackedStringArray = DirAccess.get_directories_at(settings.directory)
 	
 	list.reverse()
 	
@@ -197,9 +175,3 @@ func clear_tab_container() -> void:
 func resize_tab_flow_previews() -> void:
 	pass
 
-## Disconnect all signals.
-func _exit_tree():
-	new_episode_button.pressed.disconnect(add_episode)
-	open_production_button_mid.pressed.disconnect(popup_directory_dialog)
-	open_production_button_top.pressed.disconnect(popup_directory_dialog)
-	preview_size_slider.value_changed.disconnect(resize_tab_flow_previews)

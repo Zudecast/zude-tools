@@ -1,4 +1,52 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://blbl1uhbtj7qj"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://blbl1uhbtj7qj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f0nf"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84l30"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2c4v"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w74wx"]
 content_margin_left = 2.0
@@ -61,11 +109,15 @@ corner_radius_top_right = 8
 [resource]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
+Button/constants/icon_max_width = 15
 GridContainer/constants/h_separation = 10
 GridContainer/constants/v_separation = 10
 HBoxContainer/constants/separation = 10
 HFlowContainer/constants/h_separation = 10
 HFlowContainer/constants/v_separation = 10
+LineEdit/styles/focus = SubResource("StyleBoxFlat_7f0nf")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_84l30")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_o2c4v")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
