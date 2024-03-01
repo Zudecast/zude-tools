@@ -3,11 +3,9 @@ extends Control
 
 #region Constants
 
-const CONFIG = "res://config.json"
 const EPISODE: PackedScene = preload("res://Scenes/episode.tscn")
 const TAB_FLOW: PackedScene = preload("res://Scenes/tab_flow.tscn")
 const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
-const DEFAULT_THUMBNAIL: String = "res://zudecast.png"
 
 #endregion
 
@@ -27,7 +25,8 @@ const DEFAULT_THUMBNAIL: String = "res://zudecast.png"
 @onready var new_episode_button: Button = %NewEpisodeButton
 @onready var open_production_button_top: Button = %OpenProductionButtonTop
 @onready var buttons_panel_h_box_right: HBoxContainer = %ButtonsPanelHBoxRight
-@onready var open_settings_button: Button = %OpenSettingsButton
+@onready var refresh_button: Button = %RefreshButton
+@onready var settings_button: Button = %SettingsButton
 @onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
@@ -42,19 +41,19 @@ var tab_flows: Dictionary
 #endregions
 
 func _ready() -> void:
-	open_settings_button.pressed.connect(settings.popup)
-	
 	new_episode_button.pressed.connect(add_episode)
-	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
 	open_production_button_top.pressed.connect(file_dialog.popup_directory_dialog)
+	refresh_button.pressed.connect(refresh)
+	settings_button.pressed.connect(settings.popup)
+	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
 	preview_size_slider.value_changed.connect(resize_tab_flow_previews)
 
 func _exit_tree() -> void:
-	open_settings_button.pressed.disconnect(settings.popup)
-	
 	new_episode_button.pressed.disconnect(add_episode)
-	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
 	open_production_button_top.pressed.disconnect(file_dialog.popup_directory_dialog)
+	refresh_button.pressed.disconnect(refresh)
+	settings_button.pressed.disconnect(settings.popup)
+	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
 	preview_size_slider.value_changed.disconnect(resize_tab_flow_previews)
 
 ## Clear hero, clear tabs, and update episodes. Called when settings directory is updated.
@@ -71,7 +70,7 @@ func update_buttons_visibility() -> void:
 	else:
 		open_production_button_mid.visible = true
 
-## Instantiate and configure an episode.
+## Configure and instantiate an episode.
 func add_episode(title: String = "New Episode") -> void:
 	var episode: Episode = EPISODE.instantiate()
 	
@@ -128,6 +127,7 @@ func update_tabs(episode: Episode) -> void:
 	if episode.files.is_empty():
 		return
 	
+	# Reuse tab flows instances with the same name as ones to be created, discard unneeded ones.
 	for tab_name: String in tab_flows.keys():
 		if episode.directories.has(tab_name):
 			clear_tab_flow_items(tab_name)
@@ -135,13 +135,16 @@ func update_tabs(episode: Episode) -> void:
 			tab_flows[tab_name].queue_free()
 			tab_flows.erase(tab_name)
 	
+	# Loop through all of the directory names in the focused episode.
 	for dir_name: String in episode.directories.keys():
+		# Create a tab flow for each directory name that a tab flow does not already exist for.
 		if tab_flows.has(dir_name) == false:
 			var tab_flow: TabFlow = TAB_FLOW.instantiate()
 			tab_flow.name = dir_name
 			tab_flows.merge({tab_flow.name : tab_flow})
 			tabs_container.add_child(tab_flow)
 		
+		# Populate each tab flow with relevant images.
 		for file_name: String in episode.files[dir_name]:
 			if file_name.is_valid_filename() and file_name.ends_with(".png") or file_name.ends_with(".jpg"):
 				var image = THUMBNAIL.instantiate()
@@ -149,6 +152,7 @@ func update_tabs(episode: Episode) -> void:
 				image.preview = episode.directories[dir_name].path_join(file_name)
 				load_item_into_tab_flow(dir_name, image)
 		
+		# Check each tab flow for children to determine if a "nothing here" label should be shown.
 		tab_flows[dir_name].check_for_children()
 
 ## Add any item to the specified tab flow.

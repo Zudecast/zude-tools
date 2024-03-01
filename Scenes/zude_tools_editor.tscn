@@ -1,10 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3i64a5qg7iv"]
+[gd_scene load_steps=11 format=3 uid="uid://d3i64a5qg7iv"]
 
 [ext_resource type="Script" path="res://Scenes/zude_tools_editor.gd" id="1_2osj4"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_o4ffb"]
-[ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="3_5o33j"]
+[ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://Icons/refresh.svg" id="3_r3i7s"]
+[ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://Icons/settings.svg" id="4_kkos4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fyrdy"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_vjsuv"]
+action = &"Refresh"
+
+[sub_resource type="Shortcut" id="Shortcut_yorr0"]
+events = [SubResource("InputEventAction_vjsuv")]
 
 [sub_resource type="InputEventAction" id="InputEventAction_hi1cs"]
 action = &"Open Settings"
@@ -60,18 +67,31 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Open Production"
 
+[node name="Label" type="Label" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Zude Tools"
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="ButtonsPanelHBoxRight" type="HBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="OpenSettingsButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsPanelHBoxRight"]
+[node name="RefreshButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsPanelHBoxRight"]
+unique_name_in_owner = true
+layout_mode = 2
+shortcut = SubResource("Shortcut_yorr0")
+text = "Refresh"
+icon = ExtResource("3_r3i7s")
+
+[node name="SettingsButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ButtonsPanel/ButtonsPanelHBoxRight"]
 unique_name_in_owner = true
 layout_mode = 2
 shortcut = SubResource("Shortcut_n6rsc")
 text = "Settings"
-icon = ExtResource("3_5o33j")
-icon_alignment = 2
+icon = ExtResource("4_kkos4")
 
 [node name="ZudeToolsVSplitContainer" type="VSplitContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox"]
 layout_mode = 2

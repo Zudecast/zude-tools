@@ -17,14 +17,14 @@
 	[ ] Display video files.
 	[ ] Display template files. (.psd, .kra, etc.)
 	[/] Resize file previews with a slider.
-	[ ] Reuse tab instances
+	[x] Reuse tab instances.
 	[ ] Asynchronous loading and freeing of files.
 [ ] Generate any template file for any image, video, or text file using its name and any pre-configured tags.
 [ ] Enforce desired directory structure for projects.
 [ ] Enforce desired naming conventions for files based on their project sub-directory.
 [ ] Resolve naming conflicts when enforcing file or folder rules.
 [ ] Create timestamp sheets for video editors for video files.
-[ ] Settings customization.
+[/] Settings customization.
 	[ ] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
 	[ ] Create a desired directory structure that can be enforced upon projects.
 		[ ] Assign default sub-directories to search for the project thumbnail and hero video when loading a production directory.

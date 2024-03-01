@@ -1,8 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwoa5aaupwgvv"]
+[gd_scene load_steps=6 format=3 uid="uid://bwoa5aaupwgvv"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_fgagf"]
-[ext_resource type="PackedScene" uid="uid://bic483r5u4pm4" path="res://Scenes/settings_category.tscn" id="2_bp3h7"]
 [ext_resource type="Script" path="res://Scenes/zude_tools_settings.gd" id="2_wokt4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv0x1"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.768627)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p16gf"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
@@ -13,86 +19,6 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_imawo"]
 font_size = 22
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qv6pi"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.415686, 0.658824, 0.309804, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7tdws"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p21us"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v22n3"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhyyv"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcvc6"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="Theme" id="Theme_c2qf1"]
-resource_local_to_scene = true
-Button/constants/h_separation = 10
-GridContainer/constants/h_separation = 10
-GridContainer/constants/v_separation = 10
-HBoxContainer/constants/separation = 10
-HFlowContainer/constants/h_separation = 10
-HFlowContainer/constants/v_separation = 10
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_qv6pi")
-TabContainer/constants/icon_separation = 5
-TabContainer/constants/side_margin = 10
-TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_7tdws")
-TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_p21us")
-TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_v22n3")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_qhyyv")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_xcvc6")
-VBoxContainer/constants/separation = 10
 
 [node name="ZudeToolsSettings" type="Control"]
 layout_mode = 3
@@ -112,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hv0x1")
 metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettingsMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel"]
@@ -143,17 +70,26 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_imawo")
+horizontal_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="CloseSettingsButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsPanelLabel"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = 1120.0
-offset_right = 1170.0
-offset_bottom = 31.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
-text = "Close"
+text = "Close Settings"
+icon_alignment = 2
 metadata/_edit_lock_ = true
 
 [node name="SettingsPanelHSep" type="HSeparator" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
@@ -165,7 +101,3 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_edit_lock_ = true
-
-[node name="SettingsCategory" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsCategoryListVBox" instance=ExtResource("2_bp3h7")]
-layout_mode = 2
-theme = SubResource("Theme_c2qf1")

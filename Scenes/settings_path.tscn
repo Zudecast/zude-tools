@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uuoq4"]
 
-[node name="SettingsPath" type="PanelContainer"]
+[node name="SettingsPath" type="PanelContainer" node_paths=PackedStringArray("settings_path_label", "settings_path_line_edit", "settings_path_button")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 35.0
@@ -14,29 +14,28 @@ size_flags_horizontal = 3
 theme = ExtResource("1_isyab")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_uuoq4")
 script = ExtResource("2_0sdn6")
+settings_path_label = NodePath("SettingsPathHBox/SettingsPathLabel")
+settings_path_line_edit = NodePath("SettingsPathHBox/SettingsPathLineEdit")
+settings_path_button = NodePath("SettingsPathHBox/SettingsPathButton")
 
-[node name="SettingsPathVBox" type="VBoxContainer" parent="."]
+[node name="SettingsPathHBox" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="SettingsPathHBox" type="HBoxContainer" parent="SettingsPathVBox"]
-layout_mode = 2
-
-[node name="SettingsPathLabel" type="Label" parent="SettingsPathVBox/SettingsPathHBox"]
+[node name="SettingsPathLabel" type="LineEdit" parent="SettingsPathHBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-text = "Default project thumbnail:"
+editable = false
+expand_to_text_length = true
 
-[node name="SettingsPathLineEdit" type="LineEdit" parent="SettingsPathVBox/SettingsPathHBox"]
+[node name="SettingsPathLineEdit" type="LineEdit" parent="SettingsPathHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+clear_button_enabled = true
 
-[node name="SettingsPathButton" type="Button" parent="SettingsPathVBox/SettingsPathHBox"]
+[node name="SettingsPathButton" type="Button" parent="SettingsPathHBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Select file path..."
-
-[node name="SettingsItemHSep" type="HSeparator" parent="SettingsPathVBox"]
-layout_mode = 2
-theme_override_constants/separation = 0

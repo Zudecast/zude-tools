@@ -3,7 +3,8 @@ extends FileDialog
 
 #region Onready Variables
 
-@onready var zude_tools = $".."
+@onready var editor: ZudeToolsEditor = $"../ZudeToolsEditor"
+@onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
 
 #endregion
 
@@ -16,5 +17,5 @@ func popup_dialog(dialog_title: String = "Open...", dialog_file_mode: FileDialog
 
 ## Pop up file explorer dialog to select a directory.
 func popup_directory_dialog() -> void:
-	dir_selected.connect(zude_tools.settings.write_directory, CONNECT_ONE_SHOT)
+	dir_selected.connect(settings.set_directory, CONNECT_ONE_SHOT)
 	popup_dialog("Open a directory...", FileDialog.FILE_MODE_OPEN_DIR)

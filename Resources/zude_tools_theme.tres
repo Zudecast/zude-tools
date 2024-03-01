@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=10 format=3 uid="uid://blbl1uhbtj7qj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f0nf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjg3u"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -21,34 +21,31 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84l30"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3541"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
-border_color = Color(0, 0, 0, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2c4v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0vqt"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.3)
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w74wx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14jyj"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
@@ -60,7 +57,7 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlhh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho5ts"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
@@ -69,7 +66,7 @@ bg_color = Color(0.1, 0.1, 0.1, 0.3)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxawi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwi6u"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
@@ -79,7 +76,7 @@ draw_center = false
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4g4b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16rru"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
@@ -88,7 +85,7 @@ bg_color = Color(0.1, 0.1, 0.1, 0.3)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8geml"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3mx2"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
@@ -97,7 +94,7 @@ bg_color = Color(0.1, 0.1, 0.1, 0.6)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwumr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3idt"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
@@ -115,19 +112,19 @@ GridContainer/constants/v_separation = 10
 HBoxContainer/constants/separation = 10
 HFlowContainer/constants/h_separation = 10
 HFlowContainer/constants/v_separation = 10
-LineEdit/styles/focus = SubResource("StyleBoxFlat_7f0nf")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_84l30")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_o2c4v")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_rjg3u")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_b3541")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_i0vqt")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_w74wx")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_14jyj")
 TabContainer/constants/icon_separation = 5
 TabContainer/constants/side_margin = 10
-TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_gjlhh")
-TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_mxawi")
-TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_x4g4b")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_8geml")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fwumr")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_ho5ts")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_kwi6u")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_16rru")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_u3mx2")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_g3idt")
 VBoxContainer/constants/separation = 10

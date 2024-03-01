@@ -1,150 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://bic483r5u4pm4"]
+[gd_scene load_steps=4 format=3 uid="uid://cyckow8n873nb"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_mwlox"]
-[ext_resource type="Script" path="res://Scenes/settings_category.gd" id="2_4m658"]
-[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/settings_path.tscn" id="2_e8hl0"]
-[ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="3_a820m"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_1tpl1"]
+[ext_resource type="Script" path="res://Scenes/settings_category.gd" id="2_pst60"]
+[ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="3_cjr7g"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f0nf"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84l30"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-border_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2c4v"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w74wx"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.415686, 0.658824, 0.309804, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gjlhh"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxawi"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
-draw_center = false
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4g4b"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8geml"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwumr"]
-content_margin_left = 10.0
-content_margin_top = 4.0
-content_margin_right = 10.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-
-[sub_resource type="Theme" id="Theme_2glyo"]
-resource_local_to_scene = true
-Button/constants/h_separation = 10
-GridContainer/constants/h_separation = 10
-GridContainer/constants/v_separation = 10
-HBoxContainer/constants/separation = 10
-HFlowContainer/constants/h_separation = 10
-HFlowContainer/constants/v_separation = 10
-LineEdit/styles/focus = SubResource("StyleBoxFlat_7f0nf")
-LineEdit/styles/normal = SubResource("StyleBoxFlat_84l30")
-LineEdit/styles/read_only = SubResource("StyleBoxFlat_o2c4v")
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_w74wx")
-TabContainer/constants/icon_separation = 5
-TabContainer/constants/side_margin = 10
-TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_gjlhh")
-TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_mxawi")
-TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_x4g4b")
-TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_8geml")
-TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fwumr")
-VBoxContainer/constants/separation = 10
-
-[node name="SettingsCategory" type="PanelContainer"]
+[node name="SettingsCategory" type="PanelContainer" node_paths=PackedStringArray("settings_category_label", "toggle_category_button", "settings_category_list", "add_path_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme = ExtResource("1_mwlox")
-script = ExtResource("2_4m658")
+theme = ExtResource("1_1tpl1")
+script = ExtResource("2_pst60")
+settings_category_label = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel")
+toggle_category_button = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel/ToggleCategoryButton")
+settings_category_list = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListVBox")
+add_path_button = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/AddPathButton")
 metadata/_edit_lock_ = true
 
 [node name="SettingsCategoryMargin" type="MarginContainer" parent="."]
@@ -158,10 +30,10 @@ metadata/_edit_lock_ = true
 [node name="SettingsCategoryLabel" type="Label" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Global Settings"
+horizontal_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="ShowHideCategoryButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel"]
+[node name="ToggleCategoryButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -174,21 +46,20 @@ offset_top = -4.0
 offset_bottom = 4.0
 grow_horizontal = 0
 grow_vertical = 2
-icon = ExtResource("3_a820m")
+icon = ExtResource("3_cjr7g")
 flat = true
 metadata/_edit_lock_ = true
 
-[node name="SettingsCategoryListPanel" type="PanelContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
+[node name="SettingsCategoryListVBox" type="VBoxContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
+unique_name_in_owner = true
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="SettingsCategoryListMargin" type="MarginContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel"]
-layout_mode = 2
-
-[node name="SettingsCategoryListVBox" type="VBoxContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel/SettingsCategoryListMargin"]
+[node name="AddPathButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
 unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-
-[node name="SettingsItemPanel" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListPanel/SettingsCategoryListMargin/SettingsCategoryListVBox" instance=ExtResource("2_e8hl0")]
-layout_mode = 2
-theme = SubResource("Theme_2glyo")
+size_flags_horizontal = 4
+text = "+"
+metadata/_edit_lock_ = true
