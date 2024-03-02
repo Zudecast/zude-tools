@@ -32,7 +32,6 @@ const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 @onready var settings_button: Button = %SettingsButton
 @onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
-# TODO - hide and show hero
 @onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
 # TODO - item count for tabs
@@ -97,7 +96,7 @@ func load_episode(title: String = "New Episode") -> void:
 	episode.set_title(title)
 	episode.set_preview(settings.config.default_preview)
 	
-	# Connect the episode focused signal to relevant update methods.
+	# Connect the episode focused signal to the relevant update methods.
 	episode.focused.connect(update_hero)
 	episode.focused.connect(update_tab_flows)
 	
@@ -113,6 +112,10 @@ func load_episode(title: String = "New Episode") -> void:
 
 ## Free and episode from the episode
 func free_episode(episode: ZudeToolsEpisode) -> void:
+	# Disonnect the episode focused signal from the relevant update methods.
+	episode.focused.disconnect(update_hero)
+	episode.focused.disconnect(update_tab_flows)
+	
 	episode.queue_free()
 	episodes.erase(episodes.get(episode))
 
@@ -166,16 +169,26 @@ func clear_hero() -> void:
 
 ## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
 func load_tab(tab_name: String) -> void:
+	# Instantiate a new tab and add it to the node tree.
 	var tab: ZudeToolsTab = TAB.instantiate()
 	tabs_container.add_child(tab)
 	
+	# Connect tab to update_item_count.
+	tab.flow_count.connect(update_item_count)
+	
+	# Configure tab.
 	tab.name = tab_name
+	
+	# Add tab to the tabs dictionary.
 	tabs.merge({tab.name : tab})
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab: ZudeToolsTab) -> void:
-	tab.queue_free()
+	# Disconnect tab from update_item_count.
+	tab.flow_count.disconnect(update_item_count)
+	
 	tabs.erase(tabs.find_key(tab))
+	tab.queue_free()
 
 ## Free all tabs from the tab container and the tabs dictionary.
 func free_all_tabs() -> void:
@@ -215,22 +228,25 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 	if file_name.is_valid_filename() == false:
 		return
 	
+	# Create a placeholder tab item so we can chose how to handle it.
+	var item: ZudeToolsTabItem
+	
 	# Handle images.
 	if file_name.ends_with(".png") or file_name.ends_with(".jpg"):
 		# Instantiate a new TabItem.
-		var item = TAB_ITEM.instantiate()
+		item = TAB_ITEM.instantiate()
 		tab.flow.add_child(item)
 		
 		# Configure item.
 		item.set_title(file_name)
 		item.set_preview(file_path)
 	
-		# Create a lambda function to adjust item's size when the slider value changes.
-		var set_item_size = func(new_size: int) -> void:
-			item.custom_minimum_size.x = new_size
-		
-		# Connect slider to lambda.
-		preview_size_slider.value_changed.connect(set_item_size)
+	# Create a lambda function to adjust item's size when the slider value changes.
+	var set_item_size = func(new_size: int) -> void:
+		item.custom_minimum_size.x = new_size
+	
+	# Connect slider to lambda.
+	preview_size_slider.value_changed.connect(set_item_size)
 
 ## Remove any item from the specified tab at the specified index.
 func free_item_from_tab(tab: ZudeToolsTab, item: Control) -> void:
@@ -242,5 +258,12 @@ func free_all_items_from_tab(tab: ZudeToolsTab) -> void:
 		free_item_from_tab(tab, child)
 	
 	tab.check_for_items()
+
+#endregion
+
+#region Bottom Bar
+
+func update_item_count(num: int) -> void:
+	item_count_label.text = str(num)
 
 #endregion

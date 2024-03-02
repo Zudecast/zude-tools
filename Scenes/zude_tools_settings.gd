@@ -147,15 +147,19 @@ func set_config_default_preview(file_path: String) -> void:
 
 #region Template Settings
 
-## Adds a new entry to config.templates.
+# FIXME - ## Add an entry to config.templates.
 func add_config_template_file(file_path: String, file_name: String = "New Template") -> void:
 	# Add template to config.templates.
 	config.templates.merge({file_name : file_path})
 
+## Remove an entry from config.templates.
+func remove_config_template_file(file_name: String) -> void:
+	config.templates.erase(file_name)
+
 ## Update an existing template file with a new path.
 func update_config_template_label(path: String, old_label: String, new_label: String) -> void:
+	# Erase the old entry so it can be replaced.
 	config.templates.erase(old_label)
-	
 	# Merge a new entry into config.templates using the new label and old path.
 	config.templates.merge({new_label : path})
 
@@ -177,12 +181,14 @@ func create_template_setting(file_name: String = "", file_path: String = "") -> 
 	path_setting.path_placeholder = "template.psd"
 	path_setting.button_text = "Select File"
 	
-	# Connect path setting label to update_config_template_label().
+	# Connect path setting label to update_config_template_label.
 	path_setting.label_updated.connect(update_config_template_label)
-	# Connect path setting path to update_config_template_path().
+	# Connect path setting path to update_config_template_path.
 	path_setting.path_updated.connect(update_config_template_path)
-	# Connect path setting button to template file dialog.
+	# Connect path setting button to popup_template_file_dialog.
 	path_setting.send_setting.connect(file_dialog.popup_template_file_dialog)
+	# Connect path setting delete to remove_config_template_file.
+	path_setting.setting_deleted.connect(remove_config_template_file, CONNECT_ONE_SHOT)
 
 ## Remove all template entries from the settings menu so they can be rebuilt from config.
 func clear_templates() -> void:

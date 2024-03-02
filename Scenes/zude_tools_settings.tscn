@@ -246,6 +246,7 @@ layout_mode = 2
 theme = SubResource("Theme_grv8k")
 editable_label = false
 label_text = "Default Project Preview"
+show_delete = false
 
 [node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
 visible = false

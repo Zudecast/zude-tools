@@ -7,6 +7,8 @@ extends Control
 @onready var label: LineEdit = %PathSettingLabel
 @onready var path: LineEdit = %PathSettingPath
 @onready var button: Button = %PathSettingButton
+@onready var delete: Button = %DeletePathButton
+
 
 #endregion
 
@@ -48,6 +50,12 @@ extends Control
 		if button:
 			button.text = button_text
 
+@export var show_delete: bool = true:
+	set(val):
+		show_delete = val
+		if delete:
+			delete.visible = show_delete
+
 #endregion
 
 #region Signals
@@ -55,6 +63,7 @@ extends Control
 signal label_updated(prev: String, new: String)
 signal path_updated(prev: String, new: String)
 signal send_setting(ZudeToolsPathSetting)
+signal setting_deleted(ZudeToolsPathSetting)
 
 #endregion
 
@@ -63,6 +72,7 @@ func _ready() -> void:
 	label.text_submitted.connect(update_label)
 	path.text_submitted.connect(update_path)
 	button.pressed.connect(button_pressed)
+	delete.pressed.connect(delete_setting)
 	
 	# Force export properties to update onready properties.
 	label.editable = editable_label
@@ -71,11 +81,13 @@ func _ready() -> void:
 	path.text = path_text
 	path.placeholder_text = path_placeholder
 	button.text = button_text
+	delete.visible = show_delete
 
 func _exit_tree() -> void:
 	label.text_submitted.disconnect(update_label)
 	path.text_submitted.disconnect(update_path)
 	button.pressed.disconnect(button_pressed)
+	delete.pressed.disconnect(delete_setting)
 
 #region Signal Updates
 
@@ -89,8 +101,13 @@ func update_path(new_path: String) -> void:
 	path_updated.emit(label_text, path_text, new_path)
 	path_text = new_path
 
-## called when button.pressed is emitted.
+## Called when button.pressed is emitted.
 func button_pressed() -> void:
 	send_setting.emit(self)
+
+## Called when delete.pressed is emitted.
+func delete_setting() -> void:
+	setting_deleted.emit(label_text)
+	queue_free()
 
 #endregion
