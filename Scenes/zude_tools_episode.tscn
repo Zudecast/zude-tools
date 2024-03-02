@@ -12,14 +12,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(-505, 684)
 size_flags_horizontal = 3
 theme = ExtResource("1_pa86c")
 script = ExtResource("2_17rr6")
 
 [node name="EpisodeMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme = ExtResource("1_pa86c")
 
 [node name="EpisodeVBoxContainer" type="VBoxContainer" parent="EpisodeMarginContainer"]
 layout_mode = 2
@@ -33,12 +31,10 @@ stretch_mode = 5
 
 [node name="EpisodeTitle" type="Label" parent="EpisodeMarginContainer/EpisodeVBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_vertical = 2
-mouse_filter = 1
 text = "Title"
-autowrap_mode = 3
+text_overrun_behavior = 2
 
 [node name="EpisodeButton" type="Button" parent="."]
 unique_name_in_owner = true

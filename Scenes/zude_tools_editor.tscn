@@ -192,6 +192,7 @@ custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 icon = ExtResource("5_trbm3")
+flat = true
 icon_alignment = 1
 
 [node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]

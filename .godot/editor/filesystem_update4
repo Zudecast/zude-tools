@@ -10,3 +10,5 @@ res://config.json
 res://Scenes/zude_tools_tab.tscn
 res://Scenes/zude_tools_splash.tscn
 res://Scenes/zude_tools_editor.gd
+res://Scenes/zude_tools_episode.tscn
+res://Scenes/zude_tools_tab_item.tscn
