@@ -2,8 +2,6 @@
 class_name ZudeToolsPathSetting
 extends Control
 
-# FIXME - Yes, the whole thing is fucked.
-
 #region Onready Variables
 
 @onready var label: LineEdit = %PathSettingLabel
@@ -52,27 +50,30 @@ extends Control
 
 #endregion
 
+#region Signals
+
 signal label_updated(prev: String, new: String)
 signal path_updated(prev: String, new: String)
+
+#endregion
 
 func _ready() -> void:
 	label.text_submitted.connect(update_label)
 	path.text_submitted.connect(update_path)
 	
-	update()
-
-func _exit_tree() -> void:
-	label.text_submitted.disconnect(update_label)
-	path.text_submitted.disconnect(update_path)
-
-## Called on node ready to force export properties to update properties in onready properties.
-func update() -> void:
+	# Force export properties to update onready properties.
 	label.editable = editable_label
 	label.text = label_text
 	label.placeholder_text = label_placeholder
 	path.text = path_text
 	path.placeholder_text = path_placeholder
 	button.text = button_text
+
+func _exit_tree() -> void:
+	label.text_submitted.disconnect(update_label)
+	path.text_submitted.disconnect(update_path)
+
+#region Signal Updates
 
 ## Called when label.text_submitted is emitted.
 func update_label(new_label: String) -> void:
@@ -83,3 +84,5 @@ func update_label(new_label: String) -> void:
 func update_path(new_path: String) -> void:
 	path_updated.emit(path_text, new_path)
 	path_text = new_path
+
+#endregion

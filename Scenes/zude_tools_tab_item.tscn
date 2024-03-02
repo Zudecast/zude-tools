@@ -6,10 +6,11 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50ba4"]
 
 [node name="ThumbPanelContainer" type="PanelContainer"]
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 55.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_p7oms")
 script = ExtResource("2_6fbx3")

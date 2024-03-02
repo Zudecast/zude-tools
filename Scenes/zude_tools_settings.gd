@@ -1,3 +1,4 @@
+@tool
 class_name ZudeToolsSettings
 extends Control
 
@@ -15,7 +16,7 @@ const PATH_SETTING: PackedScene = preload("res://Scenes/path_setting.tscn")
 
 @onready var close_settings_button: Button = %CloseSettingsButton
 
-@onready var global: VBoxContainer = %Global
+@onready var global: VBoxContainer = %GlobalVBox
 @onready var default_preview_path_setting: ZudeToolsPathSetting = %DefaultPreviewPathSetting
 
 @onready var templates: VBoxContainer = %TemplatesVBox
@@ -163,7 +164,7 @@ func update_config_template_name(old_label: String, new_label: String) -> void:
 	# Merge a new entry into config.templates using the new label and old path.
 	config.templates.merge({new_label : old_path})
 
-## Update an existing template file with a new name.
+# FIXME - ## Update an existing template file with a new name.
 func update_config_template_path(old_path: String, new_path: String) -> void:
 	var old_label: String
 	
@@ -198,7 +199,8 @@ func create_template_setting(file_name: String = "", file_path: String = "") -> 
 
 ## Remove all template entries from the settings menu so they can be rebuilt from config.
 func clear_templates() -> void:
-	for template in templates.get_children():
-		template.queue_free()
+	for child in templates.get_children():
+		if child != add_template_button:
+			child.queue_free()
 
 #endregion

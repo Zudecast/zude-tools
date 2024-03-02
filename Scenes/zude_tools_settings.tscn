@@ -245,20 +245,21 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Global" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+[node name="Global" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+layout_mode = 2
+
+[node name="GlobalVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global" instance=ExtResource("4_gatcq")]
+[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global/GlobalVBox" instance=ExtResource("4_gatcq")]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_grv8k")
 editable_label = false
 label_text = "Default Project Preview"
-path_text = ""
-path_placeholder = ""
 
-[node name="Templates" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+[node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
 visible = false
 layout_mode = 2
 
@@ -266,11 +267,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddTemplateButtonMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/AddTemplateButtonMargin"]
+[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/TemplatesVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -281,26 +278,17 @@ text = "+"
 visible = false
 layout_mode = 2
 
-[node name="FolderVbox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
-layout_mode = 2
-
-[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox"]
+[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
 unique_name_in_owner = true
 layout_mode = 2
 drop_mode_flags = 3
 select_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox/FolderTree"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
-placeholder_text = "test_folder"
-
-[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox"]
+[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderTree"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+offset_right = 50.0
+offset_bottom = 31.0
 size_flags_horizontal = 4
 text = "+"
