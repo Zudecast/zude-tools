@@ -25,3 +25,5 @@ res://README.md
 res://config.json
 res://Scenes/zude_tools_tab_item.gd
 res://zude_tools.gd
+res://Scenes/zude_tools_splash.tscn
+res://Scenes/zude_tools_splash.gd

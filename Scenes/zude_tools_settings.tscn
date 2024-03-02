@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_fgagf"]
 [ext_resource type="Script" path="res://Scenes/zude_tools_settings.gd" id="2_wokt4"]
-[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/path_setting.tscn" id="4_gatcq"]
+[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/zude_tools_path_setting.tscn" id="3_f10dl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv0x1"]
 content_margin_left = 0.0
@@ -173,7 +173,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fgagf")
 script = ExtResource("2_wokt4")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettingsPanel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -183,7 +182,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv0x1")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettingsMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel"]
 layout_mode = 2
@@ -191,12 +189,10 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanel" type="PanelContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p16gf")
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel"]
 layout_mode = 2
@@ -204,18 +200,15 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin"]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelLabel" type="Label" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_imawo")
 horizontal_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="CloseSettingsButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsPanelLabel"]
 unique_name_in_owner = true
@@ -239,7 +232,6 @@ metadata/_edit_lock_ = true
 [node name="SettingsPanelHSep" type="HSeparator" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 size_flags_vertical = 8
-metadata/_edit_lock_ = true
 
 [node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
@@ -252,7 +244,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global/GlobalVBox" instance=ExtResource("4_gatcq")]
+[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global/GlobalVBox" instance=ExtResource("3_f10dl")]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_grv8k")

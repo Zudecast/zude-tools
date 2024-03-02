@@ -5,7 +5,7 @@ extends Control
 #region Constants
 
 const CONFIG: String = "res://config.json"
-const PATH_SETTING: PackedScene = preload("res://Scenes/path_setting.tscn")
+const PATH_SETTING: PackedScene = preload("res://Scenes/zude_tools_path_setting.tscn")
 
 #endregion
 

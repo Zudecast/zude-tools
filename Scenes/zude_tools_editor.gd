@@ -12,6 +12,7 @@ const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 
 #region Onready Variables
 
+@onready var splash = $"../ZudeToolsSplash"
 @onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
 @onready var file_dialog: ZudeToolsFileDialog = $"../ZudeToolsFileDialog"
 
@@ -159,9 +160,11 @@ func clear_hero() -> void:
 ## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
 func load_tab(tab_name: String) -> void:
 	var tab: ZudeToolsTab = TAB.instantiate()
-	tab.name = tab_name
-	tabs.merge({tab.name : tab})
 	tabs_container.add_child(tab)
+	
+	tab.name = tab_name
+	
+	tabs.merge({tab.name : tab})
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab: ZudeToolsTab) -> void:

@@ -8,4 +8,5 @@ extends Control
 #endregion
 
 func _ready() -> void:
-	splash.set_visible(false)
+	if splash:
+		splash.set_visible(false)
