@@ -173,7 +173,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fgagf")
 script = ExtResource("2_wokt4")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettingsPanel" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -228,19 +227,13 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 text = "Close Settings"
 icon_alignment = 2
-metadata/_edit_lock_ = true
-
-[node name="SettingsPanelHSep" type="HSeparator" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
-layout_mode = 2
-size_flags_vertical = 8
 
 [node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+drag_to_rearrange_enabled = true
 
 [node name="Global" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="GlobalVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global"]
@@ -255,6 +248,7 @@ editable_label = false
 label_text = "Default Project Preview"
 
 [node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]

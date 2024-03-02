@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://Icons/refresh.svg" id="3_r3i7s"]
 [ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://Icons/settings.svg" id="4_kkos4"]
 [ext_resource type="PackedScene" uid="uid://dt8ss0wpengg0" path="res://Scenes/context_menu.tscn" id="5_5aymm"]
+[ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://Icons/eye.svg" id="5_trbm3"]
 [ext_resource type="Script" path="res://Scenes/context_menu.gd" id="6_kbmwy"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_vjsuv"]
@@ -18,8 +19,6 @@ action = &"Open Settings"
 
 [sub_resource type="Shortcut" id="Shortcut_n6rsc"]
 events = [SubResource("InputEventAction_hi1cs")]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0yafr"]
 
 [node name="ZudeToolsEditor" type="Control"]
 layout_mode = 3
@@ -112,9 +111,7 @@ split_offset = -500
 custom_minimum_size = Vector2(0, 225)
 layout_mode = 2
 size_flags_vertical = 3
-focus_neighbor_bottom = NodePath("../DetailHSplitContainer/TabsPanelContainer")
 focus_next = NodePath("../DetailHSplitContainer/HeroPanelContainer")
-focus_previous = NodePath("../DetailHSplitContainer/TabsPanelContainer")
 
 [node name="EpisodesMarginContainer" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/EpisodesPanelContainer"]
 layout_mode = 2
@@ -142,11 +139,10 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HeroPanelContainer" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../EpisodesPanelContainer")
-focus_neighbor_right = NodePath("../TabsPanelContainer")
-focus_next = NodePath("../TabsPanelContainer")
 focus_previous = NodePath("../../EpisodesPanelContainer")
 
 [node name="HeroMarginContainer" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/HeroPanelContainer"]
@@ -176,31 +172,29 @@ text = "Select an episode..."
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="TabsPanelContainer" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-focus_neighbor_left = NodePath("../HeroPanelContainer")
-focus_neighbor_top = NodePath("../../EpisodesPanelContainer")
-focus_next = NodePath("../../EpisodesPanelContainer")
-focus_previous = NodePath("../HeroPanelContainer")
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxEmpty_0yafr")
-
-[node name="TabsVBoxContainer" type="VBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer"]
+[node name="TabsVBoxContainer" type="VBoxContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer"]
 layout_mode = 2
 
-[node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
+[node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BottomPanel" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
+[node name="BottomPanel" type="PanelContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer"]
 layout_mode = 2
 
-[node name="BottomPanelMargin" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel"]
+[node name="BottomPanelMargin" type="MarginContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer/BottomPanel"]
 layout_mode = 2
 
-[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
+[node name="ToggleHeroButton" type="Button" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_trbm3")
+icon_alignment = 1
+
+[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -213,7 +207,7 @@ value = 250.0
 rounded = true
 scrollable = false
 
-[node name="ItemCountLabel" type="Label" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
+[node name="ItemCountLabel" type="Label" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsVBoxContainer/BottomPanel/BottomPanelMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8

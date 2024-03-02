@@ -182,7 +182,7 @@ func create_template_setting(file_name: String = "", file_path: String = "") -> 
 	# Connect path setting path to update_config_template_path().
 	path_setting.path_updated.connect(update_config_template_path)
 	# Connect path setting button to template file dialog.
-	path_setting.button.pressed.connect(file_dialog.popup_template_file_dialog)
+	path_setting.send_setting.connect(file_dialog.popup_template_file_dialog)
 
 ## Remove all template entries from the settings menu so they can be rebuilt from config.
 func clear_templates() -> void:

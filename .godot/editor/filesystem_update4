@@ -9,3 +9,4 @@ res://Scenes/zude_tools_path_setting.tscn
 res://config.json
 res://Scenes/zude_tools_tab.tscn
 res://Scenes/zude_tools_splash.tscn
+res://Scenes/zude_tools_editor.gd

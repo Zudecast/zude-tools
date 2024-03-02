@@ -19,6 +19,7 @@ const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 @onready var episode_flow: HFlowContainer = %EpisodesHFlowContainer
 @onready var tabs_container: TabContainer = %TabsContainer
 
+@onready var hero_panel_container: PanelContainer = %HeroPanelContainer
 @onready var hero_title: Label = %HeroTitle
 @onready var hero_preview: TextureRect = %HeroPreview
 @onready var hero_video: VideoStreamPlayer = %HeroVideo
@@ -31,9 +32,11 @@ const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 @onready var settings_button: Button = %SettingsButton
 @onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
+# TODO - hide and show hero
+@onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
 # TODO - item count for tabs
-@onready var item_count_label = %ItemCountLabel
+@onready var item_count_label: Label = %ItemCountLabel
 
 #endregion
 
@@ -50,6 +53,7 @@ func _ready() -> void:
 	refresh_button.pressed.connect(refresh)
 	settings_button.pressed.connect(settings.popup)
 	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
+	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
 	new_episode_button.pressed.disconnect(load_episode)
@@ -57,6 +61,7 @@ func _exit_tree() -> void:
 	refresh_button.pressed.disconnect(refresh)
 	settings_button.pressed.disconnect(settings.popup)
 	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
+	toggle_hero_button.pressed.connect(toggle_hero)
 
 #region Directory
 
@@ -135,6 +140,9 @@ func update_episode_flow() -> void:
 #endregion
 
 #region Hero
+
+func toggle_hero() -> void:
+	hero_panel_container.visible = !hero_panel_container.visible
 
 # FIXME - ## Set the hero panel variables to the related variables from the focused episode.
 func update_hero(episode: ZudeToolsEpisode) -> void:

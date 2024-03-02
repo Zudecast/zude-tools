@@ -54,6 +54,7 @@ extends Control
 
 signal label_updated(prev: String, new: String)
 signal path_updated(prev: String, new: String)
+signal send_setting(ZudeToolsPathSetting)
 
 #endregion
 
@@ -61,6 +62,7 @@ func _ready() -> void:
 	# Connect to a related update methods.
 	label.text_submitted.connect(update_label)
 	path.text_submitted.connect(update_path)
+	button.pressed.connect(button_pressed)
 	
 	# Force export properties to update onready properties.
 	label.editable = editable_label
@@ -73,6 +75,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	label.text_submitted.disconnect(update_label)
 	path.text_submitted.disconnect(update_path)
+	button.pressed.disconnect(button_pressed)
 
 #region Signal Updates
 
@@ -85,5 +88,9 @@ func update_label(new_label: String) -> void:
 func update_path(new_path: String) -> void:
 	path_updated.emit(label_text, path_text, new_path)
 	path_text = new_path
+
+## called when button.pressed is emitted.
+func button_pressed() -> void:
+	send_setting.emit(self)
 
 #endregion
