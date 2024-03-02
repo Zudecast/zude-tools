@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bym82tb1vnqxt"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_damlu"]
-[ext_resource type="Script" path="res://Scenes/tab_flow.gd" id="2_tcx3f"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_07b6u"]
+[ext_resource type="Script" path="res://Scenes/zude_tools_tab.gd" id="2_khbtu"]
 
 [node name="DetailsPane" type="PanelContainer"]
 anchors_preset = 15
@@ -9,10 +9,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_damlu")
-script = ExtResource("2_tcx3f")
+theme = ExtResource("1_07b6u")
+script = ExtResource("2_khbtu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

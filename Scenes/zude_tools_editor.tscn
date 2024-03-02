@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d3i64a5qg7iv"]
+[gd_scene load_steps=12 format=3 uid="uid://d3i64a5qg7iv"]
 
 [ext_resource type="Script" path="res://Scenes/zude_tools_editor.gd" id="1_2osj4"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_o4ffb"]
 [ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://Icons/refresh.svg" id="3_r3i7s"]
 [ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://Icons/settings.svg" id="4_kkos4"]
+[ext_resource type="PackedScene" uid="uid://dt8ss0wpengg0" path="res://Scenes/context_menu.tscn" id="5_5aymm"]
+[ext_resource type="Script" path="res://Scenes/context_menu.gd" id="6_kbmwy"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_vjsuv"]
 action = &"Refresh"
@@ -189,7 +191,6 @@ layout_mode = 2
 
 [node name="TabsContainer" type="TabContainer" parent="ZudeToolsPanel/ZudeToolsMargin/ZudeToolsVBox/ZudeToolsVSplitContainer/DetailHSplitContainer/TabsPanelContainer/TabsVBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -204,6 +205,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 min_value = 250.0
 max_value = 1000.0
 step = 25.0
@@ -216,3 +218,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Item Count: 0"
+
+[node name="ContextMenu" parent="ZudeToolsPanel/ZudeToolsMargin" instance=ExtResource("5_5aymm")]
+visible = false
+layout_mode = 2
+script = ExtResource("6_kbmwy")

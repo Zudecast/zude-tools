@@ -17,5 +17,19 @@ func popup_dialog(dialog_title: String = "Open...", dialog_file_mode: FileDialog
 
 ## Pop up file explorer dialog to select a directory.
 func popup_directory_dialog() -> void:
-	dir_selected.connect(settings.set_directory, CONNECT_ONE_SHOT)
+	dir_selected.connect(settings.set_config_directory, CONNECT_ONE_SHOT)
 	popup_dialog("Open a directory...", FileDialog.FILE_MODE_OPEN_DIR)
+
+## Pop up file explorer dialog to select a default preview image.
+func popup_default_preview_dialog() -> void:
+	file_selected.connect(settings.set_config_default_preview, CONNECT_ONE_SHOT)
+	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
+	add_filter("*.jpg, *.png", "Image Files")
+	popup_dialog("Open an image...", FileDialog.FILE_MODE_OPEN_FILE)
+
+# FIXME - ## Pop up file explorer dialog to select a default preview image.
+func popup_template_file_dialog() -> void:
+	file_selected.connect(settings.add_config_template_file, CONNECT_ONE_SHOT)
+	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
+	add_filter("*.psd, *.kra, *.krz", "Template Files")
+	popup_dialog("Open a template...", FileDialog.FILE_MODE_OPEN_FILE)

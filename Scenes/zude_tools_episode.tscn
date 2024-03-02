@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dff2jjw2sqplf"]
 
-[ext_resource type="Script" path="res://Scenes/episode.gd" id="1_icpdn"]
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_liwn8"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_pa86c"]
+[ext_resource type="Script" path="res://Scenes/zude_tools_episode.gd" id="2_17rr6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
 
@@ -14,13 +14,12 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(-505, 684)
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_liwn8")
-script = ExtResource("1_icpdn")
+theme = ExtResource("1_pa86c")
+script = ExtResource("2_17rr6")
 
 [node name="EpisodeMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme = ExtResource("1_liwn8")
+theme = ExtResource("1_pa86c")
 
 [node name="EpisodeVBoxContainer" type="VBoxContainer" parent="EpisodeMarginContainer"]
 layout_mode = 2

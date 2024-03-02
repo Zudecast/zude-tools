@@ -1,9 +1,7 @@
 {
 	"default_preview": "res://zudecast.png",
 	"directory": "Z:\\My Drive\\Project Files\\Zudecast",
-	"templates": [
-		{
-
-		}
-	]
+	"templates": {
+		"": "asdf"
+	}
 }

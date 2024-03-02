@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://77w2btfiqbof"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_kf5gb"]
+[ext_resource type="Script" path="res://Scenes/path_setting.gd" id="2_todrj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uuoq4"]
+
+[node name="PathSetting" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 35.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_kf5gb")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uuoq4")
+script = ExtResource("2_todrj")
+path_text = null
+label_placeholder = "Setting Name"
+path_placeholder = null
+button_text = "Select File"
+
+[node name="PathSettingMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="PathSettingHBox" type="HBoxContainer" parent="PathSettingMargin"]
+layout_mode = 2
+
+[node name="PathSettingLabel" type="LineEdit" parent="PathSettingMargin/PathSettingHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+expand_to_text_length = true
+
+[node name="PathSettingPath" type="LineEdit" parent="PathSettingMargin/PathSettingHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+clear_button_enabled = true
+
+[node name="PathSettingButton" type="Button" parent="PathSettingMargin/PathSettingHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 8

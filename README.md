@@ -25,7 +25,7 @@
 [ ] Resolve naming conflicts when enforcing file or folder rules.
 [ ] Create timestamp sheets for video editors for video files.
 [/] Settings customization.
-	[ ] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
+	[x] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
 	[ ] Create a desired directory structure that can be enforced upon projects.
 		[ ] Assign default sub-directories to search for the project thumbnail and hero video when loading a production directory.
 	[ ] Create a list of template files that can be generated based on any existing image, video, or text file.

@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyckow8n873nb"]
+[gd_scene load_steps=3 format=3 uid="uid://cyckow8n873nb"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_1tpl1"]
 [ext_resource type="Script" path="res://Scenes/settings_category.gd" id="2_pst60"]
-[ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="3_cjr7g"]
 
-[node name="SettingsCategory" type="PanelContainer" node_paths=PackedStringArray("settings_category_label", "toggle_category_button", "settings_category_list", "add_path_button")]
+[node name="SettingsCategory" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,10 +12,6 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme = ExtResource("1_1tpl1")
 script = ExtResource("2_pst60")
-settings_category_label = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel")
-toggle_category_button = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel/ToggleCategoryButton")
-settings_category_list = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryListVBox")
-add_path_button = NodePath("SettingsCategoryMargin/SettingsCategoryVBox/AddPathButton")
 metadata/_edit_lock_ = true
 
 [node name="SettingsCategoryMargin" type="MarginContainer" parent="."]
@@ -24,42 +19,6 @@ layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="SettingsCategoryVBox" type="VBoxContainer" parent="SettingsCategoryMargin"]
-layout_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="SettingsCategoryLabel" type="Label" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-horizontal_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="ToggleCategoryButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox/SettingsCategoryLabel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -4.0
-offset_bottom = 4.0
-grow_horizontal = 0
-grow_vertical = 2
-icon = ExtResource("3_cjr7g")
-flat = true
-metadata/_edit_lock_ = true
-
-[node name="SettingsCategoryListVBox" type="VBoxContainer" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
-unique_name_in_owner = true
-layout_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="AddPathButton" type="Button" parent="SettingsCategoryMargin/SettingsCategoryVBox"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "+"
 metadata/_edit_lock_ = true

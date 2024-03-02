@@ -1,11 +1,11 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://blbl1uhbtj7qj"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://blbl1uhbtj7qj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjg3u"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
+bg_color = Color(1, 1, 1, 0.74902)
 draw_center = false
 border_width_left = 2
 border_width_top = 2
@@ -26,7 +26,7 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -38,7 +38,7 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -57,14 +57,26 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1cvm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho5ts"]
 content_margin_left = 10.0
 content_margin_top = 4.0
 content_margin_right = 10.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwi6u"]
 content_margin_left = 10.0
@@ -73,8 +85,8 @@ content_margin_right = 10.0
 content_margin_bottom = 4.0
 bg_color = Color(1, 1, 1, 0.75)
 draw_center = false
-corner_radius_top_left = 8
-corner_radius_top_right = 8
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16rru"]
 content_margin_left = 10.0
@@ -82,8 +94,8 @@ content_margin_top = 4.0
 content_margin_right = 10.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3mx2"]
 content_margin_left = 10.0
@@ -91,8 +103,8 @@ content_margin_top = 4.0
 content_margin_right = 10.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3idt"]
 content_margin_left = 10.0
@@ -100,8 +112,9 @@ content_margin_top = 4.0
 content_margin_right = 10.0
 content_margin_bottom = 4.0
 bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [resource]
 resource_local_to_scene = true
@@ -112,6 +125,7 @@ GridContainer/constants/v_separation = 10
 HBoxContainer/constants/separation = 10
 HFlowContainer/constants/h_separation = 10
 HFlowContainer/constants/v_separation = 10
+LineEdit/colors/font_uneditable_color = Color(1, 1, 1, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_rjg3u")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_b3541")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_i0vqt")
@@ -120,8 +134,8 @@ MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_14jyj")
-TabContainer/constants/icon_separation = 5
-TabContainer/constants/side_margin = 10
+TabContainer/constants/side_margin = 20
+TabContainer/styles/panel = SubResource("StyleBoxFlat_w1cvm")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_ho5ts")
 TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_kwi6u")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_16rru")

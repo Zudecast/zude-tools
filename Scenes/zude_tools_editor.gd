@@ -3,9 +3,9 @@ extends Control
 
 #region Constants
 
-const EPISODE: PackedScene = preload("res://Scenes/episode.tscn")
-const TAB_FLOW: PackedScene = preload("res://Scenes/tab_flow.tscn")
-const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
+const EPISODE: PackedScene = preload("res://Scenes/zude_tools_episode.tscn")
+const TAB: PackedScene = preload("res://Scenes/zude_tools_tab.tscn")
+const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 
 #endregion
 
@@ -39,30 +39,33 @@ const THUMBNAIL: PackedScene = preload("res://Scenes/thumbnail.tscn")
 #region Variables
 
 var episodes: Dictionary
-var tab_flows: Dictionary
+var tabs: Dictionary
 
 #endregions
 
 func _ready() -> void:
-	new_episode_button.pressed.connect(add_episode)
+	new_episode_button.pressed.connect(load_episode)
 	open_production_button_top.pressed.connect(file_dialog.popup_directory_dialog)
 	refresh_button.pressed.connect(refresh)
 	settings_button.pressed.connect(settings.popup)
 	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
 
 func _exit_tree() -> void:
-	new_episode_button.pressed.disconnect(add_episode)
+	new_episode_button.pressed.disconnect(load_episode)
 	open_production_button_top.pressed.disconnect(file_dialog.popup_directory_dialog)
 	refresh_button.pressed.disconnect(refresh)
 	settings_button.pressed.disconnect(settings.popup)
 	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
 
-## Clear hero, clear tabs, and update episodes. Called when settings directory is updated.
+#region Directory
+
+## Clear hero, free all tabs, and update episode flow. Called when settings directory is updated.
 func refresh() -> void:
+	settings.refresh()
 	update_buttons_visibility()
 	clear_hero()
-	clear_tab_container()
-	update_episodes()
+	free_all_tabs()
+	update_episode_flow()
 
 ## Show buttons when they're needed, hide them when they're not.
 func update_buttons_visibility() -> void:
@@ -71,53 +74,73 @@ func update_buttons_visibility() -> void:
 	else:
 		open_production_button_mid.visible = true
 
-## Configure and instantiate an episode.
-func add_episode(title: String = "New Episode") -> void:
-	var episode: Episode = EPISODE.instantiate()
-	
-	episode.title = title
-	episode.preview = settings.config.default_preview
+#endregion
+
+#region Episodes
+
+## Instantiate and configure an episode and add it to the episode flow.
+func load_episode(title: String = "New Episode") -> void:
+	# Instantiate the episode.
+	var episode: ZudeToolsEpisode = EPISODE.instantiate()
 	episode.directory = settings.directory.path_join(title)
 	
-	episode.entered.connect(update_hero)
-	episode.entered.connect(update_tabs)
+	# Add episode to the episode flow.
+	episode_flow.add_child(episode)
 	
-	var set_episode_size = func(size: int) -> void:
-		episode.custom_minimum_size.x = size
+	# Configure the episode title and preview.
+	episode.set_title(title)
+	episode.set_preview(settings.config.default_preview)
 	
+	# Connect the episode focused signal to relevant update methods.
+	episode.focused.connect(update_hero)
+	episode.focused.connect(update_tab_flows)
+	
+	# Create a lambda function to adjust item's size when the slider value changes.
+	var set_episode_size = func(new_size: int) -> void:
+		episode.custom_minimum_size.x = new_size
+	
+	# Connect slider to lambda.
 	episode_size_slider.value_changed.connect(set_episode_size)
 	
-	episodes.merge({episode.title : episode})
-	episode_flow.add_child(episode)
+	# Merge episode into the episodes dictionary.
+	episodes.merge({episode.title.text : episode})
 
-## Add all episodes in the episodes dictionary to the episode flow.
-func update_episodes() -> void:
-	clear_episodes()
+## Free and episode from the episode
+func free_episode(episode: ZudeToolsEpisode) -> void:
+	episode.queue_free()
+	episodes.erase(episodes.get(episode))
+
+## Free all episodes from the episode flow and the episodes dictionary.
+func free_all_episodes() -> void:
+	for episode: ZudeToolsEpisode in episodes.values():
+		free_episode(episode)
+
+## Frees all episodes then loads the episodes dictionary to the episode flow.
+func update_episode_flow() -> void:
+	free_all_episodes()
 	
 	if settings.directory == null:
 		print("No directory selected!")
 		return
 	
+	# Get all episodes in the production directory in reverse numerical order.
 	var episode_list: PackedStringArray = DirAccess.get_directories_at(settings.directory)
-	
 	episode_list.reverse()
 	
-	for title in episode_list:
-		add_episode(title)
+	# Load all episodes in the list.
+	for title: String in episode_list:
+		load_episode(title)
 
-## Free all episodes in the episodes dictionary and clear it.
-func clear_episodes() -> void:
-	for episode in episode_flow.get_children():
-		episode.queue_free()
-	
-	episodes.clear()
+#endregion
+
+#region Hero
 
 # FIXME - ## Set the hero panel variables to the related variables from the focused episode.
-func update_hero(episode: Episode) -> void:
+func update_hero(episode: ZudeToolsEpisode) -> void:
 	clear_hero()
 	
-	hero_title.text = episode.title
-	hero_preview.texture = episode.episode_preview.texture
+	hero_title.text = episode.title.text
+	hero_preview.texture = episode.preview.texture
 	
 	#var stream := FFmpegVideoStream.new()
 	#stream.file = episode.video
@@ -128,63 +151,86 @@ func clear_hero() -> void:
 	hero_preview.texture = null
 	hero_title.text = "Select an episode..."
 
-## Create and populate tab flows with files for the focused episode. Reuses tab flow instances of the same name.
-func update_tabs(episode: Episode) -> void:
-	if episode.files.is_empty():
+#endregion
+
+#region Tabs
+
+## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
+func load_tab(tab_name: String) -> void:
+	var tab: ZudeToolsTab = TAB.instantiate()
+	tab.name = tab_name
+	tabs.merge({tab.name : tab})
+	tabs_container.add_child(tab)
+
+## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
+func free_tab(tab: ZudeToolsTab) -> void:
+	tab.queue_free()
+	tabs.erase(tabs.find_key(tab))
+
+## Free all tabs from the tab container and the tabs dictionary.
+func free_all_tabs() -> void:
+	for tab in tabs.values():
+		free_tab(tab)
+
+## Create or destroy tabs for to reflect the focused episode's directories. Populate with files if created.
+func update_tab_flows(episode: ZudeToolsEpisode) -> void:
+	# Discard tabs with names not contained in the episode directories dictionary, else free its items.
+	for tab_name: String in tabs.keys():
+		if episode.directories.has(tab_name):
+			free_all_items_from_tab(tabs[tab_name])
+		else:
+			free_tab(tabs[tab_name])
+	
+	# Create a tab for each episode directory name that a tab does not yet exist for.
+	for dir_name: String in episode.directories.keys():
+		if tabs.has(dir_name) == false:
+			load_tab(dir_name)
+		
+		# Populate each tab's item flow with relevant images.
+		for file_name: String in episode.files[dir_name]:
+			var file_path: String = episode.directories[dir_name].path_join(file_name)
+			load_item_into_tab(tabs[dir_name], file_name, file_path)
+	
+	# Check each tab's item flow for children to determine if a "nothing here" label should be shown.
+	for tab: ZudeToolsTab in tabs.values():
+		tab.check_for_items()
+
+#endregion
+
+#region Tab Items
+
+## Add any item to the specified tab.
+func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String) -> void:
+	# Early return if item is not a valid file.
+	if file_name.is_valid_filename() == false:
 		return
 	
-	# Reuse tab flows instances with the same name as ones to be created, discard unneeded ones.
-	for tab_name: String in tab_flows.keys():
-		if episode.directories.has(tab_name):
-			clear_tab_flow_items(tab_name)
-		else:
-			tab_flows[tab_name].queue_free()
-			tab_flows.erase(tab_name)
-	
-	# Loop through all of the directory names in the focused episode.
-	for dir_name: String in episode.directories.keys():
-		# Create a tab flow for each directory name that a tab flow does not already exist for.
-		if tab_flows.has(dir_name) == false:
-			var tab_flow: TabFlow = TAB_FLOW.instantiate()
-			tab_flow.name = dir_name
-			tab_flows.merge({tab_flow.name : tab_flow})
-			tabs_container.add_child(tab_flow)
+	# Handle images.
+	if file_name.ends_with(".png") or file_name.ends_with(".jpg"):
+		# Instantiate a new TabItem.
+		var item = TAB_ITEM.instantiate()
+		tab.flow.add_child(item)
 		
-		# Populate each tab flow with relevant images.
-		for file_name: String in episode.files[dir_name]:
-			if file_name.is_valid_filename() and file_name.ends_with(".png") or file_name.ends_with(".jpg"):
-				var image = THUMBNAIL.instantiate()
-				image.title = file_name
-				image.preview = episode.directories[dir_name].path_join(file_name)
-				load_item_into_tab_flow(dir_name, image)
+		# Configure item.
+		item.set_title(file_name)
+		item.set_preview(file_path)
 	
-	# Check each tab flow for children to determine if a "nothing here" label should be shown.
-	for tab_flow in tab_flows.values():
-		tab_flow.check_for_children()
+		# Create a lambda function to adjust item's size when the slider value changes.
+		var set_item_size = func(new_size: int) -> void:
+			item.custom_minimum_size.x = new_size
+		
+		# Connect slider to lambda.
+		preview_size_slider.value_changed.connect(set_item_size)
 
-## Add any item to the specified tab flow.
-func load_item_into_tab_flow(tab_name: String, item: Control) -> void:
-	var set_item_size = func(size: float) -> void:
-		item.custom_minimum_size.x = size
+## Remove any item from the specified tab at the specified index.
+func free_item_from_tab(tab: ZudeToolsTab, item: Control) -> void:
+	tab.flow.remove_child(item)
+
+## Remove all items from the specified tab.
+func free_all_items_from_tab(tab: ZudeToolsTab) -> void:
+	for child in tab.flow.get_children():
+		free_item_from_tab(tab, child)
 	
-	preview_size_slider.value_changed.connect(set_item_size)
-	
-	tab_flows[tab_name].flow.add_child(item)
+	tab.check_for_items()
 
-## Remove any item from the specified tab flow.
-func free_item_from_tab_flow(tab_name: String, node: Node) -> void:
-	tab_flows[tab_name].flow.get_child(node.name).queue_free()
-
-## Remove all items from the specified tab flow.
-func clear_tab_flow_items(tab_name: String) -> void:
-	for item in tab_flows[tab_name].flow.get_children():
-		item.queue_free()
-
-## Remove all tab flows from the tab container and clear the tab_flows dictionary.
-func clear_tab_container() -> void:
-	for tab_flow in tabs_container.get_children():
-		tab_flow.queue_free()
-	
-	tab_flows.clear()
-
-
+#endregion

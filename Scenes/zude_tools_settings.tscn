@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwoa5aaupwgvv"]
+[gd_scene load_steps=18 format=3 uid="uid://bwoa5aaupwgvv"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_fgagf"]
 [ext_resource type="Script" path="res://Scenes/zude_tools_settings.gd" id="2_wokt4"]
+[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/path_setting.tscn" id="4_gatcq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv0x1"]
 content_margin_left = 0.0
@@ -19,6 +20,149 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_imawo"]
 font_size = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjg3u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.74902)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3541"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0vqt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14jyj"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.415686, 0.658824, 0.309804, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w1cvm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho5ts"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwi6u"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16rru"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3mx2"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3idt"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="Theme" id="Theme_grv8k"]
+resource_local_to_scene = true
+Button/constants/h_separation = 10
+Button/constants/icon_max_width = 15
+GridContainer/constants/h_separation = 10
+GridContainer/constants/v_separation = 10
+HBoxContainer/constants/separation = 10
+HFlowContainer/constants/h_separation = 10
+HFlowContainer/constants/v_separation = 10
+LineEdit/styles/focus = SubResource("StyleBoxFlat_rjg3u")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_b3541")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_i0vqt")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_14jyj")
+TabContainer/constants/icon_separation = 5
+TabContainer/constants/side_margin = 10
+TabContainer/styles/panel = SubResource("StyleBoxFlat_w1cvm")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_ho5ts")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_kwi6u")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_16rru")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_u3mx2")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_g3idt")
+VBoxContainer/constants/separation = 10
 
 [node name="ZudeToolsSettings" type="Control"]
 layout_mode = 3
@@ -97,7 +241,66 @@ layout_mode = 2
 size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
-[node name="SettingsCategoryListVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
+[node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Global" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-metadata/_edit_lock_ = true
+
+[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global" instance=ExtResource("4_gatcq")]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_grv8k")
+editable_label = false
+label_text = "Default Project Preview"
+path_text = ""
+path_placeholder = ""
+
+[node name="Templates" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="TemplatesVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AddTemplateButtonMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/AddTemplateButtonMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "+"
+
+[node name="Folders" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="FolderVbox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
+layout_mode = 2
+
+[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+drop_mode_flags = 3
+select_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox/FolderTree"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+placeholder_text = "test_folder"
+
+[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "+"
