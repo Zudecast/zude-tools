@@ -183,7 +183,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hv0x1")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettingsMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel"]
 layout_mode = 2
@@ -191,12 +190,10 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanel" type="PanelContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p16gf")
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel"]
 layout_mode = 2
@@ -204,18 +201,15 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin"]
 layout_mode = 2
-metadata/_edit_lock_ = true
 
 [node name="SettingsPanelLabel" type="Label" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_imawo")
 horizontal_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="CloseSettingsButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsPanelLabel"]
 unique_name_in_owner = true
@@ -239,13 +233,14 @@ metadata/_edit_lock_ = true
 [node name="SettingsPanelHSep" type="HSeparator" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 size_flags_vertical = 8
-metadata/_edit_lock_ = true
 
 [node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 1
 
 [node name="Global" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="GlobalVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global"]
@@ -260,14 +255,16 @@ editable_label = false
 label_text = "Default Project Preview"
 
 [node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="TemplatesVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
+layout_mode = 2
+
+[node name="TemplatesVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/TemplatesVBox"]
+[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2

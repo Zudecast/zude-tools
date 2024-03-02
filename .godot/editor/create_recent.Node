@@ -1,6 +1,6 @@
+VBoxContainer
 HBoxContainer
 MarginContainer
-VBoxContainer
 Button
 LineEdit
 Tree
@@ -12,4 +12,3 @@ ItemList
 HSeparator
 Label
 Control
-HSlider

@@ -227,12 +227,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_cxk3m")
 script = ExtResource("1_epjjy")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsEditor" parent="." instance=ExtResource("2_fm3jj")]
 layout_mode = 1
 theme = SubResource("Theme_8q4ov")
-metadata/_edit_lock_ = true
 
 [node name="ZudeToolsSettings" parent="." instance=ExtResource("5_bvsle")]
 visible = false

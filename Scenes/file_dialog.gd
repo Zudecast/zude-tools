@@ -30,7 +30,7 @@ func popup_default_preview_dialog() -> void:
 
 # FIXME - ## Pop up file explorer dialog to select a default preview image.
 func popup_template_file_dialog() -> void:
-	file_selected.connect(settings.add_config_template_file, CONNECT_ONE_SHOT)
+	file_selected.connect(settings.update_config_template_label, CONNECT_ONE_SHOT)
 	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
 	add_filter("*.psd, *.kra, *.krz", "Template Files")
 	popup_dialog("Open a template...", FileDialog.FILE_MODE_OPEN_FILE)

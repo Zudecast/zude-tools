@@ -104,9 +104,9 @@ func refresh() -> void:
 	clear_templates()
 	
 	# Rebuild all templates from config.
-	for template_name: String in config.templates:
-		var template_path: String = config.templates.get(template_name)
-		create_template_setting(template_path, template_name)
+	for label: String in config.templates:
+		var path: String = config.templates.get(label)
+		create_template_setting(label, path)
 	
 	#endregion
 
@@ -153,27 +153,16 @@ func add_config_template_file(file_path: String, file_name: String = "New Templa
 	config.templates.merge({file_name : file_path})
 
 ## Update an existing template file with a new path.
-func update_config_template_name(old_label: String, new_label: String) -> void:
-	var old_path: String
-	
-	# Check if the old label exists, grab its path if so, then erase its config.templates entry.
-	if config.templates.keys().has(old_label):
-		old_path = config.templates.get(old_label)
-		config.templates.erase(old_label)
+func update_config_template_label(path: String, old_label: String, new_label: String) -> void:
+	config.templates.erase(old_label)
 	
 	# Merge a new entry into config.templates using the new label and old path.
-	config.templates.merge({new_label : old_path})
+	config.templates.merge({new_label : path})
 
 # FIXME - ## Update an existing template file with a new name.
-func update_config_template_path(old_path: String, new_path: String) -> void:
-	var old_label: String
-	
-	# Check if the old path exists, grab its label if so.
-	if config.templates.values().has(old_path):
-		old_label = config.templates.find_key(old_path)
-	
+func update_config_template_path(label: String, old_path: String, new_path: String) -> void:
 	# Overwrite the existing config.templates entry using the old label and new path.
-	config.templates.merge({old_label : new_path}, true)
+	config.templates.merge({label : new_path}, true)
 
 ## Instantiate and configure a new PathSetting and add it to the templates settings menu.
 func create_template_setting(file_name: String = "", file_path: String = "") -> void:
@@ -182,20 +171,18 @@ func create_template_setting(file_name: String = "", file_path: String = "") -> 
 	templates.add_child(path_setting)
 	
 	# Configure path setting.
-	path_setting.label.text = file_name
-	path_setting.label.placeholder_text = "Template Name"
-	path_setting.path.text = file_path
-	path_setting.path.placeholder_text = "template.psd"
-	path_setting.button.text = "Select File"
+	path_setting.label_text = file_name
+	path_setting.label_placeholder = "Template Name"
+	path_setting.path_text = file_path
+	path_setting.path_placeholder = "template.psd"
+	path_setting.button_text = "Select File"
 	
-	# Connect path setting label to update_config_template_name().
-	path_setting.label_updated.connect(update_config_template_name)
+	# Connect path setting label to update_config_template_label().
+	path_setting.label_updated.connect(update_config_template_label)
 	# Connect path setting path to update_config_template_path().
 	path_setting.path_updated.connect(update_config_template_path)
 	# Connect path setting button to template file dialog.
 	path_setting.button.pressed.connect(file_dialog.popup_template_file_dialog)
-	
-	templates.move_child(add_template_button, -1)
 
 ## Remove all template entries from the settings menu so they can be rebuilt from config.
 func clear_templates() -> void:
