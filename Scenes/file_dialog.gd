@@ -30,7 +30,7 @@ func popup_default_preview_dialog() -> void:
 
 # FIXME - setting not used ## Pop up file explorer dialog to select a default preview image.
 func popup_template_file_dialog(setting: ZudeToolsPathSetting) -> void:
-	file_selected.connect(settings.update_config_template_path, CONNECT_ONE_SHOT)
+	file_selected.connect(setting.update_path, CONNECT_ONE_SHOT)
 	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
 	add_filter("*.psd, *.kra, *.krz", "Template Files")
 	popup_dialog("Open a template...", FileDialog.FILE_MODE_OPEN_FILE)

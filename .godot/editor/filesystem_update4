@@ -6,3 +6,4 @@ res://Scenes/zude_tools_settings.tscn
 res://zude_tools.tscn
 res://Scenes/zude_tools_editor.tscn
 res://Scenes/zude_tools_editor.gd
+res://Scenes/file_dialog.gd
