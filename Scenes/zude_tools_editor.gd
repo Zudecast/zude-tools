@@ -65,11 +65,11 @@ func _exit_tree() -> void:
 
 ## Clear hero, free all tabs, and update episode flow.
 func refresh() -> void:
-	update_buttons_visibility()
 	clear_hero()
 	free_all_tabs()
 	free_all_episodes()
 	update_episode_flow()
+	update_buttons_visibility()
 
 ## Show buttons when they're needed, hide them when they're not.
 func update_buttons_visibility() -> void:
@@ -89,8 +89,8 @@ func load_episode(title: String = "New Episode") -> void:
 	episode.directory = settings.config.directory.path_join(title)
 	
 	# Merge episode into the episodes dictionary and add it to the episode flow.
-	episodes.merge({title : episode})
 	episode_flow.add_child(episode)
+	episodes.merge({title : episode})
 	
 	# Configure the episode title and preview.
 	episode.set_title(title)
@@ -113,8 +113,8 @@ func free_episode(episode: ZudeToolsEpisode) -> void:
 	episode.focused.disconnect(update_hero)
 	episode.focused.disconnect(update_tab_flows)
 	
-	episode.queue_free()
-	episodes.erase(episodes.get(episode))
+	episode_flow.remove_child(episode)
+	episodes.erase(episodes.find_key(episode))
 
 ## Free all episodes from the episode flow and the episodes dictionary.
 func free_all_episodes() -> void:
@@ -124,6 +124,7 @@ func free_all_episodes() -> void:
 
 ## Frees all episodes then loads the episodes dictionary to the episode flow.
 func update_episode_flow() -> void:
+	# Early return if no directory is set in config.
 	if settings.config.directory == null:
 		print("No directory selected!")
 		return
