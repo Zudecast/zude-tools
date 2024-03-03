@@ -231,9 +231,11 @@ icon_alignment = 2
 [node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 2
 drag_to_rearrange_enabled = true
 
 [node name="Global" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="GlobalVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global"]
@@ -246,6 +248,7 @@ layout_mode = 2
 theme = SubResource("Theme_grv8k")
 editable_label = false
 label_text = "Default Project Preview"
+path_placeholder = "\"image.jpg\""
 show_delete = false
 
 [node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
@@ -267,20 +270,20 @@ size_flags_horizontal = 4
 text = "+"
 
 [node name="Folders" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
+layout_mode = 2
+
+[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 drop_mode_flags = 3
 select_mode = 2
 
-[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/FolderTree"]
+[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-offset_right = 50.0
-offset_bottom = 31.0
 size_flags_horizontal = 4
 text = "+"

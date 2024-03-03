@@ -34,7 +34,6 @@ const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
 
 @onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
-# TODO - item count for tabs
 @onready var item_count_label: Label = %ItemCountLabel
 
 #endregion
@@ -50,7 +49,7 @@ func _ready() -> void:
 	new_episode_button.pressed.connect(load_episode)
 	open_production_button_top.pressed.connect(file_dialog.popup_directory_dialog)
 	refresh_button.pressed.connect(refresh)
-	settings_button.pressed.connect(settings.popup)
+	settings_button.pressed.connect(settings.popup_menu)
 	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
 	toggle_hero_button.pressed.connect(toggle_hero)
 
@@ -58,18 +57,18 @@ func _exit_tree() -> void:
 	new_episode_button.pressed.disconnect(load_episode)
 	open_production_button_top.pressed.disconnect(file_dialog.popup_directory_dialog)
 	refresh_button.pressed.disconnect(refresh)
-	settings_button.pressed.disconnect(settings.popup)
+	settings_button.pressed.disconnect(settings.popup_menu)
 	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
 	toggle_hero_button.pressed.connect(toggle_hero)
 
-#region Directory
+#region Editor
 
-## Clear hero, free all tabs, and update episode flow. Called when settings directory is updated.
+## Clear hero, free all tabs, and update episode flow.
 func refresh() -> void:
-	settings.refresh()
 	update_buttons_visibility()
 	clear_hero()
 	free_all_tabs()
+	free_all_episodes()
 	update_episode_flow()
 
 ## Show buttons when they're needed, hide them when they're not.
@@ -87,9 +86,10 @@ func update_buttons_visibility() -> void:
 func load_episode(title: String = "New Episode") -> void:
 	# Instantiate the episode.
 	var episode: ZudeToolsEpisode = EPISODE.instantiate()
-	episode.directory = settings.directory.path_join(title)
+	episode.directory = settings.config.directory.path_join(title)
 	
-	# Add episode to the episode flow.
+	# Merge episode into the episodes dictionary and add it to the episode flow.
+	episodes.merge({title : episode})
 	episode_flow.add_child(episode)
 	
 	# Configure the episode title and preview.
@@ -106,9 +106,6 @@ func load_episode(title: String = "New Episode") -> void:
 	
 	# Connect slider to lambda.
 	episode_size_slider.value_changed.connect(set_episode_size)
-	
-	# Merge episode into the episodes dictionary.
-	episodes.merge({episode.title.text : episode})
 
 ## Free and episode from the episode
 func free_episode(episode: ZudeToolsEpisode) -> void:
@@ -121,24 +118,24 @@ func free_episode(episode: ZudeToolsEpisode) -> void:
 
 ## Free all episodes from the episode flow and the episodes dictionary.
 func free_all_episodes() -> void:
-	for episode: ZudeToolsEpisode in episodes.values():
-		free_episode(episode)
+	if episodes.is_empty() == false:
+		for episode: ZudeToolsEpisode in episodes.values():
+			free_episode(episode)
 
 ## Frees all episodes then loads the episodes dictionary to the episode flow.
 func update_episode_flow() -> void:
-	free_all_episodes()
-	
-	if settings.directory == null:
+	if settings.config.directory == null:
 		print("No directory selected!")
 		return
 	
 	# Get all episodes in the production directory in reverse numerical order.
-	var episode_list: PackedStringArray = DirAccess.get_directories_at(settings.directory)
+	var episode_list: PackedStringArray = DirAccess.get_directories_at(settings.config.directory)
 	episode_list.reverse()
 	
 	# Load all episodes in the list.
 	for title: String in episode_list:
-		load_episode(title)
+		if episodes.has(title) == false:
+			load_episode(title)
 
 #endregion
 
@@ -240,13 +237,13 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		# Configure item.
 		item.set_title(file_name)
 		item.set_preview(file_path)
-	
-	# Create a lambda function to adjust item's size when the slider value changes.
-	var set_item_size = func(new_size: int) -> void:
-		item.custom_minimum_size.x = new_size
-	
-	# Connect slider to lambda.
-	preview_size_slider.value_changed.connect(set_item_size)
+		
+		# Create a lambda function to adjust item's size when the slider value changes.
+		var set_item_size = func(new_size: int) -> void:
+			item.custom_minimum_size.x = new_size
+		
+		# Connect slider to lambda.
+		preview_size_slider.value_changed.connect(set_item_size)
 
 ## Remove any item from the specified tab at the specified index.
 func free_item_from_tab(tab: ZudeToolsTab, item: Control) -> void:

@@ -6,7 +6,7 @@ extends Control
 
 @onready var title: Label = %ThumbTitle
 @onready var preview: TextureRect = %ThumbImage
-@onready var button = %ThumbButton
+@onready var button: Button = %ThumbButton
 
 #endregion
 

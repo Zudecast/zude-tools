@@ -7,3 +7,6 @@ res://zude_tools.tscn
 res://Scenes/zude_tools_editor.tscn
 res://Scenes/zude_tools_editor.gd
 res://Scenes/file_dialog.gd
+res://Scenes/zude_tools_settings.gd
+res://Scenes/zude_tools_tab_item.gd
+res://config.json

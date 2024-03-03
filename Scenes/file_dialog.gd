@@ -22,15 +22,16 @@ func popup_directory_dialog() -> void:
 	popup_dialog("Open a directory...", FileDialog.FILE_MODE_OPEN_DIR)
 
 ## Pop up file explorer dialog to select a default preview image.
-func popup_default_preview_dialog() -> void:
-	file_selected.connect(settings.set_config_default_preview, CONNECT_ONE_SHOT)
+func popup_image_dialog(path_setting: ZudeToolsPathSetting) -> void:
+	file_selected.connect(path_setting.select_path, CONNECT_ONE_SHOT)
 	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
 	add_filter("*.jpg, *.png", "Image Files")
 	popup_dialog("Open an image...", FileDialog.FILE_MODE_OPEN_FILE)
 
-# FIXME - setting not used ## Pop up file explorer dialog to select a default preview image.
-func popup_template_file_dialog(setting: ZudeToolsPathSetting) -> void:
-	file_selected.connect(setting.update_path, CONNECT_ONE_SHOT)
+## Pop up file explorer dialog to select a default preview image.
+func popup_template_dialog(path_setting: ZudeToolsPathSetting) -> void:
+	## Connect to the path setting that popped the dialog and cal its update_path.
+	file_selected.connect(path_setting.select_path, CONNECT_ONE_SHOT)
 	file_selected.connect(clear_filters, CONNECT_ONE_SHOT)
 	add_filter("*.psd, *.kra, *.krz", "Template Files")
 	popup_dialog("Open a template...", FileDialog.FILE_MODE_OPEN_FILE)
