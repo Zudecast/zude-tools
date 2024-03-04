@@ -1,11 +1,11 @@
 [gd_scene load_steps=25 format=3 uid="uid://dtmi8h8ws7tf4"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_cxk3m"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_cxk3m"]
 [ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
-[ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://Scenes/zude_tools_editor.tscn" id="3_2emxl"]
-[ext_resource type="PackedScene" uid="uid://rye735ombanq" path="res://Scenes/editor_bar_top.tscn" id="3_na4fc"]
-[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://Theme/panel_flat.tres" id="5_sbihw"]
-[ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://Scenes/Settings/zude_tools_settings.tscn" id="5_xuio0"]
+[ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://scenes/editor/editor.tscn" id="3_2emxl"]
+[ext_resource type="PackedScene" uid="uid://rye735ombanq" path="res://scenes/editor/editor_bar_top.tscn" id="3_na4fc"]
+[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://theme/panel_flat.tres" id="5_sbihw"]
+[ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://scenes/settings/settings.tscn" id="5_xuio0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8hxd"]
 content_margin_left = 4.0
@@ -137,18 +137,6 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bx4p4"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.14902, 0.188235, 0.188235, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr651"]
 content_margin_left = 10.0
 content_margin_top = 4.0
@@ -196,7 +184,7 @@ border_blend = true
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
-[sub_resource type="Theme" id="Theme_1h0s4"]
+[sub_resource type="Theme" id="Theme_wmscq"]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 15
@@ -221,8 +209,6 @@ MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = ExtResource("5_sbihw")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
-SolidPanelContainer/base_type = &"PanelContainer"
-SolidPanelContainer/styles/panel = SubResource("StyleBoxFlat_bx4p4")
 TabContainer/constants/side_margin = 20
 TabContainer/styles/panel = ExtResource("5_sbihw")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")
@@ -232,7 +218,7 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fgudw")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_28uxd")
 VBoxContainer/constants/separation = 10
 
-[sub_resource type="Theme" id="Theme_b72wx"]
+[sub_resource type="Theme" id="Theme_rhfp5"]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 15
@@ -257,8 +243,40 @@ MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = ExtResource("5_sbihw")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
-SolidPanelContainer/base_type = &"PanelContainer"
-SolidPanelContainer/styles/panel = SubResource("StyleBoxFlat_bx4p4")
+TabContainer/constants/side_margin = 20
+TabContainer/styles/panel = ExtResource("5_sbihw")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_drx7e")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_xm7mb")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fgudw")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_28uxd")
+VBoxContainer/constants/separation = 10
+
+[sub_resource type="Theme" id="Theme_64bl0"]
+resource_local_to_scene = true
+Button/constants/h_separation = 10
+Button/constants/icon_max_width = 15
+Button/styles/disabled = SubResource("StyleBoxFlat_a8hxd")
+Button/styles/focus = SubResource("StyleBoxFlat_ak1a3")
+Button/styles/hover = SubResource("StyleBoxFlat_pxfsg")
+Button/styles/normal = SubResource("StyleBoxFlat_ilj5u")
+Button/styles/pressed = SubResource("StyleBoxFlat_gnpmo")
+DeleteButton/base_type = &"Button"
+DeleteButton/styles/normal = SubResource("StyleBoxFlat_n5py5")
+HBoxContainer/constants/separation = 10
+HFlowContainer/constants/h_separation = 10
+HFlowContainer/constants/v_separation = 10
+Label/font_sizes/font_size = 18
+LineEdit/colors/font_uneditable_color = Color(1, 1, 1, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_7kgbr")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_qsq1t")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_rii82")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = ExtResource("5_sbihw")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
 TabContainer/constants/side_margin = 20
 TabContainer/styles/panel = ExtResource("5_sbihw")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")
@@ -288,13 +306,14 @@ layout_mode = 2
 
 [node name="EditorBarTop" parent="Panel/Margin/VBox" instance=ExtResource("3_na4fc")]
 layout_mode = 2
+theme = SubResource("Theme_wmscq")
 
 [node name="ZudeToolsEditor" parent="Panel/Margin/VBox" instance=ExtResource("3_2emxl")]
 layout_mode = 2
-theme = SubResource("Theme_1h0s4")
+theme = SubResource("Theme_rhfp5")
 
-[node name="ZudeToolsSettings" parent="Panel/Margin" instance=ExtResource("5_xuio0")]
+[node name="ZudeToolsSettings" parent="Panel/Margin/VBox" instance=ExtResource("5_xuio0")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-theme = SubResource("Theme_b72wx")
+theme = SubResource("Theme_64bl0")

@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://blbl1uhbtj7qj"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://blbl1uhbtj7qj"]
 
-[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://Theme/panel_flat.tres" id="1_hbpfm"]
+[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://theme/panel_flat.tres" id="1_hbpfm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8hxd"]
 content_margin_left = 4.0
@@ -132,18 +132,6 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bx4p4"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.14902, 0.188235, 0.188235, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr651"]
 content_margin_left = 10.0
 content_margin_top = 4.0
@@ -216,8 +204,6 @@ MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = ExtResource("1_hbpfm")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
-SolidPanelContainer/base_type = &"PanelContainer"
-SolidPanelContainer/styles/panel = SubResource("StyleBoxFlat_bx4p4")
 TabContainer/constants/side_margin = 20
 TabContainer/styles/panel = ExtResource("1_hbpfm")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")

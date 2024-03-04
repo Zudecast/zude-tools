@@ -1,2 +1,2 @@
-res://Scenes/Settings/zude_tools_settings.gd
-res://Scenes/zude_tools_editor.gd
+res://scenes/settings/settings.gd
+res://scenes/editor/editor.gd

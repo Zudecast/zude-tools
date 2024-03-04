@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dohvqb6c1613p"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_5nkcc"]
+[ext_resource type="Script" path="res://scenes/cards/card_image.gd" id="2_w2yqr"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/default_preview.tres" id="3_7uukf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_50ba4"]
+
+[node name="ImagePanel" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 150)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_5nkcc")
+script = ExtResource("2_w2yqr")
+
+[node name="ImageMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="ImageVBox" type="VBoxContainer" parent="ImageMargin"]
+layout_mode = 2
+
+[node name="ImagePreview" type="TextureRect" parent="ImageMargin/ImageVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_7uukf")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="ImageTitle" type="LineEdit" parent="ImageMargin/ImageVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Title"
+editable = false
+flat = true
+
+[node name="ImageButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_50ba4")

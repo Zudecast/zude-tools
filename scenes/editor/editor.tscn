@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3i64a5qg7iv"]
+
+[ext_resource type="Script" path="res://scenes/editor/editor.gd" id="1_2osj4"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_o4ffb"]
+[ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://icons/eye.svg" id="5_trbm3"]
+
+[node name="ZudeToolsEditor" type="VSplitContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("1_o4ffb")
+script = ExtResource("1_2osj4")
+
+[node name="EpisodesPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="EpisodesScroll" type="ScrollContainer" parent="EpisodesPanel"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+follow_focus = true
+
+[node name="EpisodesMargin" type="MarginContainer" parent="EpisodesPanel/EpisodesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EpisodeFlow" type="HFlowContainer" parent="EpisodesPanel/EpisodesScroll/EpisodesMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DetailsSplit" type="HSplitContainer" parent="."]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HeroPanel" type="PanelContainer" parent="DetailsSplit"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="HeroMargin" type="MarginContainer" parent="DetailsSplit/HeroPanel"]
+layout_mode = 2
+
+[node name="HeroVBox" type="VBoxContainer" parent="DetailsSplit/HeroPanel/HeroMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="HeroVideo" type="VideoStreamPlayer" parent="DetailsSplit/HeroPanel/HeroMargin/HeroVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+expand = true
+
+[node name="HeroPreview" type="TextureRect" parent="DetailsSplit/HeroPanel/HeroMargin/HeroVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="HeroTitle" type="LineEdit" parent="DetailsSplit/HeroPanel/HeroMargin/HeroVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+placeholder_text = "Select an episode..."
+alignment = 1
+editable = false
+flat = true
+
+[node name="TabsVBox" type="VBoxContainer" parent="DetailsSplit"]
+layout_mode = 2
+
+[node name="TabsContainer" type="TabContainer" parent="DetailsSplit/TabsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+drag_to_rearrange_enabled = true
+
+[node name="BottomPanel" type="PanelContainer" parent="DetailsSplit/TabsVBox"]
+layout_mode = 2
+
+[node name="BottomPanelMargin" type="MarginContainer" parent="DetailsSplit/TabsVBox/BottomPanel"]
+layout_mode = 2
+
+[node name="ToggleHeroButton" type="Button" parent="DetailsSplit/TabsVBox/BottomPanel/BottomPanelMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("5_trbm3")
+flat = true
+icon_alignment = 1
+
+[node name="PreviewSizeSlider" type="HSlider" parent="DetailsSplit/TabsVBox/BottomPanel/BottomPanelMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 250.0
+max_value = 1000.0
+step = 25.0
+value = 250.0
+rounded = true
+scrollable = false
+
+[node name="ItemCountLabel" type="Label" parent="DetailsSplit/TabsVBox/BottomPanel/BottomPanelMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "0"
+horizontal_alignment = 2

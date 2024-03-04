@@ -1,7 +1,5 @@
-res://Scenes/Settings/zude_tools_settings.tscn
-res://Resources/zude_tools_theme.tres
-res://Resources/default_preview.tres
+res://scenes/settings/settings.tscn
+res://theme/zude_tools_theme.tres
+res://resources/default_preview.tres
 res://zude_tools.tscn
-res://Scenes/zude_tools_editor.tscn
-res://Theme/panel_flat.tres
-res://Scenes/editor_bar_top.gd
+res://theme/panel_flat.tres

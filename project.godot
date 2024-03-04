@@ -19,8 +19,8 @@ config/icon="res://zude_tools.svg"
 
 [autoload]
 
-Config="*res://Scenes/Settings/config.tscn"
-Dialog="*res://Scenes/file_dialog.gd"
+Config="*res://singletons/config.gd"
+Dialog="*res://singletons/file_dialog.gd"
 
 [display]
 

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dff2jjw2sqplf"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_pa86c"]
+[ext_resource type="Script" path="res://scenes/cards/card_episode.gd" id="2_17rr6"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/default_preview.tres" id="3_s8r0t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
+
+[node name="EpisodePanel" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 150)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_pa86c")
+script = ExtResource("2_17rr6")
+
+[node name="EpisodeMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="EpisodeVBox" type="VBoxContainer" parent="EpisodeMargin"]
+layout_mode = 2
+
+[node name="EpisodePreview" type="TextureRect" parent="EpisodeMargin/EpisodeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_s8r0t")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="EpisodeTitle" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+placeholder_text = "Episode Title"
+editable = false
+flat = true
+
+[node name="EpisodeButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jr1c7")
