@@ -25,6 +25,7 @@ layout_mode = 2
 [node name="EpisodePreview" type="TextureRect" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("3_s8r0t")
 expand_mode = 5
 stretch_mode = 5
@@ -32,7 +33,7 @@ stretch_mode = 5
 [node name="EpisodeTitle" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 placeholder_text = "Episode Title"
 editable = false
 flat = true

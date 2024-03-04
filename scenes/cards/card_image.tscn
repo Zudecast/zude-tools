@@ -25,6 +25,7 @@ layout_mode = 2
 [node name="ImagePreview" type="TextureRect" parent="ImageMargin/ImageVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("3_7uukf")
 expand_mode = 5
 stretch_mode = 5
@@ -32,7 +33,7 @@ stretch_mode = 5
 [node name="ImageTitle" type="LineEdit" parent="ImageMargin/ImageVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 text = "Title"
 editable = false
 flat = true

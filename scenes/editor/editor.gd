@@ -219,10 +219,10 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		return
 	
 	# Create a placeholder tab item so we can chose how to handle it.
-	var item #: ZudeToolsCard
+	var item: ZudeToolsCard
 	
-	# Handle images.
-	if file_name.get_extension() == "png" or file_name.get_extension() == "jpg":
+	# Handle image files.
+	if file_name.get_extension() in ["png", "jpg"]:
 		# Instantiate a new CardImage
 		item = IMAGE.instantiate()
 		tab.flow.add_child(item)
@@ -234,11 +234,26 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		var texture = ImageTexture.create_from_image(image)
 		item.set_preview(texture)
 	
-	elif file_name.get_extension() == "mp4":
+	# Handle template files.
+	elif file_name.get_extension() in ["psd", "krz", "kra"]:
+		# Instantiate a new CardVideo
+		item = IMAGE.instantiate()
+		tab.flow.add_child(item)
+		
+		# Configure item.
+		item.set_title(file_name)
+		var image = Image.new()
+		image.load(file_path)
+		var texture = ImageTexture.create_from_image(image)
+		item.set_preview(texture)
+	
+	# Handle video files.
+	elif file_name.get_extension() in ["mp4", "mkv"]:
 		# Instantiate a new CardVideo
 		item = VIDEO.instantiate()
 		tab.flow.add_child(item)
 		
+		# Configure item.
 		item.set_title(file_name)
 		item.set_video(file_path)
 	

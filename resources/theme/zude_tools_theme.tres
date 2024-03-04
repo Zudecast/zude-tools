@@ -204,7 +204,6 @@ MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
 PanelContainer/styles/panel = ExtResource("1_hbpfm")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
-ScrollContainer/styles/panel = ExtResource("1_hbpfm")
 TabContainer/constants/side_margin = 20
 TabContainer/styles/panel = ExtResource("1_hbpfm")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")

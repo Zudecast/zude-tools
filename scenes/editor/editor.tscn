@@ -16,25 +16,34 @@ script = ExtResource("1_2osj4")
 
 [node name="ExpisodesVBox" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="EpisodesScroll" type="ScrollContainer" parent="ExpisodesVBox"]
-custom_minimum_size = Vector2(0, 250)
+[node name="PanelContainer" type="PanelContainer" parent="ExpisodesVBox"]
 layout_mode = 2
-follow_focus = true
+size_flags_vertical = 3
 
-[node name="EpisodesMargin" type="MarginContainer" parent="ExpisodesVBox/EpisodesScroll"]
+[node name="EpisodesMargin" type="MarginContainer" parent="ExpisodesVBox/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EpisodeFlow" type="HFlowContainer" parent="ExpisodesVBox/EpisodesScroll/EpisodesMargin"]
+[node name="EpisodesScroll" type="ScrollContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="EpisodeFlow" type="HFlowContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
 [node name="EpisodesButtonBar" type="PanelContainer" parent="ExpisodesVBox"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="EpisodesButtonBarMargin" type="MarginContainer" parent="ExpisodesVBox/EpisodesButtonBar"]
 layout_mode = 2
@@ -42,20 +51,22 @@ layout_mode = 2
 [node name="EpisodesButtonBarHBox" type="HBoxContainer" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin"]
 layout_mode = 2
 
-[node name="MissingThumbButton" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox"]
+[node name="EpisodesButtonBarLeft" type="HBoxContainer" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox"]
+layout_mode = 2
+
+[node name="MissingThumbButton" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Generate Missing Thumbnails"
 
-[node name="Button" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox"]
+[node name="Button" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
 layout_mode = 2
 text = "I'm Also A Button"
 
 [node name="ZudeToolsSplit" type="HSplitContainer" parent="."]
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="HeroPanel" type="PanelContainer" parent="ZudeToolsSplit"]
 unique_name_in_owner = true
