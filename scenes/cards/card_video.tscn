@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://clrhbm4fegxe3"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_asrbj"]
+[ext_resource type="Script" path="res://scenes/cards/card_video.gd" id="2_c1dg5"]
+
+[sub_resource type="FFmpegVideoStream" id="FFmpegVideoStream_wd5f0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1bpi"]
+
+[node name="VideoPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_asrbj")
+script = ExtResource("2_c1dg5")
+
+[node name="VideoMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VideoVBox" type="VBoxContainer" parent="VideoMargin"]
+layout_mode = 2
+
+[node name="VideoPreview" type="VideoStreamPlayer" parent="VideoMargin/VideoVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+stream = SubResource("FFmpegVideoStream_wd5f0")
+
+[node name="VideoTitle" type="LineEdit" parent="VideoMargin/VideoVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+text = "Title"
+editable = false
+flat = true
+
+[node name="VideoButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x1bpi")

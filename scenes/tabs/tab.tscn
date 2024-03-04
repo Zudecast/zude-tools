@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bym82tb1vnqxt"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_07b6u"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_07b6u"]
 [ext_resource type="Script" path="res://scenes/tabs/tab.gd" id="2_khbtu"]
 
-[node name="DetailsPane" type="PanelContainer"]
+[node name="TabScroll" type="ScrollContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,22 +12,16 @@ grow_vertical = 2
 theme = ExtResource("1_07b6u")
 script = ExtResource("2_khbtu")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+[node name="TabMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DetailsFlow" type="HFlowContainer" parent="ScrollContainer/MarginContainer"]
+[node name="TabFlow" type="HFlowContainer" parent="TabMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="NothingLabel" type="Label" parent="."]
+[node name="NothingLabel" type="Label" parent="TabMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

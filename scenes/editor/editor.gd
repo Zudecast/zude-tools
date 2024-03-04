@@ -6,7 +6,8 @@ extends ZudeTools
 
 const EPISODE: PackedScene = preload("res://scenes/cards/card_episode.tscn")
 const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
-const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/default_preview.tres")
+const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
+const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 const TAB: PackedScene = preload("res://scenes/tabs/tab.tscn")
 
 #endregion
@@ -24,7 +25,7 @@ const TAB: PackedScene = preload("res://scenes/tabs/tab.tscn")
 
 @onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
-@onready var item_count_label: Label = %ItemCountLabel
+@onready var item_count_label: LineEdit = %ItemCountLineEdit
 
 #endregion
 
@@ -36,12 +37,12 @@ var tabs: Dictionary
 #endregions
 
 func _ready() -> void:
-	Config.refresh_editor.connect(refresh_interface)
+	Config.editor_refresh_requested.connect(refresh_interface)
 	
 	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
-	Config.refresh_editor.disconnect(refresh_interface)
+	Config.editor_refresh_requested.disconnect(refresh_interface)
 	
 	toggle_hero_button.pressed.disconnect(toggle_hero)
 
@@ -70,7 +71,7 @@ func refresh_episode_flow() -> void:
 		print("No directory selected!")
 		return
 	
-	# Get all episodes in the production directory in reverse numerical order.
+	# Get all episodes in the production directory in reverse alphabetical order.
 	var episode_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
 	episode_list.reverse()
 	
@@ -90,7 +91,6 @@ func load_episode(title: String = "New Episode") -> void:
 	episode_flow.add_child(episode)
 	
 	# Configure the episode title and preview.
-	episode.name = title
 	episode.set_title(title)
 	if Config.settings.preview != null:
 		var image = Image.new()
@@ -155,7 +155,7 @@ func toggle_hero() -> void:
 
 #region Tabs
 
-## Create or destroy tabs for to reflect the focused episode's directories. Populate with files if created.
+## Load or free tabs for to reflect the focused episode's directories. Populate with files if created.
 func refresh_tab_flows(episode: ZudeToolsCardEpisode) -> void:
 	# Discard tabs with names not contained in the episode directories dictionary, else free its items.
 	for tab_name: String in tabs.keys():
@@ -219,7 +219,7 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		return
 	
 	# Create a placeholder tab item so we can chose how to handle it.
-	var item: ZudeToolsCard
+	var item #: ZudeToolsCard
 	
 	# Handle images.
 	if file_name.get_extension() == "png" or file_name.get_extension() == "jpg":
@@ -233,7 +233,16 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		image.load(file_path)
 		var texture = ImageTexture.create_from_image(image)
 		item.set_preview(texture)
+	
+	elif file_name.get_extension() == "mp4":
+		# Instantiate a new CardVideo
+		item = VIDEO.instantiate()
+		tab.flow.add_child(item)
 		
+		item.set_title(file_name)
+		item.set_video(file_path)
+	
+	if item != null:
 		# Create a lambda function to adjust item's size when the slider value changes.
 		var set_item_size = func(new_size: int) -> void:
 			item.custom_minimum_size.x = new_size

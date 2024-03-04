@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dff2jjw2sqplf"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_pa86c"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_pa86c"]
 [ext_resource type="Script" path="res://scenes/cards/card_episode.gd" id="2_17rr6"]
-[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/default_preview.tres" id="3_s8r0t"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/theme/default_preview.tres" id="3_s8r0t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
 
@@ -13,7 +13,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
 theme = ExtResource("1_pa86c")
 script = ExtResource("2_17rr6")
 

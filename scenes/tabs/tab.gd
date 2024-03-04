@@ -4,7 +4,7 @@ extends ZudeTools
 
 #region Onready Variables
 
-@onready var flow: HFlowContainer = %DetailsFlow
+@onready var flow: HFlowContainer = %TabFlow
 @onready var nothing_label: Label = %NothingLabel
 
 #endregion

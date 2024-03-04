@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://rye735ombanq"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_b5n65"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_b5n65"]
 [ext_resource type="Script" path="res://scenes/editor/editor_bar_top.gd" id="2_elbps"]
 [ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://icons/refresh.svg" id="3_ko21k"]
 [ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://icons/settings.svg" id="4_dhuug"]
@@ -57,7 +57,7 @@ size_flags_vertical = 4
 min_value = 250.0
 max_value = 1000.0
 step = 25.0
-value = 500.0
+value = 625.0
 
 [node name="BarRight" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

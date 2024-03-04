@@ -26,10 +26,10 @@
 [ ] Create timestamp sheets for video editors for video files.
 [/] Settings customization.
 	[x] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
+	[x] Create a list of template files that can be generated based on any existing image, video, or text file.
+		[x] Restrict the generation of template files to only generate based on specified file extensions.
 	[ ] Create a desired directory structure that can be enforced upon projects.
 		[ ] Assign default sub-directories to search for the project thumbnail and hero video when loading a production directory.
-	[ ] Create a list of template files that can be generated based on any existing image, video, or text file.
-		[ ] Restrict the generation of template files to only generate based on specified file extensions.
 	[ ] Assign the production a top level naming convention, or specify per project sub-directory based on pre-configured settings.
 		[ ] Create specific naming rules and tags per project sub-directory.
 	[ ] Accent color (if I don't get lazy)

@@ -22,13 +22,6 @@ var files: Dictionary
 
 #endregion
 
-#region Signals
-
-## Emitted by focus_changed() when the focus_entered signal is also emitted.
-signal focused(ZudeToolsCardEpisode)
-
-#endregion
-
 func _ready() -> void:
 	get_directories()
 	get_files()
@@ -40,7 +33,9 @@ func _exit_tree() -> void:
 
 ## Set the title node's text to the specified text.
 func set_title(text: String) -> void:
+	name = text
 	title.text = text
+	tooltip_text = text
 
 ## Set the preview node's image to the specified path.
 func set_preview(texture: Texture2D) -> void:
@@ -59,25 +54,6 @@ func set_preview(texture: Texture2D) -> void:
 				
 				image.load(path)
 				preview.texture = ImageTexture.create_from_image(image)
-
-# FIXME - ## Store the file path of the best hero video candidate in the video property.
-func set_video(path: String) -> void:
-	if files.has("ftg"):
-		var dir_files: PackedStringArray = files["ftg"]
-		
-		if dir_files.is_empty():
-			return
-		
-		for file_name: String in dir_files:
-			if file_name.contains(".mp4"):
-				path = directories["ftg"].path_join(file_name)
-		
-		var stream = FFmpegVideoStream.new()
-		stream.load(path)
-
-## Emit the focused signal (returning self) when the focus_entered signal is also emitted.
-func focus_changed() -> void:
-	focused.emit(self)
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(path: String = directory) -> void:

@@ -4,8 +4,8 @@
 frequency = 1.0
 
 [resource]
-width = 1920
-height = 1080
+width = 1280
+height = 720
 generate_mipmaps = false
 normalize = false
 noise = SubResource("FastNoiseLite_a3jsv")

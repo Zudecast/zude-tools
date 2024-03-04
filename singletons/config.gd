@@ -12,8 +12,8 @@ var settings: Dictionary = {
 }
 
 ## Emit when these nodes need to be refreshed.
-signal refresh_settings
-signal refresh_editor
+signal settings_refresh_requested
+signal editor_refresh_requested
 
 ## Read the config file and write it to the settings property.
 func read() -> void:
@@ -26,8 +26,8 @@ func read() -> void:
 	if parsed is Dictionary:
 		settings = parsed
 		prints("Config read:", settings)
-		refresh_settings.emit()
-		refresh_editor.emit()
+		settings_refresh_requested.emit()
+		editor_refresh_requested.emit()
 
 ## Read the settings property and write it to the config file.
 func write() -> void:
@@ -37,27 +37,21 @@ func write() -> void:
 	config_file.close()
 	
 	prints("Config written:", settings)
-	refresh_settings.emit()
+	settings_refresh_requested.emit()
 
 #region Global
 
 ## Set the specified directory to the config.directory, the directory property, then write to config file.
 func set_directory(new_path: String) -> void:
-	if new_path == "":
-		settings.directory = null
-	else:
-		settings.directory = new_path
+	settings.directory = new_path
 	write()
-	refresh_editor.emit()
+	editor_refresh_requested.emit()
 
 ## Set the specified path to the config.preview, then write to config file.
 func set_preview(new_path: String) -> void:
-	if new_path == "":
-		settings.preview = null
-	else:
-		settings.preview = new_path
+	settings.preview = new_path
 	write()
-	refresh_editor.emit()
+	editor_refresh_requested.emit()
 
 #endregion
 

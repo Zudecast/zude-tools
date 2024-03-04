@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=3 uid="uid://dtmi8h8ws7tf4"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://theme/zude_tools_theme.tres" id="1_cxk3m"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_cxk3m"]
 [ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
 [ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://scenes/editor/editor.tscn" id="3_2emxl"]
 [ext_resource type="PackedScene" uid="uid://rye735ombanq" path="res://scenes/editor/editor_bar_top.tscn" id="3_na4fc"]
-[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://theme/panel_flat.tres" id="5_sbihw"]
+[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://resources/theme/panel_flat.tres" id="5_sbihw"]
 [ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://scenes/settings/settings.tscn" id="5_xuio0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8hxd"]
@@ -295,24 +295,21 @@ grow_vertical = 2
 theme = ExtResource("1_cxk3m")
 script = ExtResource("1_epjjy")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="ZudeToolsMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="Margin" type="MarginContainer" parent="Panel"]
+[node name="ZudeToolsVBox" type="VBoxContainer" parent="ZudeToolsMargin"]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
-layout_mode = 2
-
-[node name="EditorBarTop" parent="Panel/Margin/VBox" instance=ExtResource("3_na4fc")]
+[node name="EditorBarTop" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_na4fc")]
 layout_mode = 2
 theme = SubResource("Theme_wmscq")
 
-[node name="ZudeToolsEditor" parent="Panel/Margin/VBox" instance=ExtResource("3_2emxl")]
+[node name="ZudeToolsEditor" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_2emxl")]
 layout_mode = 2
 theme = SubResource("Theme_rhfp5")
 
-[node name="ZudeToolsSettings" parent="Panel/Margin/VBox" instance=ExtResource("5_xuio0")]
+[node name="ZudeToolsSettings" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("5_xuio0")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
