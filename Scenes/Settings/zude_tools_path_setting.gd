@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsPathSetting
-extends Control
+extends ZudeTools
 
 #region Onready Variables
 
@@ -59,9 +59,8 @@ extends Control
 
 #region Signals
 
-signal label_updated(new: String, prev: String, path: String)
-signal path_updated(new: String, label: String)
-signal path_selected(path: String)
+signal label_updated(new_label: String, prev_label: String, path: String)
+signal path_updated(new_path: String, label: String)
 signal dialog_requested(ZudeToolsPathSetting)
 signal setting_deleted(ZudeToolsPathSetting)
 
@@ -93,17 +92,16 @@ func _exit_tree() -> void:
 
 ## Called when label.text_submitted is emitted.
 func update_label(new_label: String) -> void:
-	label_updated.emit(new_label, label_text, path_text)
-	label_text = new_label
+	if editable_label:
+		label_updated.emit(new_label, label_text, path_text)
+		label_text = new_label
 
 ## Called when path.text_submitted is emitted.
 func update_path(new_path: String) -> void:
-	path_updated.emit(new_path, label_text)
-	path_text = new_path
-
-## Called when file_dialog.file_selected is emitted.
-func select_path(new_path: String) -> void:
-	path_selected.emit(path)
+	if editable_label:
+		path_updated.emit(new_path, label_text)
+	else:
+		path_updated.emit(new_path)
 	path_text = new_path
 
 ## Called when select_button.pressed is emitted. Sends self to the file dialog to call select_path.

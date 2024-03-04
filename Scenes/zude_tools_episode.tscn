@@ -1,7 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dff2jjw2sqplf"]
+[gd_scene load_steps=8 format=3 uid="uid://dff2jjw2sqplf"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_pa86c"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_pa86c"]
 [ext_resource type="Script" path="res://Scenes/zude_tools_episode.gd" id="2_17rr6"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://Resources/default_preview.tres" id="3_s8r0t"]
+
+[sub_resource type="Gradient" id="Gradient_a8vmo"]
+interpolation_color_space = 1
+colors = PackedColorArray(0.154876, 0.154876, 0.154876, 1, 0.195545, 0.195545, 0.195545, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gf2t8"]
+gradient = SubResource("Gradient_a8vmo")
+width = 1920
+height = 1080
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0.00320513, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yctmp"]
+texture = SubResource("GradientTexture2D_gf2t8")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
 
@@ -14,6 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_pa86c")
+theme_override_styles/panel = SubResource("StyleBoxTexture_yctmp")
 script = ExtResource("2_17rr6")
 
 [node name="EpisodeMarginContainer" type="MarginContainer" parent="."]
@@ -25,16 +41,17 @@ layout_mode = 2
 [node name="EpisodePreview" type="TextureRect" parent="EpisodeMarginContainer/EpisodeVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 0
+texture = ExtResource("3_s8r0t")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="EpisodeTitle" type="Label" parent="EpisodeMarginContainer/EpisodeVBoxContainer"]
+[node name="EpisodeTitle" type="LineEdit" parent="EpisodeMarginContainer/EpisodeVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 2
-text = "Title"
-text_overrun_behavior = 2
+size_flags_vertical = 10
+placeholder_text = "Episode Title"
+editable = false
+flat = true
 
 [node name="EpisodeButton" type="Button" parent="."]
 unique_name_in_owner = true

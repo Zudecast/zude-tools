@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsTab
-extends Control
+extends ZudeTools
 
 #region Onready Variables
 

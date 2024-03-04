@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bym82tb1vnqxt"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_07b6u"]
-[ext_resource type="Script" path="res://Scenes/zude_tools_tab.gd" id="2_khbtu"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_07b6u"]
+[ext_resource type="Script" path="res://Scenes/Tabs/zude_tools_tab.gd" id="2_khbtu"]
 
 [node name="DetailsPane" type="PanelContainer"]
 anchors_preset = 15

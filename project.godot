@@ -17,6 +17,11 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://logo.png"
 config/icon="res://zude_tools.svg"
 
+[autoload]
+
+Config="*res://Scenes/Settings/config.tscn"
+Dialog="*res://Scenes/file_dialog.gd"
+
 [display]
 
 window/size/viewport_width=1280

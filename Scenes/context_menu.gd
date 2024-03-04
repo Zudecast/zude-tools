@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsContextMenu
-extends Control
+extends ZudeTools
 
 func _ready():
 	pass # Replace with function body.

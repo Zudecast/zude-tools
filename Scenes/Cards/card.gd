@@ -1,6 +1,6 @@
 @tool
-class_name ZudeToolsTabItem
-extends Control
+class_name ZudeToolsCard
+extends ZudeTools
 
 #region Onready Variables
 
@@ -11,7 +11,6 @@ extends Control
 #endregion
 
 func _ready() -> void:
-	# TODO - button.pressed.connect()
 	pass
 
 ## Set the thumb_title node's text to the internal title property.

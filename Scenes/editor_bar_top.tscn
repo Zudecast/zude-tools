@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://rye735ombanq"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_b5n65"]
+[ext_resource type="Script" path="res://Scenes/editor_bar_top.gd" id="2_elbps"]
+[ext_resource type="Texture2D" uid="uid://coq0ahqyn4wo5" path="res://Icons/refresh.svg" id="3_ko21k"]
+[ext_resource type="Texture2D" uid="uid://ds86elxmww3yp" path="res://Icons/settings.svg" id="4_dhuug"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_vjsuv"]
+action = &"Refresh"
+
+[sub_resource type="Shortcut" id="Shortcut_yorr0"]
+events = [SubResource("InputEventAction_vjsuv")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_hi1cs"]
+action = &"Open Settings"
+
+[sub_resource type="Shortcut" id="Shortcut_n6rsc"]
+events = [SubResource("InputEventAction_hi1cs")]
+
+[node name="EditorBarTop" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme = ExtResource("1_b5n65")
+script = ExtResource("2_elbps")
+
+[node name="BarLeft" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NewEpisodeButton" type="Button" parent="BarLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Episode
+"
+
+[node name="OpenProductionButton" type="Button" parent="BarLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Open Production"
+
+[node name="BarCenter" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="EpisodeSizeSlider" type="HSlider" parent="BarCenter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 250.0
+max_value = 1000.0
+step = 25.0
+value = 500.0
+
+[node name="BarRight" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="RefreshButton" type="Button" parent="BarRight"]
+unique_name_in_owner = true
+layout_mode = 2
+shortcut = SubResource("Shortcut_yorr0")
+text = "Refresh"
+icon = ExtResource("3_ko21k")
+
+[node name="SettingsButton" type="Button" parent="BarRight"]
+unique_name_in_owner = true
+layout_mode = 2
+shortcut = SubResource("Shortcut_n6rsc")
+text = "Settings"
+icon = ExtResource("4_dhuug")

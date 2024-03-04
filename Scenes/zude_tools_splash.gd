@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsSplash
-extends Control
+extends ZudeTools
 
 func _ready() -> void:
 	set_visible(true)

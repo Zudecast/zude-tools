@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddr404nsb64xm"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_lp5cp"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_lp5cp"]
 [ext_resource type="Texture2D" uid="uid://b8gck6jniprdr" path="res://zude_tools.svg" id="2_k4wyi"]
 [ext_resource type="Script" path="res://Scenes/zude_tools_splash.gd" id="2_q0ene"]
 

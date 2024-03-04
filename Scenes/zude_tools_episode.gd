@@ -1,10 +1,10 @@
 @tool
 class_name ZudeToolsEpisode
-extends Control
+extends ZudeTools
 
 #region Onready Variables
 
-@onready var title: Label = %EpisodeTitle
+@onready var title: LineEdit = %EpisodeTitle
 @onready var preview: TextureRect = %EpisodePreview
 @onready var button: Button = $EpisodeButton
 
@@ -44,7 +44,8 @@ func set_title(text: String) -> void:
 	title.text = text
 
 ## Set the preview node's image to the specified path.
-func set_preview(path: String) -> void:
+func set_preview(texture: Texture2D) -> void:
+	preview.texture = texture
 	# Check episode directory for a main thumb, use
 	if files.has("main_thumb"):
 		var dir_files: PackedStringArray = files["main_thumb"]
@@ -54,11 +55,11 @@ func set_preview(path: String) -> void:
 		
 		for file_name: String in dir_files:
 			if file_name.is_valid_filename() and file_name.ends_with(".jpg"):
-				path = directories["main_thumb"].path_join(file_name)
-	
-	var image = Image.new()
-	image.load(path)
-	preview.texture = ImageTexture.create_from_image(image)
+				var path = directories["main_thumb"].path_join(file_name)
+				var image = Image.new()
+				
+				image.load(path)
+				preview.texture = ImageTexture.create_from_image(image)
 
 # FIXME - ## Store the file path of the best hero video candidate in the video property.
 func set_video(path: String) -> void:
@@ -106,5 +107,3 @@ func get_files() -> void:
 ## Clear files dictionary.
 func clear_files() -> void:
 	files.clear()
-
-

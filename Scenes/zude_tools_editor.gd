@@ -1,36 +1,26 @@
 @tool
 class_name ZudeToolsEditor
-extends Control
+extends ZudeTools
 
 #region Constants
 
 const EPISODE: PackedScene = preload("res://Scenes/zude_tools_episode.tscn")
-const TAB: PackedScene = preload("res://Scenes/zude_tools_tab.tscn")
-const TAB_ITEM: PackedScene = preload("res://Scenes/zude_tools_tab_item.tscn")
+const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://Resources/default_preview.tres")
+const TAB: PackedScene = preload("res://Scenes/Tabs/zude_tools_tab.tscn")
+const CARD: PackedScene = preload("res://Scenes/Cards/card.tscn")
 
 #endregion
 
 #region Onready Variables
 
-@onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
-@onready var file_dialog: ZudeToolsFileDialog = $"../ZudeToolsFileDialog"
-
-@onready var episode_size_slider = %EpisodeSizeSlider
-@onready var episode_flow: HFlowContainer = %EpisodesHFlowContainer
+@onready var editor_bar_top = $"../EditorBarTop"
+@onready var episode_flow: HFlowContainer = %EpisodeFlow
 @onready var tabs_container: TabContainer = %TabsContainer
 
-@onready var hero_panel_container: PanelContainer = %HeroPanelContainer
-@onready var hero_title: Label = %HeroTitle
+@onready var hero_panel: PanelContainer = %HeroPanel
+@onready var hero_title: LineEdit = %HeroTitle
 @onready var hero_preview: TextureRect = %HeroPreview
 @onready var hero_video: VideoStreamPlayer = %HeroVideo
-
-@onready var buttons_panel_h_box_left: HBoxContainer = %ButtonsPanelHBoxLeft
-@onready var new_episode_button: Button = %NewEpisodeButton
-@onready var open_production_button_top: Button = %OpenProductionButtonTop
-@onready var buttons_panel_h_box_right: HBoxContainer = %ButtonsPanelHBoxRight
-@onready var refresh_button: Button = %RefreshButton
-@onready var settings_button: Button = %SettingsButton
-@onready var open_production_button_mid: Button = %OpenProductionButtonMid
 
 @onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
@@ -46,91 +36,38 @@ var tabs: Dictionary
 #endregions
 
 func _ready() -> void:
-	new_episode_button.pressed.connect(load_episode)
-	open_production_button_top.pressed.connect(file_dialog.popup_directory_dialog)
-	refresh_button.pressed.connect(refresh)
-	settings_button.pressed.connect(settings.popup_menu)
-	open_production_button_mid.pressed.connect(file_dialog.popup_directory_dialog)
+	Config.updated.connect(refresh_interface)
+	
 	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
-	new_episode_button.pressed.disconnect(load_episode)
-	open_production_button_top.pressed.disconnect(file_dialog.popup_directory_dialog)
-	refresh_button.pressed.disconnect(refresh)
-	settings_button.pressed.disconnect(settings.popup_menu)
-	open_production_button_mid.pressed.disconnect(file_dialog.popup_directory_dialog)
+	Config.updated.disconnect(refresh_interface)
+	
 	toggle_hero_button.pressed.connect(toggle_hero)
 
-#region Editor
-
 ## Clear hero, free all tabs, and update episode flow.
-func refresh() -> void:
+func refresh_interface() -> void:
 	clear_hero()
-	free_all_tabs()
-	free_all_episodes()
-	update_episode_flow()
-	update_buttons_visibility()
+	clear_tabs()
+	clear_episodes()
+	refresh_episode_flow()
+	print("Editor interface refreshed.")
 
-## Show buttons when they're needed, hide them when they're not.
-func update_buttons_visibility() -> void:
-	if settings.config.directory != null:
-		open_production_button_mid.visible = false
-	else:
-		open_production_button_mid.visible = true
-
-#endregion
+## Open the settings menu.
+func toggle_interface() -> void:
+	visible = !visible
 
 #region Episodes
 
-## Instantiate and configure an episode and add it to the episode flow.
-func load_episode(title: String = "New Episode") -> void:
-	# Instantiate the episode.
-	var episode: ZudeToolsEpisode = EPISODE.instantiate()
-	episode.directory = settings.config.directory.path_join(title)
-	
-	# Merge episode into the episodes dictionary and add it to the episode flow.
-	episode_flow.add_child(episode)
-	episodes.merge({title : episode})
-	
-	# Configure the episode title and preview.
-	episode.set_title(title)
-	episode.set_preview(settings.config.default_preview)
-	
-	# Connect the episode focused signal to the relevant update methods.
-	episode.focused.connect(update_hero)
-	episode.focused.connect(update_tab_flows)
-	
-	# Create a lambda function to adjust item's size when the slider value changes.
-	var set_episode_size = func(new_size: int) -> void:
-		episode.custom_minimum_size.x = new_size
-	
-	# Connect slider to lambda.
-	episode_size_slider.value_changed.connect(set_episode_size)
-
-## Free and episode from the episode
-func free_episode(episode: ZudeToolsEpisode) -> void:
-	# Disonnect the episode focused signal from the relevant update methods.
-	episode.focused.disconnect(update_hero)
-	episode.focused.disconnect(update_tab_flows)
-	
-	episode_flow.remove_child(episode)
-	episodes.erase(episodes.find_key(episode))
-
-## Free all episodes from the episode flow and the episodes dictionary.
-func free_all_episodes() -> void:
-	if episodes.is_empty() == false:
-		for episode: ZudeToolsEpisode in episodes.values():
-			free_episode(episode)
-
 ## Frees all episodes then loads the episodes dictionary to the episode flow.
-func update_episode_flow() -> void:
+func refresh_episode_flow() -> void:
 	# Early return if no directory is set in config.
-	if settings.config.directory == null:
+	if Config.settings.directory == null:
 		print("No directory selected!")
 		return
 	
 	# Get all episodes in the production directory in reverse numerical order.
-	var episode_list: PackedStringArray = DirAccess.get_directories_at(settings.config.directory)
+	var episode_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
 	episode_list.reverse()
 	
 	# Load all episodes in the list.
@@ -138,15 +75,59 @@ func update_episode_flow() -> void:
 		if episodes.has(title) == false:
 			load_episode(title)
 
+## Instantiate and configure an episode and add it to the episode flow.
+func load_episode(title: String = "New Episode") -> void:
+	# Instantiate the episode.
+	var episode: ZudeToolsEpisode = EPISODE.instantiate()
+	episode.directory = Config.settings.directory.path_join(title)
+	
+	# Merge episode into the episodes dictionary and add it to the episode flow.
+	episode_flow.add_child(episode)
+	episodes.merge({title : episode})
+	
+	# Configure the episode title and preview.
+	episode.name = title
+	episode.set_title(title)
+	if Config.settings.preview != null:
+		var image = Image.new()
+		image.load(Config.settings.preview)
+		var texture = ImageTexture.create_from_image(image)
+		episode.set_preview(texture)
+	else:
+		episode.set_preview(DEFAULT_PREVIEW)
+	
+	# Connect the episode focused signal to the relevant update methods.
+	episode.focused.connect(refresh_hero)
+	episode.focused.connect(refresh_tab_flows)
+	
+	# Create a lambda function to adjust item's size when the slider value changes.
+	var set_episode_size = func(new_size: int) -> void:
+		episode.custom_minimum_size.x = new_size
+	
+	# Connect slider to lambda.
+	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_size)
+
+## Free and episode from the episode
+func free_episode(episode: ZudeToolsEpisode) -> void:
+	# Disconnect the episode focused signal from the relevant update methods.
+	episode.focused.disconnect(refresh_hero)
+	episode.focused.disconnect(refresh_tab_flows)
+	
+	episodes.erase(episodes.find_key(episode))
+	episode.queue_free()
+
+## Free all episodes from the episode flow and the episodes dictionary.
+func clear_episodes() -> void:
+	if episodes.is_empty() == false:
+		for episode: ZudeToolsEpisode in episodes.values():
+			free_episode(episode)
+
 #endregion
 
 #region Hero
 
-func toggle_hero() -> void:
-	hero_panel_container.visible = !hero_panel_container.visible
-
 # FIXME - ## Set the hero panel variables to the related variables from the focused episode.
-func update_hero(episode: ZudeToolsEpisode) -> void:
+func refresh_hero(episode: ZudeToolsEpisode) -> void:
 	clear_hero()
 	
 	hero_title.text = episode.title.text
@@ -158,12 +139,39 @@ func update_hero(episode: ZudeToolsEpisode) -> void:
 
 ## Clear the hero panel variables and return them to defaults.
 func clear_hero() -> void:
-	hero_preview.texture = null
 	hero_title.text = "Select an episode..."
+	hero_preview.texture = null
+
+## Toggle Hero visibilie=ty
+func toggle_hero() -> void:
+	hero_panel.visible = !hero_panel.visible
 
 #endregion
 
 #region Tabs
+
+## Create or destroy tabs for to reflect the focused episode's directories. Populate with files if created.
+func refresh_tab_flows(episode: ZudeToolsEpisode) -> void:
+	# Discard tabs with names not contained in the episode directories dictionary, else free its items.
+	for tab_name: String in tabs.keys():
+		if episode.directories.has(tab_name):
+			free_all_items_from_tab(tabs[tab_name])
+		else:
+			free_tab(tabs[tab_name])
+	
+	# Create a tab for each episode directory name that a tab does not yet exist for.
+	for dir_name: String in episode.directories.keys():
+		if tabs.has(dir_name) == false:
+			load_tab(dir_name)
+		
+		# Populate each tab's item flow with relevant images.
+		for file_name: String in episode.files[dir_name]:
+			var file_path: String = episode.directories[dir_name].path_join(file_name)
+			load_item_into_tab(tabs[dir_name], file_name, file_path)
+	
+	# Check each tab's item flow for children to determine if a "nothing here" label should be shown.
+	for tab: ZudeToolsTab in tabs.values():
+		tab.check_for_items()
 
 ## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
 func load_tab(tab_name: String) -> void:
@@ -189,32 +197,9 @@ func free_tab(tab: ZudeToolsTab) -> void:
 	tab.queue_free()
 
 ## Free all tabs from the tab container and the tabs dictionary.
-func free_all_tabs() -> void:
+func clear_tabs() -> void:
 	for tab in tabs.values():
 		free_tab(tab)
-
-## Create or destroy tabs for to reflect the focused episode's directories. Populate with files if created.
-func update_tab_flows(episode: ZudeToolsEpisode) -> void:
-	# Discard tabs with names not contained in the episode directories dictionary, else free its items.
-	for tab_name: String in tabs.keys():
-		if episode.directories.has(tab_name):
-			free_all_items_from_tab(tabs[tab_name])
-		else:
-			free_tab(tabs[tab_name])
-	
-	# Create a tab for each episode directory name that a tab does not yet exist for.
-	for dir_name: String in episode.directories.keys():
-		if tabs.has(dir_name) == false:
-			load_tab(dir_name)
-		
-		# Populate each tab's item flow with relevant images.
-		for file_name: String in episode.files[dir_name]:
-			var file_path: String = episode.directories[dir_name].path_join(file_name)
-			load_item_into_tab(tabs[dir_name], file_name, file_path)
-	
-	# Check each tab's item flow for children to determine if a "nothing here" label should be shown.
-	for tab: ZudeToolsTab in tabs.values():
-		tab.check_for_items()
 
 #endregion
 
@@ -227,12 +212,12 @@ func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String)
 		return
 	
 	# Create a placeholder tab item so we can chose how to handle it.
-	var item: ZudeToolsTabItem
+	var item: ZudeToolsCard
 	
 	# Handle images.
 	if file_name.ends_with(".png") or file_name.ends_with(".jpg"):
 		# Instantiate a new TabItem.
-		item = TAB_ITEM.instantiate()
+		item = CARD.instantiate()
 		tab.flow.add_child(item)
 		
 		# Configure item.

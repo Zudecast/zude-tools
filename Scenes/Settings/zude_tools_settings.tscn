@@ -1,22 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwoa5aaupwgvv"]
+[gd_scene load_steps=16 format=3 uid="uid://bwoa5aaupwgvv"]
 
-[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Resources/zude_tools_theme.tres" id="1_fgagf"]
-[ext_resource type="Script" path="res://Scenes/zude_tools_settings.gd" id="2_wokt4"]
-[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/zude_tools_path_setting.tscn" id="4_gatcq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv0x1"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.101961, 0.101961, 0.101961, 0.768627)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p16gf"]
-bg_color = Color(0.176471, 0.176471, 0.176471, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://Theme/zude_tools_theme.tres" id="1_fgagf"]
+[ext_resource type="Script" path="res://Scenes/Settings/zude_tools_settings.gd" id="2_wokt4"]
+[ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://Scenes/Settings/zude_tools_path_setting.tscn" id="4_gatcq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_imawo"]
 font_size = 22
@@ -164,53 +150,33 @@ TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_u3mx2")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_g3idt")
 VBoxContainer/constants/separation = 10
 
-[node name="ZudeToolsSettings" type="Control"]
-layout_mode = 3
+[node name="ZudeToolsSettings" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fgagf")
+theme_type_variation = &"SolidPanelContainer"
 script = ExtResource("2_wokt4")
 
-[node name="ZudeToolsSettingsPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hv0x1")
-
-[node name="ZudeToolsSettingsMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
-
-[node name="SettingsPanel" type="PanelContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_p16gf")
-
-[node name="SettingsPanelMargin" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel"]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="SettingsPanelVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin"]
+[node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="SettingsPanelLabel" type="Label" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
+[node name="SettingsPanelLabel" type="Label" parent="Margin/VBox"]
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_imawo")
 horizontal_alignment = 1
 
-[node name="CloseSettingsButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsPanelLabel"]
+[node name="CloseSettingsButton" type="Button" parent="Margin/VBox/SettingsPanelLabel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -228,21 +194,19 @@ size_flags_vertical = 4
 text = "Close Settings"
 icon_alignment = 2
 
-[node name="SettingsTabContainer" type="TabContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox"]
+[node name="SettingsTabContainer" type="TabContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 2
 drag_to_rearrange_enabled = true
 
-[node name="Global" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
-visible = false
+[node name="Global" type="MarginContainer" parent="Margin/VBox/SettingsTabContainer"]
 layout_mode = 2
 
-[node name="GlobalVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global"]
+[node name="GlobalVBox" type="VBoxContainer" parent="Margin/VBox/SettingsTabContainer/Global"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DefaultPreviewPathSetting" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Global/GlobalVBox" instance=ExtResource("4_gatcq")]
+[node name="DefaultPreview" parent="Margin/VBox/SettingsTabContainer/Global/GlobalVBox" instance=ExtResource("4_gatcq")]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_grv8k")
@@ -251,39 +215,42 @@ label_text = "Default Project Preview"
 path_placeholder = "\"image.jpg\""
 show_delete = false
 
-[node name="Templates" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+[node name="Templates" type="MarginContainer" parent="Margin/VBox/SettingsTabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBox/SettingsTabContainer/Templates"]
 layout_mode = 2
 
-[node name="TemplatesVBox" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/VBoxContainer"]
+[node name="TemplatesVBox" type="VBoxContainer" parent="Margin/VBox/SettingsTabContainer/Templates/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AddTemplateButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Templates/VBoxContainer"]
+[node name="AddTemplateButton" type="Button" parent="Margin/VBox/SettingsTabContainer/Templates/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "+"
 
-[node name="Folders" type="MarginContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer"]
+[node name="Folders" type="MarginContainer" parent="Margin/VBox/SettingsTabContainer"]
+visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/VBox/SettingsTabContainer/Folders"]
 layout_mode = 2
 
-[node name="FolderTree" type="Tree" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/VBoxContainer"]
+[node name="AddFolderButton" type="Button" parent="Margin/VBox/SettingsTabContainer/Folders/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "+"
+
+[node name="FolderTree" type="Tree" parent="Margin/VBox/SettingsTabContainer/Folders/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+column_titles_visible = true
 drop_mode_flags = 3
 select_mode = 2
-
-[node name="AddFolderButton" type="Button" parent="ZudeToolsSettingsPanel/ZudeToolsSettingsMargin/SettingsPanel/SettingsPanelMargin/SettingsPanelVBox/SettingsTabContainer/Folders/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "+"
