@@ -36,12 +36,12 @@ var tabs: Dictionary
 #endregions
 
 func _ready() -> void:
-	Config.updated.connect(refresh_interface)
+	Config.refresh_editor.connect(refresh_interface)
 	
 	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
-	Config.updated.disconnect(refresh_interface)
+	Config.refresh_editor.disconnect(refresh_interface)
 	
 	toggle_hero_button.pressed.disconnect(toggle_hero)
 

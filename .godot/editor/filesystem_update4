@@ -3,3 +3,7 @@ res://theme/zude_tools_theme.tres
 res://resources/default_preview.tres
 res://zude_tools.tscn
 res://theme/panel_flat.tres
+res://scenes/editor/editor.tscn
+res://singletons/config.gd
+res://scenes/editor/editor.gd
+res://scenes/settings/settings.gd

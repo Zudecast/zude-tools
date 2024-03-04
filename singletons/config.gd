@@ -11,8 +11,9 @@ var settings: Dictionary = {
 	"templates" : {}
 }
 
-## Emitted when settings is read from or written to the config file.
-signal updated
+## Emit when these nodes need to be refreshed.
+signal refresh_settings
+signal refresh_editor
 
 ## Read the config file and write it to the settings property.
 func read() -> void:
@@ -25,7 +26,8 @@ func read() -> void:
 	if parsed is Dictionary:
 		settings = parsed
 		prints("Config read:", settings)
-		updated.emit()
+		refresh_settings.emit()
+		refresh_editor.emit()
 
 ## Read the settings property and write it to the config file.
 func write() -> void:
@@ -35,7 +37,9 @@ func write() -> void:
 	config_file.close()
 	
 	prints("Config written:", settings)
-	updated.emit()
+	refresh_settings.emit()
+
+#region Global
 
 ## Set the specified directory to the config.directory, the directory property, then write to config file.
 func set_directory(new_path: String) -> void:
@@ -44,6 +48,7 @@ func set_directory(new_path: String) -> void:
 	else:
 		settings.directory = new_path
 	write()
+	refresh_editor.emit()
 
 ## Set the specified path to the config.preview, then write to config file.
 func set_preview(new_path: String) -> void:
@@ -52,6 +57,11 @@ func set_preview(new_path: String) -> void:
 	else:
 		settings.preview = new_path
 	write()
+	refresh_editor.emit()
+
+#endregion
+
+#region Templates
 
 ## Set a template file with a new label, or create one if it doesn't exist.
 func set_template_label(new_label: String, old_label: String, path: String) -> void:
@@ -68,3 +78,5 @@ func set_template_path(new_path: String, label: String) -> void:
 func remove_template(label: String) -> void:
 	settings.templates.erase(label)
 	write()
+
+#endregion

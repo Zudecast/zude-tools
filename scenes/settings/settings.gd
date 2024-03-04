@@ -22,7 +22,7 @@ const PATH_SETTING: PackedScene = preload("res://scenes/settings/path_setting.ts
 #endregion
 
 func _ready() -> void:
-	Config.updated.connect(refresh_interface)
+	Config.refresh_settings.connect(refresh_interface)
 	# Connect signals for the general interface.
 	visibility_changed.connect(refresh_interface)
 	# Connect signals for global path settings.
@@ -33,7 +33,7 @@ func _ready() -> void:
 	# TODO - add_folder_button.pressed.connect(create_folder_tree_item)
 
 func _exit_tree() -> void:
-	Config.updated.disconnect(refresh_interface)
+	Config.refresh_settings.disconnect(refresh_interface)
 	# Disconnect signals for the general interface.
 	visibility_changed.disconnect(refresh_interface)
 	# Disconnect signals for global settings.
