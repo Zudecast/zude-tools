@@ -21,16 +21,6 @@ var settings: Dictionary = {
 signal settings_refresh_requested
 signal editor_refresh_requested
 
-func _get_property_list() -> Array[Dictionary]:
-	var properties = []
-	properties.append({
-		"name": "settings",
-		"type": TYPE_DICTIONARY,
-		"usage": PROPERTY_USAGE_STORAGE
-	})
-	
-	return properties
-
 ## Read the config file and write it to the settings property.
 func read() -> void:
 	if FileAccess.file_exists(CONFIG_FILE) == false:

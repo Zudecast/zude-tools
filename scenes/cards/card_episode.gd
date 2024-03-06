@@ -4,9 +4,9 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var title: LineEdit = %EpisodeTitle
-@onready var preview: TextureRect = %EpisodePreview
-@onready var button: Button = $EpisodeButton
+@onready var title: LineEdit = %Title
+@onready var preview: TextureRect = %Preview
+@onready var button: Button = %Button
 
 #endregion
 
@@ -24,13 +24,15 @@ var files: Dictionary
 
 func _ready() -> void:
 	get_directories()
-	build_directories()
 	get_files()
 	
 	button.focus_entered.connect(focus_changed)
 
 func _exit_tree() -> void:
 	button.focus_entered.disconnect(focus_changed)
+	
+	clear_files()
+	clear_directories()
 
 ## Set the title node's text to the specified text.
 func set_title(text: String) -> void:
@@ -49,12 +51,12 @@ func set_preview(texture: Texture2D) -> void:
 			return
 		
 		for file_name: String in dir_files:
-			if file_name.is_valid_filename() and file_name.ends_with(".jpg"):
+			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
 				var path = directories["main_thumb"].path_join(file_name)
 				var image = Image.new()
-				
 				image.load(path)
-				preview.texture = ImageTexture.create_from_image(image)
+				if image.is_empty() == false:
+					preview.texture = ImageTexture.create_from_image(image)
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(path: String = directory) -> void:
@@ -64,25 +66,27 @@ func get_directories(path: String = directory) -> void:
 		var dir_path: String = path.path_join(dir)
 		directories.merge({dir : dir_path})
 		get_directories(dir_path)
+	
+	if directories.size() == 0:
+		build_directories()
 
 ## Build directories based on the folders settings menu for new episodes.
 func build_directories() -> void:
-	if directories.size() == 0:
-		for parent_name: String in Config.settings.folder_tree.keys():
-			var parent_path: String
-			if parent_name == "root":
-				parent_path = directory
-			else:
-				parent_path = directory.path_join(parent_name)
-				
-			var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
-			for child_dict: Dictionary in child_dict_array:
-				var child_name: String = child_dict.keys()[0]
-				var child_path = parent_path.path_join(child_name)
-				DirAccess.make_dir_recursive_absolute(child_path)
+	for parent_name: String in Config.settings.folder_tree.keys():
+		var parent_path: String
+		if parent_name == "root":
+			parent_path = directory
+		else:
+			parent_path = directory.path_join(parent_name)
+			
+		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
+		for child_dict: Dictionary in child_dict_array:
+			var child_name: String = child_dict.keys()[0]
+			var child_path = parent_path.path_join(child_name)
+			DirAccess.make_dir_recursive_absolute(child_path)
 	
-		prints("Created episode at:", directory)
-		prints("Built directories for episode:", title.text)
+	prints("Created episode at:", directory)
+	prints("Built directories for episode:", title.text)
 	
 	get_directories()
 

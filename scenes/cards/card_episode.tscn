@@ -22,15 +22,14 @@ layout_mode = 2
 [node name="EpisodeVBox" type="VBoxContainer" parent="EpisodeMargin"]
 layout_mode = 2
 
-[node name="EpisodePreview" type="TextureRect" parent="EpisodeMargin/EpisodeVBox"]
+[node name="Preview" type="TextureRect" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
 texture = ExtResource("3_s8r0t")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="EpisodeTitle" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
+[node name="Title" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
@@ -38,7 +37,7 @@ placeholder_text = "Episode Title"
 editable = false
 flat = true
 
-[node name="EpisodeButton" type="Button" parent="."]
+[node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_jr1c7")

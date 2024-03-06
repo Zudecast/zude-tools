@@ -60,6 +60,7 @@ func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder
 	item.set_text(1, tags)
 	item.set_editable(1, true)
 	
+	# FIXME - Buttons need icons
 	item.add_button(1, PlaceholderTexture2D.new(), 0, false, "up")
 	item.add_button(1, PlaceholderTexture2D.new(), 1, false, "down")
 	item.add_button(1, PlaceholderTexture2D.new(), 2, false, "delete")

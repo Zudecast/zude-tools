@@ -105,12 +105,12 @@ func load_episode(title: String = "New Episode") -> void:
 	episode.focused.connect(refresh_hero)
 	episode.focused.connect(refresh_tab_flows)
 	
-	# Create a lambda function to adjust item's size when the slider value changes.
-	var set_episode_size = func(new_size: int) -> void:
-		episode.custom_minimum_size.x = new_size
+	# FIXME - # Create a lambda function to adjust item's size when the slider value changes.
+	var set_episode_scale = func(new_scale: int) -> void:
+		episode.scale = Vector2(new_scale, new_scale)
 	
 	# Connect slider to lambda.
-	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_size)
+	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_scale)
 
 ## Free and episode from the episode
 func free_episode(episode: ZudeToolsCardEpisode) -> void:
@@ -132,16 +132,12 @@ func clear_episodes() -> void:
 
 #region Hero
 
-# FIXME - ## Set the hero panel variables to the related variables from the focused episode.
+## Set the hero panel variables to the related variables from the focused episode.
 func refresh_hero(episode: ZudeToolsCardEpisode) -> void:
 	clear_hero()
 	
 	hero_title.text = episode.title.text
 	hero_preview.texture = episode.preview.texture
-	
-	#var stream := FFmpegVideoStream.new()
-	#stream.file = episode.video
-	#hero_video.stream = load(episode.video)
 
 ## Clear the hero panel variables and return them to defaults.
 func clear_hero() -> void:
@@ -215,56 +211,73 @@ func clear_tabs() -> void:
 
 ## Add any item to the specified tab.
 func load_item_into_tab(tab: ZudeToolsTab, file_name: String, file_path: String) -> void:
+	var valid: bool = false
+	
 	# Early return if item is not a valid file.
 	if file_name.is_valid_filename() == false:
 		return
 	
 	# Create a placeholder tab item so we can chose how to handle it.
-	var item: ZudeToolsCard
+	var card: ZudeToolsCard
 	
 	# Handle image files.
 	if file_name.get_extension() in ["png", "jpg"]:
 		# Instantiate a new CardImage
-		item = IMAGE.instantiate()
-		tab.flow.add_child(item)
+		card = IMAGE.instantiate()
+		tab.flow.add_child(card)
 		
-		# Configure item.
-		item.set_title(file_name)
+		# Configure card.
+		card.set_title(file_name)
 		var image = Image.new()
 		image.load(file_path)
-		var texture = ImageTexture.create_from_image(image)
-		item.set_preview(texture)
+		var texture: Texture2D
+		if image.is_empty() == false:
+			texture = ImageTexture.create_from_image(image)
+		else:
+			texture = DEFAULT_PREVIEW
+		card.set_preview(texture)
+		
+		valid = true
 	
-	# Handle template files.
+	# Handle image template files.
 	elif file_name.get_extension() in ["psd", "krz", "kra"]:
 		# Instantiate a new CardVideo
-		item = IMAGE.instantiate()
-		tab.flow.add_child(item)
+		card = IMAGE.instantiate()
+		tab.flow.add_child(card)
 		
-		# Configure item.
-		item.set_title(file_name)
+		# Configure card.
+		card.set_title(file_name)
 		var image = Image.new()
 		image.load(file_path)
-		var texture = ImageTexture.create_from_image(image)
-		item.set_preview(texture)
-	
-	# Handle video files.
-	elif file_name.get_extension() in ["mp4", "mkv"]:
-		# Instantiate a new CardVideo
-		item = VIDEO.instantiate()
-		tab.flow.add_child(item)
+		var texture: Texture2D
+		if image.is_empty() == false:
+			texture = ImageTexture.create_from_image(image)
+		else:
+			texture = DEFAULT_PREVIEW
+		card.set_preview(texture)
 		
-		# Configure item.
-		item.set_title(file_name)
-		item.set_video(file_path)
+		valid = true
 	
-	if item != null:
-		# Create a lambda function to adjust item's size when the slider value changes.
-		var set_item_size = func(new_size: int) -> void:
-			item.custom_minimum_size.x = new_size
+	# FIXME - Video cards are still comically large
+	# Handle video files.
+	#elif file_name.get_extension() in ["mp4", "mkv"]:
+		## Instantiate a new CardVideo
+		#card = VIDEO.instantiate()
+		#tab.flow.add_child(card)
+		#
+		## Configure card.
+		#card.set_title(file_name)
+		#card.set_preview(file_path)
+		#
+		#valid = true
+	
+	if valid:
+		# FIXME - # Create a lambda function to adjust item's size when the slider value changes.
+		var set_card_scale = func(new_scale: float) -> void:
+			card.scale = Vector2(new_scale, new_scale)
 		
 		# Connect slider to lambda.
-		preview_size_slider.value_changed.connect(set_item_size)
+		preview_size_slider.value_changed.connect(set_card_scale)
 
 ## Remove any item from the specified tab at the specified index.
 func free_item_from_tab(tab: ZudeToolsTab, item: Control) -> void:

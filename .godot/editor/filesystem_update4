@@ -1,5 +1,4 @@
 res://zude_tools.tscn
 res://resources/theme/zude_tools_theme.tres
 res://resources/theme/default_preview.tres
-res://scenes/settings/settings.tscn
-res://singletons/config.gd
+res://scenes/editor/editor.gd

@@ -37,4 +37,5 @@ func _exit_tree() -> void:
 		settings_button.pressed.disconnect(editor.toggle_interface)
 	if settings:
 		settings_button.pressed.disconnect(settings.toggle_interface)
+	
 	open_production_button.pressed.disconnect(Dialog.popup_directory_dialog)

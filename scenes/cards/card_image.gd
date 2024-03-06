@@ -4,9 +4,9 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var title: LineEdit = %ImageTitle
-@onready var preview: TextureRect = %ImagePreview
-@onready var button: Button = %ImageButton
+@onready var title: LineEdit = %Title
+@onready var preview: TextureRect = %Preview
+@onready var button: Button = %Button
 
 #endregion
 

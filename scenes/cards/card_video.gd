@@ -4,18 +4,16 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var title: LineEdit = %VideoTitle
-@onready var video: VideoStreamPlayer = %VideoPreview
-@onready var button: Button = $VideoButton
+@onready var title: LineEdit = %Title
+@onready var preview: ZudeToolsVideoPlayer = %Preview
+@onready var button: Button = %Button
 
 #endregion
 
 func _ready() -> void:
-	button.pressed.connect(video.play)
 	button.focus_entered.connect(focus_changed)
 
 func _exit_tree() -> void:
-	button.pressed.disconnect(video.play)
 	button.focus_entered.disconnect(focus_changed)
 
 ## Set the title node's text to the specified text.
@@ -25,5 +23,5 @@ func set_title(text: String) -> void:
 	tooltip_text = text
 
 ## Set the video node's stream file to the specified path.
-func set_video(path: String) -> void:
-	video.stream.file = path
+func set_preview(path: String) -> void:
+	preview.video.stream.file = path
