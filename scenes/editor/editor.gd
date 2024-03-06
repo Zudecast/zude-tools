@@ -71,6 +71,7 @@ func refresh_episode_flow() -> void:
 		print("No directory selected!")
 		return
 	
+	prints("Loaded directory:", Config.settings.directory)
 	# Get all episodes in the production directory in reverse alphabetical order.
 	var episode_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
 	episode_list.reverse()

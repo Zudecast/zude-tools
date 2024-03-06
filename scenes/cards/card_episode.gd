@@ -24,6 +24,7 @@ var files: Dictionary
 
 func _ready() -> void:
 	get_directories()
+	build_directories()
 	get_files()
 	
 	button.focus_entered.connect(focus_changed)
@@ -59,11 +60,31 @@ func set_preview(texture: Texture2D) -> void:
 func get_directories(path: String = directory) -> void:
 	var dirs: PackedStringArray = DirAccess.get_directories_at(path)
 	
-	if dirs.size() > 0:
-		for dir: String in dirs:
-			var dir_path: String = path.path_join(dir)
-			directories.merge({dir : dir_path})
-			get_directories(dir_path)
+	for dir: String in dirs:
+		var dir_path: String = path.path_join(dir)
+		directories.merge({dir : dir_path})
+		get_directories(dir_path)
+
+## Build directories based on the folders settings menu for new episodes.
+func build_directories() -> void:
+	if directories.size() == 0:
+		for parent_name: String in Config.settings.folder_tree.keys():
+			var parent_path: String
+			if parent_name == "root":
+				parent_path = directory
+			else:
+				parent_path = directory.path_join(parent_name)
+				
+			var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
+			for child_dict: Dictionary in child_dict_array:
+				var child_name: String = child_dict.keys()[0]
+				var child_path = parent_path.path_join(child_name)
+				DirAccess.make_dir_recursive_absolute(child_path)
+	
+		prints("Created episode at:", directory)
+		prints("Built directories for episode:", title.text)
+	
+	get_directories()
 
 ## Clear directories dictionary.
 func clear_directories() -> void:

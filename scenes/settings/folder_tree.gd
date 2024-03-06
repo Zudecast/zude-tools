@@ -69,7 +69,7 @@ func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder
 ## Recursively build children of the specified item as defined in the config file.
 func build_tree(item: TreeItem = get_root()) -> void:
 	var item_name = item.get_text(0)
-	for parent_name: String in Config.settings.folder_tree:
+	for parent_name: String in Config.settings.folder_tree.keys():
 		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
 		if parent_name == item_name:
 			for child_dict: Dictionary in child_dict_array:

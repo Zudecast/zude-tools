@@ -9,7 +9,12 @@ var settings: Dictionary = {
 	"directory" : null,
 	"preview" : null,
 	"templates" : {},
-	"folder_tree" : {}
+	"folder_tree" : {
+		"clips": [{ "clips_img": "" },{ "clips_thumb": "" }],
+		"img": [{ "instagram_flyer": "" }],
+		"main": [{ "main_thumb": "" }, { "main_img": "" }],
+		"root": [{ "ftg": "" }, { "main": "" }, { "clips": "" }, { "img": "" }, { "reels": "" }, { "super": "" }, { "srt": "" }]
+	}
 }
 
 ## Emit when these nodes need to be refreshed.
@@ -34,7 +39,12 @@ func read() -> void:
 	var config_file = FileAccess.get_file_as_string(CONFIG_FILE)
 	settings = JSON.parse_string(config_file)
 	
-	print("Config Read:", settings)
+	print()
+	print("-- Config Read:")
+	for entry_key in settings.keys():
+		printt(entry_key, settings.get(entry_key))
+	print("-- Config End --")
+	print()
 	settings_refresh_requested.emit()
 	editor_refresh_requested.emit()
 
@@ -44,7 +54,12 @@ func write() -> void:
 	config_file.store_string(JSON.stringify(settings))
 	config_file.close()
 	
-	print("Config written:", settings)
+	print()
+	print("-- Config Written:")
+	for entry_key in settings.keys():
+		printt(entry_key, settings.get(entry_key))
+	print("-- Config End --")
+	print()
 	settings_refresh_requested.emit()
 
 #region Global
