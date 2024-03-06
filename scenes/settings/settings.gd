@@ -16,7 +16,7 @@ const PATH_SETTING: PackedScene = preload("res://scenes/settings/path_setting.ts
 @onready var templates: VBoxContainer = %TemplatesVBox
 @onready var add_template_button: Button = %AddTemplateButton
 
-@onready var folders: Tree = %FolderTree
+@onready var folder_tree: Tree = %FolderTree
 @onready var add_folder_button: Button = %AddFolderButton
 
 #endregion
@@ -30,7 +30,8 @@ func _ready() -> void:
 	default_preview.dialog_requested.connect(Dialog.popup_image_dialog)
 	# Connect signals for template path settings.
 	add_template_button.pressed.connect(create_template_setting)
-	# TODO - add_folder_button.pressed.connect(create_folder_tree_item)
+	# Connect signals for folder tree settings.
+	add_folder_button.pressed.connect(folder_tree.create_tree_item)
 
 func _exit_tree() -> void:
 	Config.settings_refresh_requested.disconnect(refresh_interface)
@@ -41,7 +42,8 @@ func _exit_tree() -> void:
 	default_preview.dialog_requested.disconnect(Dialog.popup_image_dialog)
 	# Disconnect signals for template settings.
 	add_template_button.pressed.disconnect(create_template_setting)
-	# TODO - add_folder_button.pressed.disconnect(create_folder_tree_item)
+	# Disconnect signals for folder tree settings.
+	add_folder_button.pressed.disconnect(folder_tree.create_tree_item)
 
 #region Interface
 
@@ -50,6 +52,7 @@ func refresh_interface() -> void:
 	if visible:
 		refresh_global_menu()
 		refresh_template_menu()
+		folder_tree.refresh_folder_tree_menu()
 		print("Settings interface refreshed.")
 
 ## Open the settings menu.
@@ -63,11 +66,11 @@ func refresh_global_menu() -> void:
 
 ## Clear template PathSettings from the templates settings menu then rebuild them from config.
 func refresh_template_menu() -> void:
-	if Config.settings.templates.is_empty() == false:
-		for child in templates.get_children():
-			if child != add_template_button:
-				child.queue_free()
+	for child in templates.get_children():
+		if child != add_template_button:
+			child.queue_free()
 		
+	if Config.settings.templates.is_empty() == false:
 		for label: String in Config.settings.templates:
 			var path: String = Config.settings.templates.get(label)
 			create_template_setting(label, path)
@@ -90,5 +93,3 @@ func create_template_setting(file_name: String = "", file_path: String = "") -> 
 	path_setting.path_updated.connect(Config.set_template_path)
 	path_setting.dialog_requested.connect(Dialog.popup_template_dialog)
 	path_setting.setting_deleted.connect(Config.remove_template, CONNECT_ONE_SHOT)
-
-#endregion

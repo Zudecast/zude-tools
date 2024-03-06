@@ -1,7 +1,8 @@
-res://scenes/editor/editor.tscn
+res://scenes/settings/settings.tscn
 res://resources/theme/zude_tools_theme.tres
 res://resources/theme/default_preview.tres
 res://zude_tools.tscn
-res://scenes/cards/card_video.tscn
-res://scenes/cards/card_image.tscn
-res://scenes/cards/card_episode.tscn
+res://scenes/settings/settings.gd
+res://scenes/settings/folder_tree.gd
+res://config.json
+res://singletons/config.gd

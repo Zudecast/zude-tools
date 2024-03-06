@@ -8,35 +8,43 @@ const CONFIG_FILE: String = "res://config.json"
 var settings: Dictionary = {
 	"directory" : null,
 	"preview" : null,
-	"templates" : {}
+	"templates" : {},
+	"folder_tree" : {}
 }
 
 ## Emit when these nodes need to be refreshed.
 signal settings_refresh_requested
 signal editor_refresh_requested
 
+func _get_property_list() -> Array[Dictionary]:
+	var properties = []
+	properties.append({
+		"name": "settings",
+		"type": TYPE_DICTIONARY,
+		"usage": PROPERTY_USAGE_STORAGE
+	})
+	
+	return properties
+
 ## Read the config file and write it to the settings property.
 func read() -> void:
 	if FileAccess.file_exists(CONFIG_FILE) == false:
 		write()
 	
-	var contents = FileAccess.get_file_as_string(CONFIG_FILE)
-	var parsed = JSON.parse_string(contents)
+	var config_file = FileAccess.get_file_as_string(CONFIG_FILE)
+	settings = JSON.parse_string(config_file)
 	
-	if parsed is Dictionary:
-		settings = parsed
-		prints("Config read:", settings)
-		settings_refresh_requested.emit()
-		editor_refresh_requested.emit()
+	print("Config Read:", settings)
+	settings_refresh_requested.emit()
+	editor_refresh_requested.emit()
 
 ## Read the settings property and write it to the config file.
 func write() -> void:
 	var config_file = FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
-	
 	config_file.store_string(JSON.stringify(settings))
 	config_file.close()
 	
-	prints("Config written:", settings)
+	print("Config written:", settings)
 	settings_refresh_requested.emit()
 
 #region Global
@@ -71,6 +79,14 @@ func set_template_path(new_path: String, label: String) -> void:
 ## Remove an entry from config.templates.
 func remove_template(label: String) -> void:
 	settings.templates.erase(label)
+	write()
+
+#endregion
+
+#region Folders
+
+func set_folder_tree(tree: Dictionary) -> void:
+	settings.folder_tree = tree
 	write()
 
 #endregion
