@@ -44,7 +44,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilj5u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4sj0"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -187,7 +187,7 @@ Button/constants/icon_max_width = 15
 Button/styles/disabled = SubResource("StyleBoxFlat_a8hxd")
 Button/styles/focus = SubResource("StyleBoxFlat_ak1a3")
 Button/styles/hover = SubResource("StyleBoxFlat_pxfsg")
-Button/styles/normal = SubResource("StyleBoxFlat_ilj5u")
+Button/styles/normal = SubResource("StyleBoxFlat_k4sj0")
 Button/styles/pressed = SubResource("StyleBoxFlat_gnpmo")
 DeleteButton/base_type = &"Button"
 DeleteButton/constants/h_separation = 0

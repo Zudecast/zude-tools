@@ -5,3 +5,9 @@ res://zude_tools.gd
 res://singletons/config.gd
 res://scenes/editor/editor.tscn
 res://scenes/editor/editor.gd
+res://resources/theme/panel_flat.tres
+res://scenes/cards/card_episode.tscn
+res://scenes/editor/menu_bar.tscn
+res://scenes/settings/settings.tscn
+res://scenes/hero_panel/hero_panel.tscn
+res://scenes/hero_panel/hero_panel.gd

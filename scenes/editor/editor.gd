@@ -15,16 +15,13 @@ const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn"
 
 #region Onready Variables
 
-@onready var editor_bar_top = $"../EditorBarTop"
+@onready var menu_bar = $"../MenuBar"
 
 @onready var episode_flow: HFlowContainer = %EpisodeFlow
 @onready var load_more_button: Button = %LoadMoreButton
 @onready var load_less_button: Button = %LoadLessButton
 
-@onready var hero_panel: PanelContainer = %HeroPanel
-@onready var hero_title: LineEdit = %HeroTitle
-@onready var hero_preview: TextureRect = %HeroPreview
-@onready var hero_video: VideoStreamPlayer = %HeroVideo
+@onready var hero: ZudeToolsHero = %HeroPanel
 @onready var toggle_hero_button: Button = %ToggleHeroButton
 
 @onready var tabs_container: TabContainer = %TabsContainer
@@ -56,7 +53,7 @@ func _ready() -> void:
 	
 	load_more_button.pressed.connect(increment_episode_buffer_size)
 	load_less_button.pressed.connect(reset_episode_buffer_size)
-	toggle_hero_button.pressed.connect(toggle_hero)
+	toggle_hero_button.pressed.connect(hero.toggle_visibility)
 
 func _exit_tree() -> void:
 	Config.editor_refresh_requested.disconnect(refresh_interface)
@@ -65,7 +62,7 @@ func _exit_tree() -> void:
 	
 	load_more_button.pressed.disconnect(increment_episode_buffer_size)
 	load_less_button.pressed.disconnect(reset_episode_buffer_size)
-	toggle_hero_button.pressed.disconnect(toggle_hero)
+	toggle_hero_button.pressed.disconnect(hero.toggle_visibility)
 
 #region Interface
 
@@ -76,9 +73,9 @@ func refresh_interface() -> void:
 	refresh_button_visibility()
 	print("Editor interface refreshed.")
 
-## Clear and reload all properties.
+## Clear and reload all interface properties.
 func reset_interface() -> void:
-	clear_hero()
+	hero.clear()
 	clear_tabs()
 	refresh_interface()
 	print("Editor interface reset.")
@@ -171,7 +168,7 @@ func load_episode(title: String) -> void:
 		episode.set_preview(DEFAULT_PREVIEW)
 	
 	# Connect the episode focused signal to the relevant update methods.
-	episode.focused.connect(refresh_hero)
+	episode.focused.connect(hero.refresh)
 	episode.focused.connect(refresh_tab_flows)
 	
 	# FIXME - # Create a lambda function to adjust item's size when the slider value changes.
@@ -179,7 +176,7 @@ func load_episode(title: String) -> void:
 		episode.scale = Vector2(new_scale, new_scale)
 	
 	# Connect slider to lambda.
-	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_scale)
+	menu_bar.episode_size_slider.value_changed.connect(set_episode_scale)
 
 ## Get episode titles and fill the episode flow with an episode instance for each that doesn't yet exist.
 func load_episodes() -> void:
@@ -204,7 +201,7 @@ func free_episode(title: String) -> void:
 	if episode == null: return
 	
 	# Disconnect the episode focused signal from the relevant update methods.
-	episode.focused.disconnect(refresh_hero)
+	episode.focused.disconnect(hero.refresh)
 	episode.focused.disconnect(refresh_tab_flows)
 	
 	episode.queue_free()
@@ -234,26 +231,6 @@ func increment_episode_buffer_size() -> void:
 	episode_buffer_size = clamp(episode_buffer_size, 0, episode_titles.size())
 	load_episodes()
 	refresh_button_visibility()
-
-#endregion
-
-#region Hero
-
-## Set the hero panel variables to the related variables from the focused episode.
-func refresh_hero(episode: ZudeToolsCardEpisode) -> void:
-	clear_hero()
-	
-	hero_title.text = episode.title.text
-	hero_preview.texture = episode.preview.texture
-
-## Clear the hero panel variables and return them to defaults.
-func clear_hero() -> void:
-	hero_title.text = "Select an episode..."
-	hero_preview.texture = null
-
-## Toggle Hero visibilie=ty
-func toggle_hero() -> void:
-	hero_panel.visible = !hero_panel.visible
 
 #endregion
 

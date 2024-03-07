@@ -1,3 +1,7 @@
+Control
+VSplitContainer
+VSeparator
+HSeparator
 Button
 HBoxContainer
 VBoxContainer
@@ -6,9 +10,5 @@ MarginContainer
 PanelContainer
 LineEdit
 Window
-VSeparator
-HSeparator
 Label
 HSlider
-ScrollContainer
-ColorPicker

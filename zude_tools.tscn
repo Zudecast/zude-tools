@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_cxk3m"]
 [ext_resource type="Script" path="res://zude_tools.gd" id="1_epjjy"]
 [ext_resource type="PackedScene" uid="uid://d3i64a5qg7iv" path="res://scenes/editor/editor.tscn" id="3_2emxl"]
-[ext_resource type="PackedScene" uid="uid://rye735ombanq" path="res://scenes/editor/editor_bar_top.tscn" id="3_na4fc"]
+[ext_resource type="PackedScene" uid="uid://rye735ombanq" path="res://scenes/editor/menu_bar.tscn" id="3_na4fc"]
 [ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://resources/theme/panel_flat.tres" id="5_sbihw"]
 [ext_resource type="PackedScene" uid="uid://bwoa5aaupwgvv" path="res://scenes/settings/settings.tscn" id="5_xuio0"]
 
@@ -306,9 +306,9 @@ layout_mode = 2
 theme = SubResource("Theme_wmscq")
 
 [node name="ZudeToolsEditor" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_2emxl")]
+visible = false
 layout_mode = 2
 theme = SubResource("Theme_rhfp5")
-episode_buffer_increment = null
 
 [node name="ZudeToolsSettings" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("5_xuio0")]
 visible = false

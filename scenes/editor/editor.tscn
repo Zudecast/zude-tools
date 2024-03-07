@@ -4,7 +4,8 @@
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_o4ffb"]
 [ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://icons/eye.svg" id="5_trbm3"]
 
-[node name="ZudeToolsEditor" type="VSplitContainer"]
+[node name="ZudeToolsEditor" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,108 +14,118 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme = ExtResource("1_o4ffb")
 script = ExtResource("1_2osj4")
-episode_buffer_increment = null
 
-[node name="ExpisodesVBox" type="VBoxContainer" parent="."]
+[node name="EditorSplit" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EditorTop" type="VBoxContainer" parent="EditorSplit"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="ExpisodesVBox"]
+[node name="PanelContainer" type="PanelContainer" parent="EditorSplit/EditorTop"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EpisodesMargin" type="MarginContainer" parent="ExpisodesVBox/PanelContainer"]
+[node name="EpisodesMargin" type="MarginContainer" parent="EditorSplit/EditorTop/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EpisodesScroll" type="ScrollContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin"]
+[node name="EpisodesScroll" type="ScrollContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin"]
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EpisodeFlow" type="HFlowContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
+[node name="EpisodeFlow" type="HFlowContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
+[node name="LoadButtonsBar" type="HBoxContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 alignment = 1
 
-[node name="LoadMoreButton" type="Button" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/HBoxContainer"]
+[node name="LoadMoreButton" type="Button" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/LoadButtonsBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "Load More"
+size_flags_vertical = 4
+text = "More"
+flat = true
 
-[node name="LoadLessButton" type="Button" parent="ExpisodesVBox/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/HBoxContainer"]
+[node name="LoadLessButton" type="Button" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/LoadButtonsBar"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Load Less"
+text = "Less"
+flat = true
 
-[node name="EpisodesButtonBar" type="PanelContainer" parent="ExpisodesVBox"]
+[node name="EpisodesButtonBar" type="PanelContainer" parent="EditorSplit/EditorTop"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="EpisodesButtonBarMargin" type="MarginContainer" parent="ExpisodesVBox/EpisodesButtonBar"]
+[node name="EpisodesButtonBarMargin" type="MarginContainer" parent="EditorSplit/EditorTop/EpisodesButtonBar"]
 layout_mode = 2
 
-[node name="EpisodesButtonBarHBox" type="HBoxContainer" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin"]
+[node name="EpisodesButtonBarHBox" type="HBoxContainer" parent="EditorSplit/EditorTop/EpisodesButtonBar/EpisodesButtonBarMargin"]
 layout_mode = 2
 
-[node name="EpisodesButtonBarLeft" type="HBoxContainer" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox"]
+[node name="EpisodesButtonBarLeft" type="HBoxContainer" parent="EditorSplit/EditorTop/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox"]
 layout_mode = 2
 
-[node name="MissingThumbButton" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
+[node name="MissingThumbButton" type="Button" parent="EditorSplit/EditorTop/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Generate Missing Thumbnails"
 
-[node name="Button" type="Button" parent="ExpisodesVBox/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
+[node name="Button" type="Button" parent="EditorSplit/EditorTop/EpisodesButtonBar/EpisodesButtonBarMargin/EpisodesButtonBarHBox/EpisodesButtonBarLeft"]
 layout_mode = 2
 text = "I'm Also A Button"
 
-[node name="ZudeToolsSplit" type="HSplitContainer" parent="."]
+[node name="EditorBottom" type="HSplitContainer" parent="EditorSplit"]
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
-[node name="HeroPanel" type="PanelContainer" parent="ZudeToolsSplit"]
+[node name="HeroPanel" type="PanelContainer" parent="EditorSplit/EditorBottom"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="HeroMargin" type="MarginContainer" parent="ZudeToolsSplit/HeroPanel"]
+[node name="HeroMargin" type="MarginContainer" parent="EditorSplit/EditorBottom/HeroPanel"]
 layout_mode = 2
 
-[node name="HeroVBox" type="VBoxContainer" parent="ZudeToolsSplit/HeroPanel/HeroMargin"]
+[node name="HeroVBox" type="VBoxContainer" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin"]
 layout_mode = 2
 alignment = 1
 
-[node name="HeroVideo" type="VideoStreamPlayer" parent="ZudeToolsSplit/HeroPanel/HeroMargin/HeroVBox"]
+[node name="HeroVideo" type="VideoStreamPlayer" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 expand = true
 
-[node name="HeroPreview" type="TextureRect" parent="ZudeToolsSplit/HeroPanel/HeroMargin/HeroVBox"]
+[node name="HeroPreview" type="TextureRect" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 expand_mode = 5
 stretch_mode = 5
 
-[node name="HeroTitle" type="LineEdit" parent="ZudeToolsSplit/HeroPanel/HeroMargin/HeroVBox"]
+[node name="HeroTitle" type="LineEdit" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
@@ -123,26 +134,26 @@ alignment = 1
 editable = false
 flat = true
 
-[node name="TabsVBox" type="VBoxContainer" parent="ZudeToolsSplit"]
+[node name="EditorBottomRight" type="VBoxContainer" parent="EditorSplit/EditorBottom"]
 layout_mode = 2
 
-[node name="TabsContainer" type="TabContainer" parent="ZudeToolsSplit/TabsVBox"]
+[node name="TabsContainer" type="TabContainer" parent="EditorSplit/EditorBottom/EditorBottomRight"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 265)
 layout_mode = 2
 size_flags_vertical = 3
 drag_to_rearrange_enabled = true
 
-[node name="TabButtonBar" type="PanelContainer" parent="ZudeToolsSplit/TabsVBox"]
+[node name="TabButtonBar" type="PanelContainer" parent="EditorSplit/EditorBottom/EditorBottomRight"]
 layout_mode = 2
 
-[node name="TabButtonBarMargin" type="MarginContainer" parent="ZudeToolsSplit/TabsVBox/TabButtonBar"]
+[node name="TabButtonBarMargin" type="MarginContainer" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar"]
 layout_mode = 2
 
-[node name="TabButtonBarHBox" type="HBoxContainer" parent="ZudeToolsSplit/TabsVBox/TabButtonBar/TabButtonBarMargin"]
+[node name="TabButtonBarHBox" type="HBoxContainer" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin"]
 layout_mode = 2
 
-[node name="ToggleHeroButton" type="Button" parent="ZudeToolsSplit/TabsVBox/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
+[node name="ToggleHeroButton" type="Button" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
@@ -150,7 +161,7 @@ icon = ExtResource("5_trbm3")
 flat = true
 icon_alignment = 1
 
-[node name="PreviewSizeSlider" type="HSlider" parent="ZudeToolsSplit/TabsVBox/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
+[node name="PreviewSizeSlider" type="HSlider" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -162,7 +173,7 @@ step = 0.25
 value = 1.0
 scrollable = false
 
-[node name="ItemCountLineEdit" type="LineEdit" parent="ZudeToolsSplit/TabsVBox/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
+[node name="ItemCountLineEdit" type="LineEdit" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2

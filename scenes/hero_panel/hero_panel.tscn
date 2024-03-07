@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca4tupbrsiy46"]
+
+[ext_resource type="Script" path="res://scenes/hero_panel/hero_panel.gd" id="1_k4swi"]
+
+[node name="HeroPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+script = ExtResource("1_k4swi")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Video" type="VideoStreamPlayer" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+expand = true
+
+[node name="Image" type="TextureRect" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Title" type="LineEdit" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+placeholder_text = "Select an episode..."
+alignment = 1
+editable = false
+flat = true
