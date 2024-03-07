@@ -308,7 +308,7 @@ theme = SubResource("Theme_wmscq")
 [node name="ZudeToolsEditor" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_2emxl")]
 layout_mode = 2
 theme = SubResource("Theme_rhfp5")
-episode_buffer_size = null
+episode_buffer_increment = null
 
 [node name="ZudeToolsSettings" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("5_xuio0")]
 visible = false

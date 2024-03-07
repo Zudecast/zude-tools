@@ -16,15 +16,18 @@ const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn"
 #region Onready Variables
 
 @onready var editor_bar_top = $"../EditorBarTop"
+
 @onready var episode_flow: HFlowContainer = %EpisodeFlow
-@onready var tabs_container: TabContainer = %TabsContainer
+@onready var load_more_button: Button = %LoadMoreButton
+@onready var load_less_button: Button = %LoadLessButton
 
 @onready var hero_panel: PanelContainer = %HeroPanel
 @onready var hero_title: LineEdit = %HeroTitle
 @onready var hero_preview: TextureRect = %HeroPreview
 @onready var hero_video: VideoStreamPlayer = %HeroVideo
-
 @onready var toggle_hero_button: Button = %ToggleHeroButton
+
+@onready var tabs_container: TabContainer = %TabsContainer
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
 @onready var item_count_label: LineEdit = %ItemCountLineEdit
 
@@ -32,15 +35,16 @@ const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn"
 
 #region Export Variables
 
-@export var episode_buffer_size: int = 20
+@export var episode_buffer_increment: int = 20: set = set_episode_buffer_increment
 
 #endregion
 
 #region Variables
 
 # TODO - create episode buffer handling
+var episode_buffer_size: int = episode_buffer_increment
 var episode_buffer: Dictionary
-var episode_titles: Array[String]
+var episode_titles: PackedStringArray
 var tabs: Dictionary
 
 #endregions
@@ -50,6 +54,8 @@ func _ready() -> void:
 	Config.directory_set.connect(reset_interface)
 	Config.preview_set.connect(refresh_interface)
 	
+	load_more_button.pressed.connect(increment_episode_buffer_size)
+	load_less_button.pressed.connect(reset_episode_buffer_size)
 	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
@@ -57,25 +63,37 @@ func _exit_tree() -> void:
 	Config.directory_set.disconnect(reset_interface)
 	Config.preview_set.disconnect(refresh_interface)
 	
+	load_more_button.pressed.disconnect(increment_episode_buffer_size)
+	load_less_button.pressed.disconnect(reset_episode_buffer_size)
 	toggle_hero_button.pressed.disconnect(toggle_hero)
 
 #region Interface
 
-## Clear hero, free all tabs, and update episode flow.
+## Refresh episode flow.
 func refresh_interface() -> void:
-	create_episode_titles()
-	load_episodes()
+	refresh_episode_titles()
+	refresh_episode_flow()
+	refresh_button_visibility()
 	print("Editor interface refreshed.")
 
 ## Clear and reload all properties.
 func reset_interface() -> void:
 	clear_hero()
 	clear_tabs()
-	clear_episode_titles()
-	create_episode_titles()
-	free_episodes()
-	load_episodes()
-	print("Editor interface cleared.")
+	refresh_interface()
+	print("Editor interface reset.")
+
+## Check various editor properties and states to show or hide buttons.
+func refresh_button_visibility() -> void:
+	if episode_buffer_size >= episode_titles.size():
+		load_more_button.visible = false
+	else:
+		load_more_button.visible = true
+	
+	if episode_buffer_size == episode_buffer_increment:
+		load_less_button.visible = false
+	else:
+		load_less_button.visible = true
 
 ## Hide the editor and show the settings menu.
 func toggle_interface() -> void:
@@ -88,33 +106,24 @@ func toggle_interface() -> void:
 ## Popup a text dialog and load a new episode with the provided text.
 func new_episode() -> void:
 	var dialog = TEXT_DIALOG.instantiate()
-	dialog.confirmed.connect(create_episode_title, CONNECT_ONE_SHOT)
 	dialog.confirmed.connect(load_episode, CONNECT_ONE_SHOT)
+	dialog.confirmed.connect(refresh_interface, CONNECT_ONE_SHOT)
 	add_child(dialog)
 
-## Add a title to episode_titles.
-func create_episode_title(title: String) -> void:
-	if episode_titles.has(title):
-		return
-	
-	episode_titles.append(title)
-
-## Collect episode directories as titles and store them in an array.
-func create_episode_titles() -> void:
-	# Early return if no directory is set in config settings.
+## Gets all episode directories as a PackedStringArry and sets it to episode_titles.
+func refresh_episode_titles() -> PackedStringArray:
 	if Config.settings.directory == null:
 		print("No directory selected!")
-		return
-	else:
-		prints("Loaded directory:", Config.settings.directory)
+		return []
 	
-	# Get all episodes in the config directory in reverse alphabetical order.
-	var episode_title_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
-	episode_title_list.reverse()
-	
-	# Create episode_titles entires for all episode titles in the list.
-	for episode_title: String in episode_title_list:
-		create_episode_title(episode_title)
+	episode_titles = DirAccess.get_directories_at(Config.settings.directory)
+	episode_titles.reverse()
+	return episode_titles
+
+# TODO - ## Load or free episodes based on the current state of episode_titles and episode_buffer.
+func refresh_episode_flow() -> void:
+	free_episodes()
+	load_episodes()
 
 ## Instantiate an episode instance and add it to the episode buffer.
 func buffer_episode(title: String) -> ZudeToolsCardEpisode:
@@ -172,28 +181,11 @@ func load_episode(title: String) -> void:
 	# Connect slider to lambda.
 	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_scale)
 
-## Get episode titles and fill the episode flow with an episode instance for each.
+## Get episode titles and fill the episode flow with an episode instance for each that doesn't yet exist.
 func load_episodes() -> void:
 	for episode_title: String in episode_titles:
 		if episode_buffer.has(episode_title) == false:
 			load_episode(episode_title)
-
-## Remove a title from episode_titles.
-func clear_episode_title(title: String) -> void:
-	if episode_buffer.has(title):
-		episode_buffer.erase(title)
-	
-	if episode_titles.has(title):
-		episode_titles.erase(title)
-
-## Remove all titles from episode_titles.
-func clear_episode_titles() -> void:
-	if episode_titles.is_empty():
-		return
-	
-	for episode_title: String in episode_titles:
-		free_episode(episode_title)
-		clear_episode_title(episode_title)
 
 ## Free an episode instance from the episode buffer.
 func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
@@ -225,6 +217,23 @@ func free_episodes() -> void:
 	
 	for episode_title: String in episode_buffer.keys():
 		free_episode(episode_title)
+
+## Reset the episode buffer size to its increment size, then refresh the interface.
+func reset_episode_buffer_size() -> void:
+	episode_buffer_size = episode_buffer_increment
+	refresh_interface()
+
+## Set the episode buffer increment size, then refresh the interface.
+func set_episode_buffer_increment(value: float) -> void:
+	episode_buffer_increment = value
+	reset_episode_buffer_size()
+
+## Increment the episode buffer size, then load episodes.
+func increment_episode_buffer_size() -> void:
+	episode_buffer_size += episode_buffer_increment
+	episode_buffer_size = clamp(episode_buffer_size, 0, episode_titles.size())
+	load_episodes()
+	refresh_button_visibility()
 
 #endregion
 

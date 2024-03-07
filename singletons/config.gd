@@ -46,9 +46,9 @@ func read() -> void:
 	settings = JSON.parse_string(config_file)
 	
 	print()
-	print("-- Config Read:")
-	for entry_key in settings.keys():
-		printt(entry_key, settings.get(entry_key))
+	print("-- Config Read --")
+	for setting in settings:
+		print(setting, ": ", settings.get(setting))
 	print("-- Config End --")
 	print()
 	settings_refresh_requested.emit()
@@ -61,9 +61,9 @@ func write() -> void:
 	config_file.close()
 	
 	print()
-	print("-- Config Written:")
-	for entry_key in settings.keys():
-		printt(entry_key, settings.get(entry_key))
+	print("-- Config Written --")
+	for setting in settings:
+		print(setting, ": ", settings.get(setting))
 	print("-- Config End --")
 	print()
 	settings_refresh_requested.emit()

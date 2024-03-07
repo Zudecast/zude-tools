@@ -40,6 +40,7 @@ func set_directory(new_dir: String) -> void:
 
 ## Set the title node's text to the specified text.
 func set_title(text: String) -> void:
+	name = text
 	title.text = text
 	tooltip_text = text
 
@@ -89,7 +90,6 @@ func build_directories() -> void:
 			DirAccess.make_dir_recursive_absolute(child_path)
 	
 	prints("Created episode at:", directory)
-	prints("Built directories for episode:", title.text)
 	
 	get_directories()
 

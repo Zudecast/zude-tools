@@ -181,6 +181,7 @@ corner_radius_top_right = 4
 
 [resource]
 resource_local_to_scene = true
+default_font_size = 20
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 15
 Button/styles/disabled = SubResource("StyleBoxFlat_a8hxd")
@@ -200,6 +201,7 @@ HeaderMedium/base_type = &"Label"
 HeaderMedium/font_sizes/font_size = 24
 HeaderSmall/base_type = &"Label"
 HeaderSmall/font_sizes/font_size = 20
+Label/font_sizes/Label = 20
 Label/font_sizes/font_size = 18
 LineEdit/colors/font_uneditable_color = Color(1, 1, 1, 1)
 LineEdit/styles/focus = SubResource("StyleBoxFlat_7kgbr")
