@@ -9,6 +9,7 @@ const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
 const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
 const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 const TAB: PackedScene = preload("res://scenes/tabs/tab.tscn")
+const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn")
 
 #endregion
 
@@ -29,20 +30,32 @@ const TAB: PackedScene = preload("res://scenes/tabs/tab.tscn")
 
 #endregion
 
+#region Export Variables
+
+@export var episode_buffer_size: int = 20
+
+#endregion
+
 #region Variables
 
-var episodes: Dictionary
+# TODO - create episode buffer handling
+var episode_buffer: Dictionary
+var episode_titles: Array[String]
 var tabs: Dictionary
 
 #endregions
 
 func _ready() -> void:
 	Config.editor_refresh_requested.connect(refresh_interface)
+	Config.directory_set.connect(reset_interface)
+	Config.preview_set.connect(refresh_interface)
 	
 	toggle_hero_button.pressed.connect(toggle_hero)
 
 func _exit_tree() -> void:
 	Config.editor_refresh_requested.disconnect(refresh_interface)
+	Config.directory_set.disconnect(reset_interface)
+	Config.preview_set.disconnect(refresh_interface)
 	
 	toggle_hero_button.pressed.disconnect(toggle_hero)
 
@@ -50,13 +63,21 @@ func _exit_tree() -> void:
 
 ## Clear hero, free all tabs, and update episode flow.
 func refresh_interface() -> void:
-	clear_hero()
-	clear_tabs()
-	clear_episodes()
-	refresh_episode_flow()
+	create_episode_titles()
+	load_episodes()
 	print("Editor interface refreshed.")
 
-## Open the settings menu.
+## Clear and reload all properties.
+func reset_interface() -> void:
+	clear_hero()
+	clear_tabs()
+	clear_episode_titles()
+	create_episode_titles()
+	free_episodes()
+	load_episodes()
+	print("Editor interface cleared.")
+
+## Hide the editor and show the settings menu.
 func toggle_interface() -> void:
 	visible = !visible
 
@@ -64,34 +85,73 @@ func toggle_interface() -> void:
 
 #region Episodes
 
-## Frees all episodes then loads the episodes dictionary to the episode flow.
-func refresh_episode_flow() -> void:
-	# Early return if no directory is set in config.
+## Popup a text dialog and load a new episode with the provided text.
+func new_episode() -> void:
+	var dialog = TEXT_DIALOG.instantiate()
+	dialog.confirmed.connect(create_episode_title, CONNECT_ONE_SHOT)
+	dialog.confirmed.connect(load_episode, CONNECT_ONE_SHOT)
+	add_child(dialog)
+
+## Add a title to episode_titles.
+func create_episode_title(title: String) -> void:
+	if episode_titles.has(title):
+		return
+	
+	episode_titles.append(title)
+
+## Collect episode directories as titles and store them in an array.
+func create_episode_titles() -> void:
+	# Early return if no directory is set in config settings.
 	if Config.settings.directory == null:
 		print("No directory selected!")
 		return
+	else:
+		prints("Loaded directory:", Config.settings.directory)
 	
-	prints("Loaded directory:", Config.settings.directory)
-	# Get all episodes in the production directory in reverse alphabetical order.
-	var episode_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
-	episode_list.reverse()
+	# Get all episodes in the config directory in reverse alphabetical order.
+	var episode_title_list: PackedStringArray = DirAccess.get_directories_at(Config.settings.directory)
+	episode_title_list.reverse()
 	
-	# Load all episodes in the list.
-	for title: String in episode_list:
-		if episodes.has(title) == false:
-			load_episode(title)
+	# Create episode_titles entires for all episode titles in the list.
+	for episode_title: String in episode_title_list:
+		create_episode_title(episode_title)
 
-## Instantiate and configure an episode and add it to the episode flow.
-func load_episode(title: String = "New Episode") -> void:
-	# Instantiate the episode.
-	var episode: ZudeToolsCardEpisode = EPISODE.instantiate()
-	episode.directory = Config.settings.directory.path_join(title)
+## Instantiate an episode instance and add it to the episode buffer.
+func buffer_episode(title: String) -> ZudeToolsCardEpisode:
+	# Early return if the episode buffer is full.
+	if episode_buffer.size() >= episode_buffer_size:
+		return
 	
-	# Merge episode into the episodes dictionary and add it to the episode flow.
-	episodes.merge({title : episode})
+	# Early return if the episode is already buffered.
+	if episode_buffer.has(title):
+		return
+	
+	# Instantiate and name the CardEpisode.
+	var episode: ZudeToolsCardEpisode = EPISODE.instantiate()
+	
+	# Append episode to the episode buffer.
+	episode_buffer.merge({title : episode})
+	
+	return episode
+
+## Buffer an episode instance and add it to the episode flow.
+func load_episode(title: String) -> void:
+	# Early return if this episode is already loaded.
+	if episode_buffer.has(title):
+		return
+	
+	# Configure the the path for the episode based on the config directory.
+	var episode = buffer_episode(title)
+	var path = Config.settings.directory.path_join(title)
+	
+	# Early return if buffer_episode returned null.
+	if episode == null: return
+	
+	# Add the episode to the episode flow.
+	episode.set_directory(path)
 	episode_flow.add_child(episode)
 	
-	# Configure the episode title and preview.
+	# Configure the episode directory, title, and preview.
 	episode.set_title(title)
 	if Config.settings.preview != null:
 		var image = Image.new()
@@ -112,21 +172,59 @@ func load_episode(title: String = "New Episode") -> void:
 	# Connect slider to lambda.
 	editor_bar_top.episode_size_slider.value_changed.connect(set_episode_scale)
 
-## Free and episode from the episode
-func free_episode(episode: ZudeToolsCardEpisode) -> void:
+## Get episode titles and fill the episode flow with an episode instance for each.
+func load_episodes() -> void:
+	for episode_title: String in episode_titles:
+		if episode_buffer.has(episode_title) == false:
+			load_episode(episode_title)
+
+## Remove a title from episode_titles.
+func clear_episode_title(title: String) -> void:
+	if episode_buffer.has(title):
+		episode_buffer.erase(title)
+	
+	if episode_titles.has(title):
+		episode_titles.erase(title)
+
+## Remove all titles from episode_titles.
+func clear_episode_titles() -> void:
+	if episode_titles.is_empty():
+		return
+	
+	for episode_title: String in episode_titles:
+		free_episode(episode_title)
+		clear_episode_title(episode_title)
+
+## Free an episode instance from the episode buffer.
+func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
+	if episode_buffer.has(title):
+		var episode: ZudeToolsCardEpisode = episode_buffer.get(title)
+		episode_buffer.erase(title)
+		return episode
+	
+	return null
+
+## Unbuffer an episode instance and call queue_free on it.
+func free_episode(title: String) -> void:
+	var episode = unbuffer_episode(title)
+	
+	# Early return if buffer_episode returned null.
+	if episode == null: return
+	
 	# Disconnect the episode focused signal from the relevant update methods.
 	episode.focused.disconnect(refresh_hero)
 	episode.focused.disconnect(refresh_tab_flows)
 	
-	episodes.erase(episodes.find_key(episode))
-	episode_flow.remove_child(episode)
 	episode.queue_free()
 
-## Free all episodes from the episode flow and the episodes dictionary.
-func clear_episodes() -> void:
-	if episodes.is_empty() == false:
-		for episode: ZudeToolsCardEpisode in episodes.values():
-			free_episode(episode)
+## Free all episodes from the episode buffer and remove them from the episode flow.
+func free_episodes() -> void:
+	# Early return if no episodes exist to free.
+	if episode_buffer.is_empty():
+		return
+	
+	for episode_title: String in episode_buffer.keys():
+		free_episode(episode_title)
 
 #endregion
 

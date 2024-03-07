@@ -2,6 +2,14 @@
 class_name ZudeToolsFolderTree
 extends Tree
 
+#region Constants
+
+const UP = preload("res://icons/caret-up-24px.png")
+const DOWN = preload("res://icons/caret-down-24px.png")
+const TRASH = preload("res://icons/trash-xmark-24px.png")
+
+#endregion
+
 #region Variables
 
 var tree: Dictionary
@@ -17,6 +25,7 @@ signal tree_updated(Dictionary)
 func _ready() -> void:
 	set_column_title(0, "Folder Name")
 	set_column_title_alignment(0, HORIZONTAL_ALIGNMENT_LEFT)
+	
 	set_column_title(1, "Tags")
 	set_column_title_alignment(1, HORIZONTAL_ALIGNMENT_LEFT)
 	
@@ -56,14 +65,16 @@ func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder
 	
 	item.set_text(0, folder_name)
 	item.set_editable(0, true)
-
+	item.set_icon_max_width(0, 25)
+	
 	item.set_text(1, tags)
 	item.set_editable(1, true)
+	item.set_icon_max_width(1, 25)
 	
-	# FIXME - Buttons need icons
-	item.add_button(1, PlaceholderTexture2D.new(), 0, false, "up")
-	item.add_button(1, PlaceholderTexture2D.new(), 1, false, "down")
-	item.add_button(1, PlaceholderTexture2D.new(), 2, false, "delete")
+	item.add_button(1, UP, 0, false, "move up")
+	item.add_button(1, DOWN, 1, false, "move down")
+	item.add_button(1, TRASH, 2, false, "delete")
+	item.set_button_color(1, 2, Color.FIREBRICK)
 	
 	return item
 

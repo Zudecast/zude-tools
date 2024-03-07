@@ -1,4 +1,15 @@
 res://zude_tools.tscn
 res://resources/theme/zude_tools_theme.tres
 res://resources/theme/default_preview.tres
+res://scenes/settings/folder_tree.gd
+res://scenes/settings/settings.tscn
+res://scenes/settings/color_picker.gd
+res://resources/theme/panel_flat.tres
 res://scenes/editor/editor.gd
+res://scenes/editor/editor_bar_top.gd
+res://scenes/windows/episode_title_dialog.tscn
+res://scenes/windows/text_dialog.tscn
+res://scenes/windows/text_dialog.gd
+res://scenes/editor/editor.tscn
+res://scenes/cards/card_episode.gd
+res://singletons/config.gd

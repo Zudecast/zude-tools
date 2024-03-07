@@ -34,9 +34,12 @@ func _exit_tree() -> void:
 	clear_files()
 	clear_directories()
 
+## Set the internal directory property for this node.
+func set_directory(new_dir: String) -> void:
+	directory = new_dir
+
 ## Set the title node's text to the specified text.
 func set_title(text: String) -> void:
-	name = text
 	title.text = text
 	tooltip_text = text
 

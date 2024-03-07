@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwoa5aaupwgvv"]
+[gd_scene load_steps=17 format=3 uid="uid://bwoa5aaupwgvv"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_fgagf"]
 [ext_resource type="Script" path="res://scenes/settings/settings.gd" id="2_wokt4"]
 [ext_resource type="PackedScene" uid="uid://77w2btfiqbof" path="res://scenes/settings/path_setting.tscn" id="4_gatcq"]
 [ext_resource type="Script" path="res://scenes/settings/folder_tree.gd" id="4_y1a16"]
+[ext_resource type="Script" path="res://scenes/settings/color_picker.gd" id="5_enndm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjg3u"]
 content_margin_left = 4.0
@@ -155,12 +156,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fgagf")
-current_tab = 2
 drag_to_rearrange_enabled = true
 script = ExtResource("2_wokt4")
 
 [node name="Global" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="GlobalVBox" type="VBoxContainer" parent="Global"]
@@ -195,6 +194,7 @@ size_flags_horizontal = 4
 text = "+"
 
 [node name="Folders" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Folders"]
@@ -217,3 +217,87 @@ allow_reselect = true
 drop_mode_flags = 3
 scroll_horizontal_enabled = false
 script = ExtResource("4_y1a16")
+
+[node name="Theme" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Theme"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Theme/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorPicker" type="ColorPicker" parent="Theme/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+edit_alpha = false
+color_mode = 1
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+script = ExtResource("5_enndm")
+
+[node name="VSeparator" type="VSeparator" parent="Theme/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Theme/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InterfaceSettingsLabel" type="Label" parent="Theme/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Interface Settings"
+
+[node name="HSeparator" type="HSeparator" parent="Theme/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FontSizeHBox" type="HBoxContainer" parent="Theme/ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="FontSizeLabel" type="Label" parent="Theme/ScrollContainer/VBoxContainer/VBoxContainer/FontSizeHBox"]
+layout_mode = 2
+text = "Interface Font Size:"
+
+[node name="FontSizeLineEdit" type="LineEdit" parent="Theme/ScrollContainer/VBoxContainer/VBoxContainer/FontSizeHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "20"
+alignment = 1
+
+[node name="About" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="About"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="About/CenterContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="Label" parent="About/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+text = "Zude Tools is developed by one person!
+If you enjoy the project, please consider making a donation at the link below. Thanks! <3"
+horizontal_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 3
+
+[node name="LinkButton" type="LinkButton" parent="About/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 20
+text = "Zudecast Ko-Fi"
+uri = "www.ko-fi.com/zudecast"
