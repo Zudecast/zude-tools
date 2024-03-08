@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://x3cdxq1l0wdl"]
+
+[ext_resource type="Script" path="res://scenes/middle_bar/middle_bar.gd" id="1_38iyv"]
+
+[node name="MiddleBar" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_vertical = 8
+script = ExtResource("1_38iyv")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="BarLeft" type="HBoxContainer" parent="Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BarCenter" type="HBoxContainer" parent="Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BarRight" type="HBoxContainer" parent="Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2

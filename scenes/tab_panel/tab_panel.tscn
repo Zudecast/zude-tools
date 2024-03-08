@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://b7jddysnd731p"]
+[gd_scene load_steps=3 format=3 uid="uid://b7jddysnd731p"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_3522i"]
+[ext_resource type="Script" path="res://scenes/tab_panel/tab_panel.gd" id="2_lgd1c"]
 
 [node name="TabPanel" type="TabContainer"]
 custom_minimum_size = Vector2(0, 265)
@@ -8,4 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme = ExtResource("1_3522i")
 drag_to_rearrange_enabled = true
+script = ExtResource("2_lgd1c")

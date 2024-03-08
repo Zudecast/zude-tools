@@ -9,3 +9,7 @@ res://scenes/editor/bottom_bar.tscn
 res://scenes/editor/bottom_bar.gd
 res://zude_tools.tscn
 res://scenes/tab_panel/tab.gd
+res://scenes/middle_bar/middle_bar.tscn
+res://scenes/middle_bar/middle_bar.gd
+res://scenes/bottom_bar/bottom_bar.tscn
+res://scenes/menu_bar/menu_bar.tscn

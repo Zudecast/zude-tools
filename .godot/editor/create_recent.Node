@@ -1,9 +1,9 @@
+HBoxContainer
 Control
 VSplitContainer
 VSeparator
 HSeparator
 Button
-HBoxContainer
 VBoxContainer
 ConfirmationDialog
 MarginContainer

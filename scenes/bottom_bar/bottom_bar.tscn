@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3e7kbed3joxo"]
 
-[ext_resource type="Script" path="res://scenes/editor/bottom_bar.gd" id="1_ib5g4"]
+[ext_resource type="Script" path="res://scenes/bottom_bar/bottom_bar.gd" id="1_ib5g4"]
 [ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://icons/eye.svg" id="1_phqrd"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_ss0pt"]
 
-[node name="TabButtonBar" type="PanelContainer"]
+[node name="BottomBar" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 56.0
@@ -12,13 +12,13 @@ grow_horizontal = 2
 theme = ExtResource("1_ss0pt")
 script = ExtResource("1_ib5g4")
 
-[node name="TabButtonBarMargin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="TabButtonBarHBox" type="HBoxContainer" parent="TabButtonBarMargin"]
+[node name="HBox" type="HBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="ToggleHeroButton" type="Button" parent="TabButtonBarMargin/TabButtonBarHBox"]
+[node name="ToggleHeroButton" type="Button" parent="Margin/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
@@ -26,7 +26,7 @@ icon = ExtResource("1_phqrd")
 flat = true
 icon_alignment = 1
 
-[node name="PreviewSizeSlider" type="HSlider" parent="TabButtonBarMargin/TabButtonBarHBox"]
+[node name="PreviewSizeSlider" type="HSlider" parent="Margin/HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
@@ -38,7 +38,7 @@ step = 0.25
 value = 1.0
 scrollable = false
 
-[node name="ItemCountLineEdit" type="LineEdit" parent="TabButtonBarMargin/TabButtonBarHBox"]
+[node name="ItemCountLineEdit" type="LineEdit" parent="Margin/HBox"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
