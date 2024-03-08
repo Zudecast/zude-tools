@@ -10,6 +10,8 @@ const CONFIG_FILE: String = "res://config.json"
 
 #region Variables
 
+var production: String
+
 ## The contents of the config file.
 var settings: Dictionary = {
 	"directory" : null,
@@ -51,6 +53,8 @@ func read() -> void:
 		print(setting, ": ", settings.get(setting))
 	print("-- Config End --")
 	print()
+	
+	set_production()
 	settings_refresh_requested.emit()
 	editor_refresh_requested.emit()
 
@@ -66,9 +70,16 @@ func write() -> void:
 		print(setting, ": ", settings.get(setting))
 	print("-- Config End --")
 	print()
+	
+	set_production()
 	settings_refresh_requested.emit()
 
 #region Global
+
+## Set the name of the production directory.
+func set_production() -> void:
+	var slices = settings.directory.split("/")
+	production = slices[-1]
 
 ## Set the specified directory to the config.directory, the directory property, then write to config file.
 func set_directory(new_path: String) -> void:

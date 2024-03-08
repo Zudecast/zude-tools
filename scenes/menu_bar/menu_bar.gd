@@ -17,7 +17,7 @@ extends Control
 @onready var open_production_button: Button = %OpenProductionButton
 
 @onready var bar_center: HBoxContainer = %BarCenter
-@onready var episode_size_slider: HSlider = %EpisodeSizeSlider
+@onready var production_link: LinkButton = %ProductionLink
 
 @onready var bar_right: HBoxContainer = %BarRight
 @onready var refresh_button: Button = %RefreshButton
@@ -26,6 +26,8 @@ extends Control
 #endregion
 
 func _ready():
+	Config.settings_refresh_requested.connect(set_production_link)
+	Config.settings_refresh_requested.connect(refresh_buttons_visibility)
 	open_production_button.pressed.connect(Dialog.popup_directory_dialog)
 	new_episode_button.pressed.connect(episode_panel.new_episode)
 	
@@ -34,9 +36,23 @@ func _ready():
 	settings_button.pressed.connect(settings.toggle_interface)
 
 func _exit_tree() -> void:
+	Config.settings_refresh_requested.disconnect(set_production_link)
+	Config.settings_refresh_requested.disconnect(refresh_buttons_visibility)
 	open_production_button.pressed.disconnect(Dialog.popup_directory_dialog)
 	new_episode_button.pressed.disconnect(episode_panel.new_episode)
 	
 	refresh_button.pressed.disconnect(editor.refresh_top)
 	settings_button.pressed.disconnect(editor.toggle_interface)
 	settings_button.pressed.disconnect(settings.toggle_interface)
+
+func set_production_link() -> void:
+	production_link.text = Config.production
+	production_link.uri = Config.settings.directory
+
+func refresh_buttons_visibility() -> void:
+	if Config.settings.directory == null:
+		new_episode_button.visible = false
+		production_link.visible = false
+	else:
+		new_episode_button.visible = true
+		production_link.visible = true

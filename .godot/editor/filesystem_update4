@@ -13,3 +13,5 @@ res://scenes/middle_bar/middle_bar.tscn
 res://scenes/middle_bar/middle_bar.gd
 res://scenes/bottom_bar/bottom_bar.tscn
 res://scenes/menu_bar/menu_bar.tscn
+res://scenes/menu_bar/menu_bar.gd
+res://singletons/config.gd

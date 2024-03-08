@@ -49,15 +49,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="EpisodeSizeSlider" type="HSlider" parent="BarCenter"]
+[node name="ProductionLink" type="LinkButton" parent="BarCenter"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_vertical = 4
-min_value = 0.5
-max_value = 2.0
-step = 0.25
-value = 1.0
 
 [node name="BarRight" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
