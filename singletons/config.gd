@@ -5,6 +5,8 @@ extends Node
 
 ## The config file path.
 const CONFIG_FILE: String = "res://config.json"
+## Default image card preview.
+const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 
 #endregion
 

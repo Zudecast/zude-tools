@@ -10,10 +10,11 @@ extends Control
 
 #endregion
 
+## Refresh the hero panel witht he focused episode.
 func refresh(episode: ZudeToolsCardEpisode) -> void:
 	clear()
 	
-	title.text = episode.title.text
+	title.text = episode.title
 	image.texture = episode.preview.texture
 
 ## Clear the hero panel variables and return them to defaults.
@@ -21,6 +22,6 @@ func clear() -> void:
 	title.text = "Select an episode..."
 	image.texture = null
 
-## Toggle Hero visibilie=ty
+## Toggle hero panel visibility.
 func toggle_visibility() -> void:
 	visible = !visible

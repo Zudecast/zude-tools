@@ -29,7 +29,7 @@ texture = ExtResource("3_s8r0t")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Title" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
+[node name="Label" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8

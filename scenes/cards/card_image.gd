@@ -4,24 +4,41 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var title: LineEdit = %Title
+@onready var label: LineEdit = %Title
 @onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 
 #endregion
 
+#region Variables
+
+## This card's title.
+var title: String
+## This card's path.
+var path: String
+
+#endregion
+
 func _ready() -> void:
 	button.focus_entered.connect(focus_changed)
+	
+	update_label()
+	update_preview()
 
 func _exit_tree() -> void:
 	button.focus_entered.disconnect(focus_changed)
 
-## Set the title node's text.
-func set_title(text: String) -> void:
-	name = text
-	title.text = text
-	tooltip_text = text
+## Set the label node's text to the specified text.
+func update_label() -> void:
+	name = title
+	label.text = title
+	tooltip_text = title
 
 ## Set the preview node's texture.
-func set_preview(texture: Texture2D) -> void:
+func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+	var image = Image.new()
+	image.load(path)
+	if image.is_empty() == false:
+		texture = ImageTexture.create_from_image(image)
+	
 	preview.texture = texture

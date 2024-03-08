@@ -6,7 +6,6 @@ extends Control
 
 const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn")
 const EPISODE: PackedScene = preload("res://scenes/cards/card_episode.tscn")
-const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 
 #endregion
 
@@ -46,7 +45,7 @@ func _exit_tree() -> void:
 	load_more_button.pressed.disconnect(increment_buffer_size)
 	load_less_button.pressed.disconnect(reset_buffer_size)
 
-## Refresh episode flow.
+## Refresh everything.
 func refresh() -> void:
 	refresh_episode_titles()
 	refresh_episode_flow()
@@ -60,7 +59,6 @@ func refresh_episode_titles() -> void:
 		return
 	
 	titles = DirAccess.get_directories_at(Config.settings.directory)
-	# NOTE - is this useful? -> #titles.sort()
 	titles.reverse()
 
 ## Load or free episodes based on the current state of the titles and buffer properties.
@@ -111,29 +109,18 @@ func load_episode(title: String) -> void:
 	if buffer.has(title):
 		return
 	
-	# Configure the the path for the episode based on the config directory.
+	# Buffer a new episode instance.
 	var episode = buffer_episode(title)
-	var path = Config.settings.directory.path_join(title)
-	
 	# Early return if buffer_episode returned null.
 	if episode == null: return
 	
-	# Add the episode to the episode flow.
-	episode.set_directory(path)
-	flow.add_child(episode)
-	
-	# Configure the episode directory, title, and preview.
-	episode.set_title(title)
-	if Config.settings.preview != null:
-		var image = Image.new()
-		image.load(Config.settings.preview)
-		var texture = ImageTexture.create_from_image(image)
-		episode.set_preview(texture)
-	else:
-		episode.set_preview(DEFAULT_PREVIEW)
-	
+	# Set the name, title, and path.
+	episode.title = title
+	episode.path = Config.settings.directory.path_join(title)
 	# Connect the episode focused signal to the relevant update methods.
 	episode.focused.connect(editor.refresh_btm)
+	# Add the episode to the episode flow node tree.
+	flow.add_child(episode)
 
 ## Get episode titles and fill the episode flow with an episode instance for each that doesn't yet exist.
 func load_episodes() -> void:
@@ -171,14 +158,28 @@ func free_episodes() -> void:
 	for episode_title: String in buffer.keys():
 		free_episode(episode_title)
 
-## TODO - ## Free episodes that are no longer listed in titles
+## Free episodes that are no longer listed in titles.
 func free_unlisted_episodes() -> void:
-	free_episodes()
+	# Early return if no episodes exist to free.
+	if buffer.is_empty():
+		return
+	
+	for episode_title: String in buffer.keys():
+		if titles.has(episode_title) == false:
+			free_episode(episode_title)
 
 ## Reset the episode buffer size to its increment size, then refresh the interface.
 func reset_buffer_size() -> void:
 	buffer_size = buffer_increment
-	refresh()
+	
+	cull_buffer()
+	refresh_button_visibility()
+
+## Removes surplus buffer items.
+func cull_buffer() -> void:
+	for episode_title in buffer.keys():
+		if buffer.keys().find(episode_title) >= buffer_size:
+			free_episode(episode_title)
 
 ## Set the episode buffer increment size, then refresh the interface.
 func set_buffer_increment(increment: int) -> void:

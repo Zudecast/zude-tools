@@ -6,7 +6,6 @@ extends Control
 
 const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
 const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
-const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 
 #endregion
 
@@ -45,53 +44,38 @@ func load_item(file_name: String, file_path: String) -> void:
 	
 	# Create a placeholder tab item so we can chose how to handle it.
 	var card: ZudeToolsCard
+	var image: = Image.new()
+	var texture: Texture2D = Config.DEFAULT_PREVIEW
 	
 	# Handle image files.
 	if file_name.get_extension() in ["png", "jpg"]:
-		# Instantiate a new CardImage
+		# Instantiate a new CardImage.
 		card = IMAGE.instantiate()
+		# Configure card title and path.
+		card.title = file_name
+		card.path = file_path
+		# Add card to item flow.
 		flow.add_child(card)
-		
-		# Configure card.
-		card.set_title(file_name)
-		var image = Image.new()
-		image.load(file_path)
-		var texture: Texture2D
-		if image.is_empty() == false:
-			texture = ImageTexture.create_from_image(image)
-		else:
-			texture = DEFAULT_PREVIEW
-		card.set_preview(texture)
 	
 	# Handle image template files.
 	elif file_name.get_extension() in ["psd", "krz", "kra"]:
-		# Instantiate a new CardVideo
+		# Instantiate a new CardImage.
 		card = IMAGE.instantiate()
+		# Configure card title and path.
+		card.title = file_name
+		card.path = file_path
+		# Add card to item flow.
 		flow.add_child(card)
-		
-		# Configure card.
-		card.set_title(file_name)
-		var image = Image.new()
-		image.load(file_path)
-		var texture: Texture2D
-		if image.is_empty() == false:
-			texture = ImageTexture.create_from_image(image)
-		else:
-			texture = DEFAULT_PREVIEW
-		card.set_preview(texture)
 	
-	# FIXME - Video cards are still comically large
-	# Handle video files.
-	#elif file_name.get_extension() in ["mp4", "mkv"]:
-		## Instantiate a new CardVideo
-		#card = VIDEO.instantiate()
-		#tab.flow.add_child(card)
-		#
-		## Configure card.
-		#card.set_title(file_name)
-		#card.set_preview(file_path)
-	
-	# TODO - Add video handling back
+	##  Handle video files.
+	elif file_name.get_extension() in ["mp4", "mkv"]:
+		# Instantiate a new CardVideo
+		card = VIDEO.instantiate()
+		# Configure card title and path.
+		card.title = file_name
+		card.path = file_path
+		# Add card to item flow.
+		flow.add_child(card)
 	
 	refresh_button_visibility()
 
@@ -110,4 +94,5 @@ func free_items() -> void:
 func count_items() -> void:
 	if visible:
 		items_counted.emit(flow.get_child_count())
-		refresh_button_visibility()
+	
+	refresh_button_visibility()

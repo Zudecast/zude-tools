@@ -4,7 +4,7 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var title: LineEdit = %Title
+@onready var label: LineEdit = %Label
 @onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 
@@ -12,8 +12,10 @@ extends ZudeToolsCard
 
 #region Variables
 
-## This episode's directory path.
-var directory: String
+## This episode's title.
+var title: String
+## This episode's path.
+var path: String
 
 ## Contains a directory name as key and its path as value.
 var directories: Dictionary
@@ -26,48 +28,55 @@ func _ready() -> void:
 	get_directories()
 	get_files()
 	
+	update_label()
+	update_preview()
+	
 	button.focus_entered.connect(focus_changed)
 
 func _exit_tree() -> void:
 	button.focus_entered.disconnect(focus_changed)
 	
-	clear_files()
-	clear_directories()
+	files.clear()
+	directories.clear()
 
-## Set the internal directory property for this node.
-func set_directory(new_dir: String) -> void:
-	directory = new_dir
-
-## Set the title node's text to the specified text.
-func set_title(text: String) -> void:
-	name = text
-	title.text = text
-	tooltip_text = text
+## Set the label node's text to the specified text.
+func update_label() -> void:
+	name = title
+	label.text = title
+	tooltip_text = title
 
 ## Set the preview node's image to the specified path.
-func set_preview(texture: Texture2D) -> void:
-	preview.texture = texture
-	# Check episode directory for a main thumb, use
+func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+	var image = Image.new()
+	
+	# Check for a preview image candidate.
 	if files.has("main_thumb"):
 		var dir_files: PackedStringArray = files["main_thumb"]
 		
-		if dir_files.is_empty():
-			return
+		if dir_files.is_empty(): return
 		
 		for file_name: String in dir_files:
 			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
 				var path = directories["main_thumb"].path_join(file_name)
-				var image = Image.new()
 				image.load(path)
 				if image.is_empty() == false:
-					preview.texture = ImageTexture.create_from_image(image)
+					texture = ImageTexture.create_from_image(image)
+	
+	## Use the config default preview if one exists and a candidate was not found above.
+	elif Config.settings.preview != null:
+		image.load(Config.settings.preview)
+		if image.is_empty() == false:
+			texture = ImageTexture.create_from_image(image)
+	
+	## Set the final texture.
+	preview.texture = texture
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
-func get_directories(path: String = directory) -> void:
-	var dirs: PackedStringArray = DirAccess.get_directories_at(path)
+func get_directories(at_path: String = path) -> void:
+	var dirs: PackedStringArray = DirAccess.get_directories_at(at_path)
 	
 	for dir: String in dirs:
-		var dir_path: String = path.path_join(dir)
+		var dir_path: String = at_path.path_join(dir)
 		directories.merge({dir : dir_path})
 		get_directories(dir_path)
 	
@@ -79,9 +88,9 @@ func build_directories() -> void:
 	for parent_name: String in Config.settings.folder_tree.keys():
 		var parent_path: String
 		if parent_name == "root":
-			parent_path = directory
+			parent_path = path
 		else:
-			parent_path = directory.path_join(parent_name)
+			parent_path = path.path_join(parent_name)
 			
 		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
 		for child_dict: Dictionary in child_dict_array:
@@ -89,13 +98,9 @@ func build_directories() -> void:
 			var child_path = parent_path.path_join(child_name)
 			DirAccess.make_dir_recursive_absolute(child_path)
 	
-	prints("Created episode at:", directory)
+	prints("Created episode at:", path)
 	
 	get_directories()
-
-## Clear directories dictionary.
-func clear_directories() -> void:
-	directories.clear()
 
 ## Get all files within the directories dictionary. Directory name is key and a PackedStringArray of files is value.
 func get_files() -> void:
@@ -106,7 +111,3 @@ func get_files() -> void:
 			files.merge({dir : dir_files})
 		else:
 			files.merge({dir : []})
-
-## Clear files dictionary.
-func clear_files() -> void:
-	files.clear()
