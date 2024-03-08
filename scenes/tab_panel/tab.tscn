@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bym82tb1vnqxt"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_07b6u"]
-[ext_resource type="Script" path="res://scenes/tabs/tab.gd" id="2_khbtu"]
+[ext_resource type="Script" path="res://scenes/tab_panel/tab.gd" id="2_khbtu"]
 
 [node name="TabScroll" type="ScrollContainer"]
 anchors_preset = 15

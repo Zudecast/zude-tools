@@ -1,10 +1,233 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3i64a5qg7iv"]
+[gd_scene load_steps=25 format=3 uid="uid://d3i64a5qg7iv"]
 
 [ext_resource type="Script" path="res://scenes/editor/editor.gd" id="1_2osj4"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_o4ffb"]
 [ext_resource type="PackedScene" uid="uid://cm8te31wedhp2" path="res://scenes/episode_panel/episode_panel.tscn" id="3_chmdv"]
 [ext_resource type="PackedScene" uid="uid://ca4tupbrsiy46" path="res://scenes/hero_panel/hero_panel.tscn" id="3_np2d4"]
-[ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://icons/eye.svg" id="5_trbm3"]
+[ext_resource type="PackedScene" uid="uid://b7jddysnd731p" path="res://scenes/tab_panel/tab_panel.tscn" id="5_abeku"]
+[ext_resource type="Script" path="res://scenes/tab_panel/tab_panel.gd" id="6_juvh5"]
+[ext_resource type="PackedScene" uid="uid://b3e7kbed3joxo" path="res://scenes/editor/bottom_bar.tscn" id="7_eaiuf"]
+[ext_resource type="StyleBox" uid="uid://je6qwkybskc1" path="res://resources/theme/panel_flat.tres" id="8_xrk27"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8hxd"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ak1a3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.498039)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxfsg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4sj0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnpmo"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5py5"]
+bg_color = Color(0.360784, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7kgbr"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.74902)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsq1t"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rii82"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_re07n"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.415686, 0.658824, 0.309804, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr651"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drx7e"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xm7mb"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgudw"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28uxd"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="Theme" id="Theme_bd3qt"]
+resource_local_to_scene = true
+default_font_size = 20
+Button/constants/h_separation = 10
+Button/constants/icon_max_width = 15
+Button/styles/disabled = SubResource("StyleBoxFlat_a8hxd")
+Button/styles/focus = SubResource("StyleBoxFlat_ak1a3")
+Button/styles/hover = SubResource("StyleBoxFlat_pxfsg")
+Button/styles/normal = SubResource("StyleBoxFlat_k4sj0")
+Button/styles/pressed = SubResource("StyleBoxFlat_gnpmo")
+DeleteButton/base_type = &"Button"
+DeleteButton/constants/h_separation = 0
+DeleteButton/styles/normal = SubResource("StyleBoxFlat_n5py5")
+HBoxContainer/constants/separation = 10
+HFlowContainer/constants/h_separation = 10
+HFlowContainer/constants/v_separation = 10
+HeaderLarge/base_type = &"Label"
+HeaderLarge/font_sizes/font_size = 28
+HeaderMedium/base_type = &"Label"
+HeaderMedium/font_sizes/font_size = 24
+HeaderSmall/base_type = &"Label"
+HeaderSmall/font_sizes/font_size = 20
+Label/font_sizes/Label = 20
+Label/font_sizes/font_size = 18
+LineEdit/colors/font_uneditable_color = Color(1, 1, 1, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_7kgbr")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_qsq1t")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_rii82")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = ExtResource("8_xrk27")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_re07n")
+TabContainer/constants/side_margin = 20
+TabContainer/styles/panel = ExtResource("8_xrk27")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_vr651")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_drx7e")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_xm7mb")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fgudw")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_28uxd")
+VBoxContainer/constants/separation = 10
 
 [node name="ZudeToolsEditor" type="Control"]
 layout_mode = 3
@@ -69,49 +292,15 @@ layout_mode = 2
 [node name="EditorBottomRight" type="VBoxContainer" parent="EditorSplit/EditorBottom"]
 layout_mode = 2
 
-[node name="TabsContainer" type="TabContainer" parent="EditorSplit/EditorBottom/EditorBottomRight"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 265)
-layout_mode = 2
-size_flags_vertical = 3
-drag_to_rearrange_enabled = true
-
-[node name="TabButtonBar" type="PanelContainer" parent="EditorSplit/EditorBottom/EditorBottomRight"]
-layout_mode = 2
-
-[node name="TabButtonBarMargin" type="MarginContainer" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar"]
-layout_mode = 2
-
-[node name="TabButtonBarHBox" type="HBoxContainer" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin"]
-layout_mode = 2
-
-[node name="ToggleHeroButton" type="Button" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-icon = ExtResource("5_trbm3")
-flat = true
-icon_alignment = 1
-
-[node name="PreviewSizeSlider" type="HSlider" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-min_value = 1.0
-max_value = 3.0
-step = 0.25
-value = 1.0
-scrollable = false
-
-[node name="ItemCountLineEdit" type="LineEdit" parent="EditorSplit/EditorBottom/EditorBottomRight/TabButtonBar/TabButtonBarMargin/TabButtonBarHBox"]
+[node name="TabPanel" parent="EditorSplit/EditorBottom/EditorBottomRight" node_paths=PackedStringArray("editor", "bottom_bar") instance=ExtResource("5_abeku")]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
-placeholder_text = "0"
-alignment = 2
-max_length = 9
-editable = false
-expand_to_text_length = true
-flat = true
+script = ExtResource("6_juvh5")
+editor = NodePath("../../../..")
+bottom_bar = NodePath("../BottomBar")
+
+[node name="BottomBar" parent="EditorSplit/EditorBottom/EditorBottomRight" node_paths=PackedStringArray("hero_panel") instance=ExtResource("7_eaiuf")]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_bd3qt")
+hero_panel = NodePath("../../HeroPanel")

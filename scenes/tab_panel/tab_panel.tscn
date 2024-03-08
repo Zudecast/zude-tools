@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b7jddysnd731p"]
+
+[node name="TabPanel" type="TabContainer"]
+custom_minimum_size = Vector2(0, 265)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+drag_to_rearrange_enabled = true
