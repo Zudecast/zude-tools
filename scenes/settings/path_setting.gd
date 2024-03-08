@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsPathSetting
-extends ZudeTools
+extends Control
 
 #region Onready Variables
 

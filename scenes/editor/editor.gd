@@ -1,236 +1,68 @@
 @tool
 class_name ZudeToolsEditor
-extends ZudeTools
+extends Control
 
 #region Constants
 
-const EPISODE: PackedScene = preload("res://scenes/cards/card_episode.tscn")
 const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
 const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
 const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
 const TAB: PackedScene = preload("res://scenes/tabs/tab.tscn")
-const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn")
 
 #endregion
 
 #region Onready Variables
 
-@onready var menu_bar = $"../MenuBar"
-
-@onready var episode_flow: HFlowContainer = %EpisodeFlow
-@onready var load_more_button: Button = %LoadMoreButton
-@onready var load_less_button: Button = %LoadLessButton
-
-@onready var hero: ZudeToolsHero = %HeroPanel
-@onready var toggle_hero_button: Button = %ToggleHeroButton
-
+@onready var episode_panel: ZudeToolsEpisodePanel = %EpisodePanel
+@onready var hero_panel: ZudeToolsHeroPanel = %HeroPanel
 @onready var tabs_container: TabContainer = %TabsContainer
+
+@onready var toggle_hero_button: Button = %ToggleHeroButton
 @onready var preview_size_slider: HSlider = %PreviewSizeSlider
 @onready var item_count_label: LineEdit = %ItemCountLineEdit
 
 #endregion
 
-#region Export Variables
-
-@export var episode_buffer_increment: int = 20: set = set_episode_buffer_increment
-
-#endregion
-
 #region Variables
 
-# TODO - create episode buffer handling
-var episode_buffer_size: int = episode_buffer_increment
-var episode_buffer: Dictionary
-var episode_titles: PackedStringArray
 var tabs: Dictionary
 
 #endregions
 
 func _ready() -> void:
-	Config.editor_refresh_requested.connect(refresh_interface)
+	Config.editor_refresh_requested.connect(refresh_top)
 	Config.directory_set.connect(reset_interface)
-	Config.preview_set.connect(refresh_interface)
+	Config.preview_set.connect(refresh_top)
 	
-	load_more_button.pressed.connect(increment_episode_buffer_size)
-	load_less_button.pressed.connect(reset_episode_buffer_size)
-	toggle_hero_button.pressed.connect(hero.toggle_visibility)
+	toggle_hero_button.pressed.connect(hero_panel.toggle_visibility)
 
 func _exit_tree() -> void:
-	Config.editor_refresh_requested.disconnect(refresh_interface)
+	Config.editor_refresh_requested.disconnect(refresh_top)
 	Config.directory_set.disconnect(reset_interface)
-	Config.preview_set.disconnect(refresh_interface)
+	Config.preview_set.disconnect(refresh_top)
 	
-	load_more_button.pressed.disconnect(increment_episode_buffer_size)
-	load_less_button.pressed.disconnect(reset_episode_buffer_size)
-	toggle_hero_button.pressed.disconnect(hero.toggle_visibility)
+	toggle_hero_button.pressed.disconnect(hero_panel.toggle_visibility)
 
 #region Interface
 
-## Refresh episode flow.
-func refresh_interface() -> void:
-	refresh_episode_titles()
-	refresh_episode_flow()
-	refresh_button_visibility()
-	print("Editor interface refreshed.")
+## Refresh episode panel.
+func refresh_top() -> void:
+	episode_panel.refresh()
+
+## Refresh hero panel and tabs container.
+func refresh_btm(episode: ZudeToolsCardEpisode) -> void:
+	hero_panel.refresh(episode)
+	refresh_tab_flows(episode)
 
 ## Clear and reload all interface properties.
 func reset_interface() -> void:
-	hero.clear()
+	hero_panel.clear()
 	clear_tabs()
-	refresh_interface()
-	print("Editor interface reset.")
-
-## Check various editor properties and states to show or hide buttons.
-func refresh_button_visibility() -> void:
-	if episode_buffer_size >= episode_titles.size():
-		load_more_button.visible = false
-	else:
-		load_more_button.visible = true
-	
-	if episode_buffer_size == episode_buffer_increment:
-		load_less_button.visible = false
-	else:
-		load_less_button.visible = true
+	refresh_top()
 
 ## Hide the editor and show the settings menu.
 func toggle_interface() -> void:
 	visible = !visible
-
-#endregion
-
-#region Episodes
-
-## Popup a text dialog and load a new episode with the provided text.
-func new_episode() -> void:
-	var dialog = TEXT_DIALOG.instantiate()
-	dialog.confirmed.connect(load_episode, CONNECT_ONE_SHOT)
-	dialog.confirmed.connect(refresh_interface, CONNECT_ONE_SHOT)
-	add_child(dialog)
-
-## Gets all episode directories as a PackedStringArry and sets it to episode_titles.
-func refresh_episode_titles() -> PackedStringArray:
-	if Config.settings.directory == null:
-		print("No directory selected!")
-		return []
-	
-	episode_titles = DirAccess.get_directories_at(Config.settings.directory)
-	episode_titles.reverse()
-	return episode_titles
-
-# TODO - ## Load or free episodes based on the current state of episode_titles and episode_buffer.
-func refresh_episode_flow() -> void:
-	free_episodes()
-	load_episodes()
-
-## Instantiate an episode instance and add it to the episode buffer.
-func buffer_episode(title: String) -> ZudeToolsCardEpisode:
-	# Early return if the episode buffer is full.
-	if episode_buffer.size() >= episode_buffer_size:
-		return
-	
-	# Early return if the episode is already buffered.
-	if episode_buffer.has(title):
-		return
-	
-	# Instantiate and name the CardEpisode.
-	var episode: ZudeToolsCardEpisode = EPISODE.instantiate()
-	
-	# Append episode to the episode buffer.
-	episode_buffer.merge({title : episode})
-	
-	return episode
-
-## Buffer an episode instance and add it to the episode flow.
-func load_episode(title: String) -> void:
-	# Early return if this episode is already loaded.
-	if episode_buffer.has(title):
-		return
-	
-	# Configure the the path for the episode based on the config directory.
-	var episode = buffer_episode(title)
-	var path = Config.settings.directory.path_join(title)
-	
-	# Early return if buffer_episode returned null.
-	if episode == null: return
-	
-	# Add the episode to the episode flow.
-	episode.set_directory(path)
-	episode_flow.add_child(episode)
-	
-	# Configure the episode directory, title, and preview.
-	episode.set_title(title)
-	if Config.settings.preview != null:
-		var image = Image.new()
-		image.load(Config.settings.preview)
-		var texture = ImageTexture.create_from_image(image)
-		episode.set_preview(texture)
-	else:
-		episode.set_preview(DEFAULT_PREVIEW)
-	
-	# Connect the episode focused signal to the relevant update methods.
-	episode.focused.connect(hero.refresh)
-	episode.focused.connect(refresh_tab_flows)
-	
-	# FIXME - # Create a lambda function to adjust item's size when the slider value changes.
-	var set_episode_scale = func(new_scale: int) -> void:
-		episode.scale = Vector2(new_scale, new_scale)
-	
-	# Connect slider to lambda.
-	menu_bar.episode_size_slider.value_changed.connect(set_episode_scale)
-
-## Get episode titles and fill the episode flow with an episode instance for each that doesn't yet exist.
-func load_episodes() -> void:
-	for episode_title: String in episode_titles:
-		if episode_buffer.has(episode_title) == false:
-			load_episode(episode_title)
-
-## Free an episode instance from the episode buffer.
-func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
-	if episode_buffer.has(title):
-		var episode: ZudeToolsCardEpisode = episode_buffer.get(title)
-		episode_buffer.erase(title)
-		return episode
-	
-	return null
-
-## Unbuffer an episode instance and call queue_free on it.
-func free_episode(title: String) -> void:
-	var episode = unbuffer_episode(title)
-	
-	# Early return if buffer_episode returned null.
-	if episode == null: return
-	
-	# Disconnect the episode focused signal from the relevant update methods.
-	episode.focused.disconnect(hero.refresh)
-	episode.focused.disconnect(refresh_tab_flows)
-	
-	episode.queue_free()
-
-## Free all episodes from the episode buffer and remove them from the episode flow.
-func free_episodes() -> void:
-	# Early return if no episodes exist to free.
-	if episode_buffer.is_empty():
-		return
-	
-	for episode_title: String in episode_buffer.keys():
-		free_episode(episode_title)
-
-## Reset the episode buffer size to its increment size, then refresh the interface.
-func reset_episode_buffer_size() -> void:
-	episode_buffer_size = episode_buffer_increment
-	refresh_interface()
-
-## Set the episode buffer increment size, then refresh the interface.
-func set_episode_buffer_increment(value: float) -> void:
-	episode_buffer_increment = value
-	reset_episode_buffer_size()
-
-## Increment the episode buffer size, then load episodes.
-func increment_episode_buffer_size() -> void:
-	episode_buffer_size += episode_buffer_increment
-	episode_buffer_size = clamp(episode_buffer_size, 0, episode_titles.size())
-	load_episodes()
-	refresh_button_visibility()
 
 #endregion
 

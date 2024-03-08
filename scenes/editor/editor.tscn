@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3i64a5qg7iv"]
+[gd_scene load_steps=6 format=3 uid="uid://d3i64a5qg7iv"]
 
 [ext_resource type="Script" path="res://scenes/editor/editor.gd" id="1_2osj4"]
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_o4ffb"]
+[ext_resource type="PackedScene" uid="uid://cm8te31wedhp2" path="res://scenes/episode_panel/episode_panel.tscn" id="3_chmdv"]
+[ext_resource type="PackedScene" uid="uid://ca4tupbrsiy46" path="res://scenes/hero_panel/hero_panel.tscn" id="3_np2d4"]
 [ext_resource type="Texture2D" uid="uid://dl6a2mn8felt5" path="res://icons/eye.svg" id="5_trbm3"]
 
 [node name="ZudeToolsEditor" type="Control"]
@@ -27,51 +29,10 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="EditorSplit/EditorTop"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="EpisodesMargin" type="MarginContainer" parent="EditorSplit/EditorTop/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="EpisodesScroll" type="ScrollContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin"]
-custom_minimum_size = Vector2(0, 250)
-layout_mode = 2
-size_flags_vertical = 3
-follow_focus = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="EpisodeFlow" type="HFlowContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
+[node name="EpisodePanel" parent="EditorSplit/EditorTop" node_paths=PackedStringArray("editor") instance=ExtResource("3_chmdv")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-
-[node name="LoadButtonsBar" type="HBoxContainer" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-alignment = 1
-
-[node name="LoadMoreButton" type="Button" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/LoadButtonsBar"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "More"
-flat = true
-
-[node name="LoadLessButton" type="Button" parent="EditorSplit/EditorTop/PanelContainer/EpisodesMargin/EpisodesScroll/VBoxContainer/LoadButtonsBar"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Less"
-flat = true
+editor = NodePath("../../..")
 
 [node name="EpisodesButtonBar" type="PanelContainer" parent="EditorSplit/EditorTop"]
 visible = false
@@ -101,38 +62,9 @@ text = "I'm Also A Button"
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 
-[node name="HeroPanel" type="PanelContainer" parent="EditorSplit/EditorBottom"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-
-[node name="HeroMargin" type="MarginContainer" parent="EditorSplit/EditorBottom/HeroPanel"]
-layout_mode = 2
-
-[node name="HeroVBox" type="VBoxContainer" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin"]
-layout_mode = 2
-alignment = 1
-
-[node name="HeroVideo" type="VideoStreamPlayer" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
+[node name="HeroPanel" parent="EditorSplit/EditorBottom" instance=ExtResource("3_np2d4")]
 unique_name_in_owner = true
 layout_mode = 2
-expand = true
-
-[node name="HeroPreview" type="TextureRect" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-expand_mode = 5
-stretch_mode = 5
-
-[node name="HeroTitle" type="LineEdit" parent="EditorSplit/EditorBottom/HeroPanel/HeroMargin/HeroVBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-placeholder_text = "Select an episode..."
-alignment = 1
-editable = false
-flat = true
 
 [node name="EditorBottomRight" type="VBoxContainer" parent="EditorSplit/EditorBottom"]
 layout_mode = 2

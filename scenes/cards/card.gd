@@ -1,5 +1,5 @@
 class_name ZudeToolsCard
-extends ZudeTools
+extends Control
 
 ## Emitted by focus_changed() when the focus_entered signal is also emitted.
 signal focused(ZudeToolsCard)

@@ -487,24 +487,16 @@ layout_mode = 2
 [node name="ZudeToolsVBox" type="VBoxContainer" parent="ZudeToolsMargin"]
 layout_mode = 2
 
-[node name="ZudeToolsMenuBar" parent="ZudeToolsMargin/ZudeToolsVBox" node_paths=PackedStringArray("editor", "episode_panel", "settings") instance=ExtResource("3_6d0ki")]
-unique_name_in_owner = true
+[node name="MenuBar" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_6d0ki")]
 layout_mode = 2
 theme = SubResource("Theme_b8ghk")
-editor = NodePath("../ZudeToolsEditor")
-episode_panel = NodePath("../ZudeToolsEditor/EditorSplit/EditorTop/EpisodePanel")
-settings = NodePath("../ZudeToolsSettings")
 
 [node name="ZudeToolsEditor" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("3_2emxl")]
-unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_rhfp5")
 
 [node name="ZudeToolsSettings" parent="ZudeToolsMargin/ZudeToolsVBox" instance=ExtResource("5_xuio0")]
-unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_64bl0")
-
-[editable path="ZudeToolsMargin/ZudeToolsVBox/ZudeToolsEditor"]

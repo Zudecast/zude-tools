@@ -1,11 +1,16 @@
 @tool
-class_name EditorBarTop
+class_name ZudeToolsMenuBar
 extends Control
 
-#region Onready Variables
+#region Export Variables
 
-@onready var editor: ZudeToolsEditor = $"../ZudeToolsEditor"
-@onready var settings: ZudeToolsSettings = $"../ZudeToolsSettings"
+@export var editor: ZudeToolsEditor
+@export var episode_panel: ZudeToolsEpisodePanel
+@export var settings: ZudeToolsSettings
+
+#endregion
+
+#region Onready Variables
 
 @onready var bar_left: HBoxContainer = %BarLeft
 @onready var new_episode_button: Button = %NewEpisodeButton
@@ -21,21 +26,17 @@ extends Control
 #endregion
 
 func _ready():
-	if editor:
-		refresh_button.pressed.connect(editor.load_episodes)
-		new_episode_button.pressed.connect(editor.new_episode)
-		settings_button.pressed.connect(editor.toggle_interface)
-	if settings:
-		settings_button.pressed.connect(settings.toggle_interface)
-	
 	open_production_button.pressed.connect(Dialog.popup_directory_dialog)
+	new_episode_button.pressed.connect(episode_panel.new_episode)
+	
+	refresh_button.pressed.connect(editor.refresh_top)
+	settings_button.pressed.connect(editor.toggle_interface)
+	settings_button.pressed.connect(settings.toggle_interface)
 
 func _exit_tree() -> void:
-	if editor:
-		refresh_button.pressed.disconnect(editor.load_episodes)
-		new_episode_button.pressed.disconnect(editor.new_episode)
-		settings_button.pressed.disconnect(editor.toggle_interface)
-	if settings:
-		settings_button.pressed.disconnect(settings.toggle_interface)
-	
 	open_production_button.pressed.disconnect(Dialog.popup_directory_dialog)
+	new_episode_button.pressed.disconnect(episode_panel.new_episode)
+	
+	refresh_button.pressed.disconnect(editor.refresh_top)
+	settings_button.pressed.disconnect(editor.toggle_interface)
+	settings_button.pressed.disconnect(settings.toggle_interface)

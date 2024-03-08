@@ -17,7 +17,7 @@ action = &"Open Settings"
 [sub_resource type="Shortcut" id="Shortcut_n6rsc"]
 events = [SubResource("InputEventAction_hi1cs")]
 
-[node name="MenuBar" type="HBoxContainer"]
+[node name="ZudeToolsMenuBar" type="HBoxContainer"]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
@@ -30,18 +30,18 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NewEpisodeButton" type="Button" parent="BarLeft"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "New Episode
-"
-
 [node name="OpenProductionButton" type="Button" parent="BarLeft"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Open Production"
+
+[node name="NewEpisodeButton" type="Button" parent="BarLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Episode
+"
 
 [node name="BarCenter" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

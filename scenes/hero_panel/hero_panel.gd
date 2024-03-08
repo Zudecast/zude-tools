@@ -1,10 +1,14 @@
 @tool
-class_name ZudeToolsHero
-extends ZudeTools
+class_name ZudeToolsHeroPanel
+extends Control
+
+#region Onready Variables
 
 @onready var title = %Title
 @onready var image = %Image
 @onready var video = %Video
+
+#endregion
 
 func refresh(episode: ZudeToolsCardEpisode) -> void:
 	clear()

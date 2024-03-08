@@ -1,6 +1,6 @@
 @tool
 class_name ZudeToolsSettings
-extends ZudeTools
+extends Control
 
 #region Constants
 
