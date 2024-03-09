@@ -114,7 +114,7 @@ func load_episode(title: String) -> void:
 	# Early return if buffer_episode returned null.
 	if episode == null: return
 	
-	# Set the name, title, and path.
+	# Set the title and path.
 	episode.title = title
 	episode.path = Config.settings.directory.path_join(title)
 	# Connect the episode focused signal to the relevant update methods.

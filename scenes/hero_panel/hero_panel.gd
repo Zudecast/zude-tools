@@ -4,18 +4,21 @@ extends Control
 
 #region Onready Variables
 
-@onready var title = %Title
-@onready var image = %Image
-@onready var video = %Video
+@onready var title: LinkButton = %Title
+@onready var image_link: LinkButton = %ImageLink
+@onready var image: TextureRect = %Image
+@onready var video: VideoStreamPlayer = %Video
 
 #endregion
 
-## Refresh the hero panel witht he focused episode.
-func refresh(episode: ZudeToolsCardEpisode) -> void:
+## Refresh the hero panel with the focused card.
+func refresh(card: ZudeToolsCard) -> void:
 	clear()
 	
-	title.text = episode.title
-	image.texture = episode.preview.texture
+	title.text = card.title
+	title.uri = card.path
+	image_link.uri = card.path
+	image.texture = card.preview.texture
 
 ## Clear the hero panel variables and return them to defaults.
 func clear() -> void:

@@ -10,15 +10,6 @@ extends ZudeToolsCard
 
 #endregion
 
-#region Variables
-
-## This card's title.
-var title: String
-## This card's path.
-var path: String
-
-#endregion
-
 func _ready() -> void:
 	button.focus_entered.connect(focus_changed)
 	

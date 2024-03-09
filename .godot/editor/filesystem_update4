@@ -12,3 +12,11 @@ res://singletons/config.gd
 res://scenes/tab_panel/tab.gd
 res://scenes/cards/card_image.gd
 res://scenes/cards/card_video.gd
+res://README.md
+res://scenes/context_menu/context_menu.tscn
+res://scenes/context_menu/context_menu.gd
+res://zude_tools.gd
+res://scenes/tab_panel/tab_panel.gd
+res://scenes/cards/card.gd
+res://scenes/hero_panel/hero_panel.tscn
+res://scenes/cards/card_video.tscn

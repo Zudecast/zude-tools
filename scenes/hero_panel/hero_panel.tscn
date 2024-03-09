@@ -15,6 +15,7 @@ alignment = 1
 
 [node name="Video" type="VideoStreamPlayer" parent="Margin/VBox"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 expand = true
 
@@ -25,11 +26,18 @@ layout_mode = 2
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Title" type="LineEdit" parent="Margin/VBox"]
+[node name="ImageLink" type="LinkButton" parent="Margin/VBox/Image"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+underline = 2
+
+[node name="Title" type="LinkButton" parent="Margin/VBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-placeholder_text = "Select an episode..."
-alignment = 1
-editable = false
-flat = true
+underline = 2

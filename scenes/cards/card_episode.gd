@@ -12,11 +12,6 @@ extends ZudeToolsCard
 
 #region Variables
 
-## This episode's title.
-var title: String
-## This episode's path.
-var path: String
-
 ## Contains a directory name as key and its path as value.
 var directories: Dictionary
 ## Contains a directory name as key and a PackedStringArray of file paths as value.
@@ -57,8 +52,8 @@ func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 		
 		for file_name: String in dir_files:
 			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
-				var path = directories["main_thumb"].path_join(file_name)
-				image.load(path)
+				var file_path = directories["main_thumb"].path_join(file_name)
+				image.load(file_path)
 				if image.is_empty() == false:
 					texture = ImageTexture.create_from_image(image)
 	

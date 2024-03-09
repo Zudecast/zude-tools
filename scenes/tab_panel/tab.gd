@@ -25,12 +25,18 @@ signal items_counted(int)
 
 func _ready() -> void:
 	visibility_changed.connect(count_items)
+	visibility_changed.connect(refresh_label_visibility)
+	flow.child_entered_tree.connect(refresh_label_visibility)
+	flow.child_exiting_tree.connect(refresh_label_visibility)
 
 func _exit_tree():
 	visibility_changed.disconnect(count_items)
+	visibility_changed.disconnect(refresh_label_visibility)
+	flow.child_entered_tree.disconnect(refresh_label_visibility)
+	flow.child_exiting_tree.disconnect(refresh_label_visibility)
 
 ## Update the nothing_label's visibility based on if there are children in the flow node.
-func refresh_button_visibility() -> void:
+func refresh_label_visibility() -> void:
 	if flow.get_child_count() == 0:
 		nothing_label.set_visible(true)
 	else:
@@ -42,57 +48,37 @@ func load_item(file_name: String, file_path: String) -> void:
 	if file_name.is_valid_filename() == false:
 		return
 	
-	# Create a placeholder tab item so we can chose how to handle it.
-	var card: ZudeToolsCard
-	var image: = Image.new()
-	var texture: Texture2D = Config.DEFAULT_PREVIEW
+	# Get file extension so we can chose how to handle the file.
+	var extension: String = file_name.get_extension()
+	
+	var add_card = func(card: ZudeToolsCard) -> void:
+		card.title = file_name
+		card.path = file_path
+		card.focused.connect(get_parent().hero_panel.refresh)
+		flow.add_child(card)
 	
 	# Handle image files.
-	if file_name.get_extension() in ["png", "jpg"]:
-		# Instantiate a new CardImage.
-		card = IMAGE.instantiate()
-		# Configure card title and path.
-		card.title = file_name
-		card.path = file_path
-		# Add card to item flow.
-		flow.add_child(card)
+	if extension in ["png", "jpg"]:
+		add_card.call(IMAGE.instantiate())
 	
 	# Handle image template files.
-	elif file_name.get_extension() in ["psd", "krz", "kra"]:
-		# Instantiate a new CardImage.
-		card = IMAGE.instantiate()
-		# Configure card title and path.
-		card.title = file_name
-		card.path = file_path
-		# Add card to item flow.
-		flow.add_child(card)
+	elif extension in ["psd", "krz", "kra"]:
+		add_card.call(IMAGE.instantiate())
 	
-	##  Handle video files.
-	elif file_name.get_extension() in ["mp4", "mkv"]:
-		# Instantiate a new CardVideo
-		card = VIDEO.instantiate()
-		# Configure card title and path.
-		card.title = file_name
-		card.path = file_path
-		# Add card to item flow.
-		flow.add_child(card)
-	
-	refresh_button_visibility()
+	#  Handle video files.
+	elif extension in ["mp4", "mkv"]:
+		add_card.call(VIDEO.instantiate())
 
 ## Remove any item from the specified tab at the specified index.
 func free_item(item: Control) -> void:
 	item.queue_free()
-	
-	refresh_button_visibility()
 
 ## Remove all items from the specified tab.
 func free_items() -> void:
 	for child in flow.get_children():
 		free_item(child)
 
-## Get the number of children in the flow, emit child count through visibility_changed.
+## Get the number of items in the flow, emit item count through items_counted.
 func count_items() -> void:
 	if visible:
 		items_counted.emit(flow.get_child_count())
-	
-	refresh_button_visibility()

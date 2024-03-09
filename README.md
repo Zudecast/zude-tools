@@ -20,7 +20,7 @@
 	[x] Reuse tab instances.
 	[ ] Asynchronous loading and freeing of files.
 [ ] Generate any template file for any image, video, or text file using its name and any pre-configured tags.
-[ ] Enforce desired directory structure for projects.
+[x] Create desired directory structure for projects.
 [ ] Enforce desired naming conventions for files based on their project sub-directory.
 [ ] Resolve naming conflicts when enforcing file or folder rules.
 [ ] Create timestamp sheets for video editors for video files.
@@ -28,8 +28,8 @@
 	[x] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
 	[x] Create a list of template files that can be generated based on any existing image, video, or text file.
 		[x] Restrict the generation of template files to only generate based on specified file extensions.
-	[ ] Create a desired directory structure that can be enforced upon projects.
+	[X] Create a desired directory structure that can be enforced upon projects.
 		[ ] Assign default sub-directories to search for the project thumbnail and hero video when loading a production directory.
 	[ ] Assign the production a top level naming convention, or specify per project sub-directory based on pre-configured settings.
 		[ ] Create specific naming rules and tags per project sub-directory.
-	[ ] Accent color (if I don't get lazy)
+	[x] Basic theme customization.
