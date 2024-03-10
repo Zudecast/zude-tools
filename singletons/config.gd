@@ -16,6 +16,7 @@ var production: String
 
 ## The contents of the config file.
 var settings: Dictionary = {
+	"theme_color" : null,
 	"directory" : null,
 	"preview" : null,
 	"templates" : {},
@@ -34,6 +35,7 @@ var settings: Dictionary = {
 ## Emit when these nodes need to be refreshed.
 signal settings_refresh_requested
 signal editor_refresh_requested
+signal theme_color_set
 signal directory_set
 signal preview_set
 signal templates_set
@@ -126,5 +128,14 @@ func set_folder_tree(tree: Dictionary) -> void:
 	settings.folder_tree = tree
 	write()
 	folder_tree_set.emit()
+
+#endregion
+
+#region Theme
+
+func set_theme_color(color: Color) -> void:
+	settings.theme_color = color.to_html()
+	write()
+	theme_color_set.emit()
 
 #endregion

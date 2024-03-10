@@ -318,6 +318,9 @@ layout_mode = 2
 
 [node name="TabPanel" parent="EditorSplit/EditorBottom/EditorBottomRight" node_paths=PackedStringArray("editor", "hero_panel", "bottom_bar") instance=ExtResource("5_abeku")]
 unique_name_in_owner = true
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 layout_mode = 2
 theme = SubResource("Theme_lwq8y")
 editor = NodePath("../../../..")

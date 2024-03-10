@@ -7,5 +7,5 @@ func _ready() -> void:
 	Config.read()
 
 func _exit_tree() -> void:
-	#Config.write()
+	Config.write()
 	print("-- Exiting Zude Tools. --")

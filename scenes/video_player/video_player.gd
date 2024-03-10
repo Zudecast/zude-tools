@@ -24,3 +24,6 @@ func toggle_playback(toggled_on: bool) -> void:
 	else:
 		if toggled_on:
 			video.play()
+
+# FIXME - Video diemsnions are fucked
+# TODO - Implement slider for playback control

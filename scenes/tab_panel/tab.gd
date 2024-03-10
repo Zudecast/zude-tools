@@ -26,14 +26,10 @@ signal items_counted(int)
 func _ready() -> void:
 	visibility_changed.connect(count_items)
 	visibility_changed.connect(refresh_label_visibility)
-	flow.child_entered_tree.connect(refresh_label_visibility)
-	flow.child_exiting_tree.connect(refresh_label_visibility)
 
 func _exit_tree():
 	visibility_changed.disconnect(count_items)
 	visibility_changed.disconnect(refresh_label_visibility)
-	flow.child_entered_tree.disconnect(refresh_label_visibility)
-	flow.child_exiting_tree.disconnect(refresh_label_visibility)
 
 ## Update the nothing_label's visibility based on if there are children in the flow node.
 func refresh_label_visibility() -> void:
