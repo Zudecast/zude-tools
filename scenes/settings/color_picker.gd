@@ -41,4 +41,4 @@ func set_global_font_size(text: String) -> void:
 
 func update_theme_color(color_html: String = Config.settings.theme_color) -> void:
 	color = Color(color_html)
-	PANEL_FLAT.bg_color = color * Color(0.5, 0.5, 0.5, 0.25)
+	PANEL_FLAT.bg_color = color * Color(0.5, 0.5, 0.5, 0.125)

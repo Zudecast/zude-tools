@@ -51,10 +51,13 @@ func load_tabs(episode: ZudeToolsCardEpisode) -> void:
 		if tabs.has(dir_name) == false:
 			load_tab(dir_name)
 		
+		var tab: ZudeToolsTab = tabs[dir_name]
 		# Populate each tab's item flow with relevant files.
 		for file_name: String in episode.files[dir_name]:
 			var file_path: String = episode.directories[dir_name].path_join(file_name)
-			tabs[dir_name].load_item(file_name, file_path)
+			tab.load_item(file_name, file_path)
+		
+		tab.refresh_label_visibility()
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab_name: String) -> void:

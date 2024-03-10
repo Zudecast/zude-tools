@@ -38,6 +38,7 @@ underline = 2
 
 [node name="Title" type="LinkButton" parent="Margin/VBox"]
 unique_name_in_owner = true
+clip_contents = true
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_horizontal = 4

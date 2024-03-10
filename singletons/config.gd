@@ -12,8 +12,6 @@ const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_p
 
 #region Variables
 
-var production: String
-
 ## The contents of the config file.
 var settings: Dictionary = {
 	"theme_color" : null,
@@ -58,7 +56,6 @@ func read() -> void:
 	print("-- Config End --")
 	print()
 	
-	set_production()
 	settings_refresh_requested.emit()
 	editor_refresh_requested.emit()
 
@@ -75,17 +72,11 @@ func write() -> void:
 	print("-- Config End --")
 	print()
 	
-	set_production()
 	settings_refresh_requested.emit()
 
 #region Global
 
-## Set the name of the production directory.
-func set_production() -> void:
-	var slices = settings.directory.split("/")
-	production = slices[-1]
-
-## Set the specified directory to the config.directory, the directory property, then write to config file.
+## Set the specified path to the config.directory then write to config file.
 func set_directory(new_path: String) -> void:
 	settings.directory = new_path
 	write()

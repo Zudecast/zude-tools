@@ -2,28 +2,101 @@
 class_name ZudeToolsCardVideo
 extends ZudeToolsCard
 
+#region Constants
+
+const PLAY = preload("res://icons/play.svg")
+const PAUSE = preload("res://icons/pause.svg")
+
+#endregion
+
 #region Onready Variables
 
-@onready var label: LineEdit = %Title
-@onready var preview: ZudeToolsVideoPlayer = %Preview
+@onready var label: Label = %Label
+@onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
+
+@onready var video: VideoStreamPlayer = %Video
+@onready var play_pause_button: Button = %PlayPauseButton
+@onready var playback_slider: HSlider = %PlaybackSlider
 
 #endregion
 
 func _ready() -> void:
-	button.focus_entered.connect(focus_changed)
+	play_pause_button.toggled.connect(toggle_playback)
+	playback_slider.value_changed.connect(set_playback_position)
+	#focus_entered.connect(focus_changed)
 	
 	update_label()
 	update_preview()
+	update_video()
+	
+	video.stream_position = 1
+	preview.texture = video.get_video_texture()
+	playback_slider.max_value = video.get_stream_length()
 
 func _exit_tree() -> void:
-	button.focus_entered.disconnect(focus_changed)
+	if video.is_playing():
+		video.stop()
+	play_pause_button.toggled.disconnect(toggle_playback)
+	playback_slider.value_changed.disconnect(set_playback_position)
+	#focus_entered.disconnect(focus_changed)
 
+## Set the label node's text.
 func update_label() -> void:
 	name = title
 	label.text = title
 	tooltip_text = title
 
-## Set the video node's stream file to the specified path.
-func update_preview() -> void:
-	preview.video.stream.file = path
+## Set the preview node's texture.
+func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+	var image = Image.new()
+	image.load(path)
+	if image.is_empty() == false:
+		texture = ImageTexture.create_from_image(image)
+	
+	preview.texture = texture
+
+## Set the video stream file to the path property.
+func update_video() -> void:
+	video.stream.file = path
+
+## Update slider and preview texture each frame.
+func track_playback() -> void:
+	if playback_slider.value != video.stream_position:
+		playback_slider.value = video.stream_position
+	if video.is_playing() and video.paused == false:
+		preview.texture = video.get_video_texture()
+
+## Set states based on the play pause button.
+func toggle_playback(toggled_on: bool) -> void:
+	if video.is_playing():
+		if toggled_on:
+			video.paused = false
+			play_pause_button.icon = PAUSE
+			track_playback()
+		else:
+			video.paused = true
+			play_pause_button.icon = PLAY
+	else:
+		if toggled_on:
+			video.play()
+			play_pause_button.icon = PAUSE
+			track_playback()
+
+## Set playback position via the slider.
+func set_playback_position(value: float) -> void:
+	video.stream_position = value
+	if video.stream_position == video.get_stream_length():
+		reset_playback()
+
+## Stop playback and reset UI.
+func reset_playback() -> void:
+	video.stop()
+	playback_slider.value = 0
+	play_pause_button.icon = PLAY
+	play_pause_button.button_pressed = false
+
+## Receive focus state from the tab, stop playback when unfocused.
+func tab_focused(is_focused: bool) -> void:
+	if is_focused == false:
+		reset_playback()

@@ -4,7 +4,7 @@ extends ZudeToolsCard
 
 #region Onready Variables
 
-@onready var label: LineEdit = %Label
+@onready var label: Label = %Label
 @onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 

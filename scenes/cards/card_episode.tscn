@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dff2jjw2sqplf"]
+[gd_scene load_steps=6 format=3 uid="uid://dff2jjw2sqplf"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_pa86c"]
 [ext_resource type="Script" path="res://scenes/cards/card_episode.gd" id="2_17rr6"]
 [ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/theme/default_preview.tres" id="3_s8r0t"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_grjqd"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
 
 [node name="EpisodePanel" type="PanelContainer"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 custom_minimum_size = Vector2(250, 150)
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,13 +34,14 @@ texture = ExtResource("3_s8r0t")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Label" type="LineEdit" parent="EpisodeMargin/EpisodeVBox"]
+[node name="Label" type="Label" parent="EpisodeMargin/EpisodeVBox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 25)
 layout_mode = 2
 size_flags_vertical = 8
-placeholder_text = "Episode Title"
-editable = false
-flat = true
+label_settings = SubResource("LabelSettings_grjqd")
+autowrap_mode = 3
+max_lines_visible = 2
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true

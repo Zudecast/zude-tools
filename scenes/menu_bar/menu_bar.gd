@@ -45,10 +45,6 @@ func _exit_tree() -> void:
 	settings_button.pressed.disconnect(editor.toggle_interface)
 	settings_button.pressed.disconnect(settings.toggle_interface)
 
-func set_production_link() -> void:
-	production_link.text = Config.production
-	production_link.uri = Config.settings.directory
-
 func refresh_buttons_visibility() -> void:
 	if Config.settings.directory == null:
 		new_episode_button.visible = false
@@ -56,3 +52,7 @@ func refresh_buttons_visibility() -> void:
 	else:
 		new_episode_button.visible = true
 		production_link.visible = true
+
+func set_production_link() -> void:
+	production_link.text = Config.settings.directory
+	production_link.uri = Config.settings.directory
