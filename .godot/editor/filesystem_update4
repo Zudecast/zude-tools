@@ -7,3 +7,9 @@ res://scenes/cards/card_episode.tscn
 res://scenes/cards/card_image.tscn
 res://scenes/cards/card_video.gd
 res://scenes/tab_panel/tab_panel.gd
+res://scenes/cards/card_video.tscn
+res://scenes/tab_panel/tab.tscn
+res://scenes/hero_panel/hero_panel.tscn
+res://scenes/hero_panel/hero_panel.gd
+res://scenes/cards/card_image.gd
+res://scenes/cards/card_episode.gd

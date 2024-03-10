@@ -1,14 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dff2jjw2sqplf"]
+[gd_scene load_steps=5 format=3 uid="uid://dff2jjw2sqplf"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_pa86c"]
 [ext_resource type="Script" path="res://scenes/cards/card_episode.gd" id="2_17rr6"]
 [ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/theme/default_preview.tres" id="3_s8r0t"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_grjqd"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ysq63"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jr1c7"]
-
-[node name="EpisodePanel" type="PanelContainer"]
+[node name="EpisodePanel" type="VBoxContainer"]
 process_thread_group = 1
 process_thread_group_order = 0
 process_thread_messages = 0
@@ -21,29 +19,34 @@ grow_vertical = 2
 theme = ExtResource("1_pa86c")
 script = ExtResource("2_17rr6")
 
-[node name="EpisodeMargin" type="MarginContainer" parent="."]
-layout_mode = 2
-
-[node name="EpisodeVBox" type="VBoxContainer" parent="EpisodeMargin"]
-layout_mode = 2
-
-[node name="Preview" type="TextureRect" parent="EpisodeMargin/EpisodeVBox"]
-unique_name_in_owner = true
-layout_mode = 2
-texture = ExtResource("3_s8r0t")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="EpisodeMargin/EpisodeVBox"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 25)
-layout_mode = 2
-size_flags_vertical = 8
-label_settings = SubResource("LabelSettings_grjqd")
-autowrap_mode = 3
-max_lines_visible = 2
-
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_jr1c7")
+theme_override_constants/icon_max_width = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ysq63")
+icon = ExtResource("3_s8r0t")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Margin" type="MarginContainer" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Button/Margin"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Card Episode"
+horizontal_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 2

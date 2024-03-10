@@ -12,7 +12,6 @@ const PAUSE = preload("res://icons/pause.svg")
 #region Onready Variables
 
 @onready var label: Label = %Label
-@onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 
 @onready var video: VideoStreamPlayer = %Video
@@ -23,23 +22,24 @@ const PAUSE = preload("res://icons/pause.svg")
 
 func _ready() -> void:
 	play_pause_button.toggled.connect(toggle_playback)
+	button.pressed.connect(toggle_playback)
 	playback_slider.value_changed.connect(set_playback_position)
-	#focus_entered.connect(focus_changed)
+	button.focus_entered.connect(focus_changed)
 	
 	update_label()
 	update_preview()
 	update_video()
 	
-	video.stream_position = 1
-	preview.texture = video.get_video_texture()
 	playback_slider.max_value = video.get_stream_length()
 
 func _exit_tree() -> void:
 	if video.is_playing():
 		video.stop()
+	
 	play_pause_button.toggled.disconnect(toggle_playback)
+	button.pressed.disconnect(toggle_playback)
+	button.focus_entered.disconnect(focus_changed)
 	playback_slider.value_changed.disconnect(set_playback_position)
-	#focus_entered.disconnect(focus_changed)
 
 ## Set the label node's text.
 func update_label() -> void:
@@ -54,7 +54,7 @@ func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 	if image.is_empty() == false:
 		texture = ImageTexture.create_from_image(image)
 	
-	preview.texture = texture
+	button.icon = texture
 
 ## Set the video stream file to the path property.
 func update_video() -> void:
@@ -65,12 +65,12 @@ func track_playback() -> void:
 	if playback_slider.value != video.stream_position:
 		playback_slider.value = video.stream_position
 	if video.is_playing() and video.paused == false:
-		preview.texture = video.get_video_texture()
+		button.icon = video.get_video_texture()
 
 ## Set states based on the play pause button.
-func toggle_playback(toggled_on: bool) -> void:
+func toggle_playback() -> void:
 	if video.is_playing():
-		if toggled_on:
+		if video.paused:
 			video.paused = false
 			play_pause_button.icon = PAUSE
 			track_playback()
@@ -78,10 +78,9 @@ func toggle_playback(toggled_on: bool) -> void:
 			video.paused = true
 			play_pause_button.icon = PLAY
 	else:
-		if toggled_on:
-			video.play()
-			play_pause_button.icon = PAUSE
-			track_playback()
+		video.play()
+		play_pause_button.icon = PAUSE
+		track_playback()
 
 ## Set playback position via the slider.
 func set_playback_position(value: float) -> void:

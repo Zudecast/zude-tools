@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://clrhbm4fegxe3"]
+[gd_scene load_steps=7 format=3 uid="uid://clrhbm4fegxe3"]
 
 [ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_asrbj"]
 [ext_resource type="Script" path="res://scenes/cards/card_video.gd" id="2_c1dg5"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/theme/default_preview.tres" id="3_sj502"]
 [ext_resource type="Texture2D" uid="uid://cie751brhbxw2" path="res://icons/play.svg" id="3_tusrg"]
 
 [sub_resource type="FFmpegVideoStream" id="FFmpegVideoStream_bicm3"]
 resource_local_to_scene = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1bpi"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1cpf"]
 
-[node name="VideoPanel" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 150)
+[node name="VideoPanel" type="VBoxContainer"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,61 +22,60 @@ grow_vertical = 2
 theme = ExtResource("1_asrbj")
 script = ExtResource("2_c1dg5")
 
-[node name="VideoVBox" type="VBoxContainer" parent="."]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Preview" type="TextureRect" parent="VideoVBox"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 2
-expand_mode = 5
-stretch_mode = 5
-
-[node name="Video" type="VideoStreamPlayer" parent="VideoVBox"]
+[node name="Video" type="VideoStreamPlayer" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stream = SubResource("FFmpegVideoStream_bicm3")
-expand = true
 
-[node name="Margin" type="MarginContainer" parent="VideoVBox"]
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VideoVBox/Margin"]
-layout_mode = 2
-
-[node name="TransportHBox" type="HBoxContainer" parent="VideoVBox/Margin/VBoxContainer"]
-layout_mode = 2
-
-[node name="PlayPauseButton" type="Button" parent="VideoVBox/Margin/VBoxContainer/TransportHBox"]
+[node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/icon_max_width = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k1cpf")
+icon = ExtResource("3_sj502")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Margin" type="MarginContainer" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TransportControls" type="HBoxContainer" parent="Button/Margin"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="PlayPauseButton" type="Button" parent="Button/Margin/TransportControls"]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("3_tusrg")
 flat = true
 
-[node name="PlaybackSlider" type="HSlider" parent="VideoVBox/Margin/VBoxContainer/TransportHBox"]
+[node name="PlaybackSlider" type="HSlider" parent="Button/Margin/TransportControls"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-max_value = 1.0
 rounded = true
 
-[node name="Label" type="Label" parent="VideoVBox/Margin/VBoxContainer"]
+[node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
+mouse_filter = 1
+text = "Card Video"
+horizontal_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
-
-[node name="Button" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_x1bpi")

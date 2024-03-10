@@ -5,7 +5,6 @@ extends ZudeToolsCard
 #region Onready Variables
 
 @onready var label: Label = %Label
-@onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 
 #endregion
@@ -27,9 +26,13 @@ func _ready() -> void:
 	update_preview()
 	
 	button.focus_entered.connect(focus_changed)
+	button.mouse_entered.connect(show_label)
+	button.mouse_exited.connect(hide_label)
 
 func _exit_tree() -> void:
 	button.focus_entered.disconnect(focus_changed)
+	button.mouse_entered.disconnect(show_label)
+	button.mouse_exited.disconnect(hide_label)
 	
 	files.clear()
 	directories.clear()
@@ -39,6 +42,12 @@ func update_label() -> void:
 	name = title
 	label.text = title
 	tooltip_text = title
+
+func show_label() -> void:
+	label.visible = true
+
+func hide_label() -> void:
+	label.visible = false
 
 ## Set the preview node's image to the specified path.
 func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
@@ -64,7 +73,7 @@ func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 			texture = ImageTexture.create_from_image(image)
 	
 	## Set the final texture.
-	preview.texture = texture
+	button.icon = texture
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(at_path: String = path) -> void:

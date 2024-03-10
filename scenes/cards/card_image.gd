@@ -5,7 +5,6 @@ extends ZudeToolsCard
 #region Onready Variables
 
 @onready var label: Label = %Label
-@onready var preview: TextureRect = %Preview
 @onready var button: Button = %Button
 
 #endregion
@@ -32,4 +31,4 @@ func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 	if image.is_empty() == false:
 		texture = ImageTexture.create_from_image(image)
 	
-	preview.texture = texture
+	button.icon = texture

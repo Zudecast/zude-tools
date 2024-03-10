@@ -1,7 +1,9 @@
-TextureRect
-SubViewport
 AspectRatioContainer
+MarginContainer
 VBoxContainer
+Button
+SubViewport
+TextureRect
 Label
 LinkButton
 PanelContainer
@@ -10,6 +12,3 @@ PopupMenu
 Popup
 Window
 HBoxContainer
-VSplitContainer
-VSeparator
-HSeparator
