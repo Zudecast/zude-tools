@@ -308,13 +308,16 @@ layout_mode = 2
 [node name="EditorBottom" type="HSplitContainer" parent="EditorSplit"]
 custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HeroPanel" parent="EditorSplit/EditorBottom" instance=ExtResource("3_np2d4")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="EditorBottomRight" type="VBoxContainer" parent="EditorSplit/EditorBottom"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TabPanel" parent="EditorSplit/EditorBottom/EditorBottomRight" node_paths=PackedStringArray("editor", "hero_panel", "bottom_bar") instance=ExtResource("5_abeku")]
 unique_name_in_owner = true

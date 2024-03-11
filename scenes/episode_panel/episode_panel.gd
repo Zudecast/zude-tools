@@ -5,7 +5,8 @@ extends Control
 #region Constants
 
 const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn")
-const EPISODE: PackedScene = preload("res://scenes/cards/card_episode.tscn")
+const CARD: PackedScene = preload("res://scenes/cards/card.tscn")
+const CardEpisode: Script = preload("res://scenes/cards/card_episode.gd")
 
 #endregion
 
@@ -96,12 +97,13 @@ func buffer_episode(title: String) -> ZudeToolsCardEpisode:
 		return
 	
 	# Instantiate and name the CardEpisode.
-	var episode: ZudeToolsCardEpisode = EPISODE.instantiate()
+	var card: ZudeToolsCard = CARD.instantiate()
+	card.set_script(CardEpisode)
 	
 	# Append episode to the episode buffer.
-	buffer.merge({title : episode})
+	buffer.merge({title : card})
 	
-	return episode
+	return card
 
 ## Buffer an episode instance and add it to the episode flow.
 func load_episode(title: String) -> void:

@@ -4,15 +4,21 @@ extends Control
 
 #region Constants
 
-const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
-const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
-
+const CARD: PackedScene = preload("res://scenes/cards/card.tscn")
+const CardImage: Script = preload("res://scenes/cards/card_image.gd")
+const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
 #endregion
 
 #region Onready Variables
 
 @onready var flow: HFlowContainer = %TabFlow
 @onready var nothing_label: Label = %NothingLabel
+
+#endregion
+
+#region Variables
+
+var episode: ZudeToolsCardEpisode: set = load_items
 
 #endregion
 
@@ -51,6 +57,7 @@ func load_item(file_name: String, file_path: String) -> void:
 	# Get file extension so we can chose how to handle the file.
 	var extension: String = file_name.get_extension()
 	var tab_panel: ZudeToolsTabPanel = get_parent()
+	var new_card: ZudeToolsCard
 	
 	# Define lamba function to configure card and add it to the episode flow.
 	var add_card = func(card: ZudeToolsCard) -> void:
@@ -73,15 +80,30 @@ func load_item(file_name: String, file_path: String) -> void:
 	
 	# Handle image files.
 	if extension in ["png", "jpg", "webp"]:
-		add_card.call(IMAGE.instantiate())
+		new_card = CARD.instantiate()
+		new_card.set_script(CardImage)
+		add_card.call(new_card)
 	
 	# Handle image template files.
 	elif extension in ["psd", "krz", "kra"]:
-		add_card.call(IMAGE.instantiate())
+		new_card = CARD.instantiate()
+		new_card.set_script(CardImage)
+		add_card.call(new_card)
 	
 	#  Handle video files.
 	elif extension in ["mp4"]:
-		add_card.call(VIDEO.instantiate())
+		new_card = CARD.instantiate()
+		new_card.set_script(CardVideo)
+		add_card.call(new_card)
+
+## Loads items when the episode reference is set.
+func load_items(from_episode: ZudeToolsCardEpisode = episode) -> void:
+	var file_path: String
+	
+	# Populate each tab's item flow with relevant files.
+	for file_name: String in from_episode.files[name]:
+		file_path = from_episode.directories[name].path_join(file_name)
+		load_item(file_name, file_path)
 
 ## Remove an item from the flow at the specified index.
 func free_item(item: Control) -> void:

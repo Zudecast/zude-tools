@@ -2,15 +2,6 @@
 class_name ZudeToolsEditor
 extends Control
 
-#region Constants
-
-const IMAGE: PackedScene = preload("res://scenes/cards/card_image.tscn")
-const VIDEO: PackedScene = preload("res://scenes/cards/card_video.tscn")
-const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
-const TAB: PackedScene = preload("res://scenes/tab_panel/tab.tscn")
-
-#endregion
-
 #region Onready Variables
 
 @onready var episode_panel: ZudeToolsEpisodePanel = %EpisodePanel

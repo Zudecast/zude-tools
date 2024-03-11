@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://clrhbm4fegxe3"]
+
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_hy4td"]
+[ext_resource type="Texture2D" uid="uid://bxcbr062mvbjo" path="res://resources/theme/default_preview.tres" id="2_qrw2k"]
+[ext_resource type="Script" path="res://scenes/cards/card.gd" id="3_1ulj2"]
+[ext_resource type="StyleBox" uid="uid://cpgt46xo1b2p2" path="res://resources/theme/card_label_style_box_flat.tres" id="4_7okia"]
+[ext_resource type="LabelSettings" uid="uid://hquxu5e8fsfh" path="res://resources/theme/card_label_settings.tres" id="4_vqbbq"]
+
+[node name="Card" type="Button"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+custom_minimum_size = Vector2(240, 135)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hy4td")
+theme_override_constants/icon_max_width = 0
+icon = ExtResource("2_qrw2k")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_1ulj2")
+
+[node name="Panel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_7okia")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Margin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Video Card"
+label_settings = ExtResource("4_vqbbq")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 2

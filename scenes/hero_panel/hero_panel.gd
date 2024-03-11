@@ -4,24 +4,29 @@ extends Control
 
 #region Onready Variables
 
-@onready var title: LinkButton = %Title
-@onready var preview_link: LinkButton = %ImageLink
-@onready var preview: TextureRect = %Image
-@onready var video: VideoStreamPlayer = %Video
+@onready var label: Label = %Label
+@onready var link: LinkButton = %Link
+@onready var buttons_v_box: VBoxContainer = %ButtonsVBox
+@onready var preview: TextureRect = %Preview
 
 #endregion
 
-## Refresh the hero panel with the focused card.
-func refresh(card: ZudeToolsCard) -> void:
-	title.text = card.title
-	title.uri = card.path
-	preview_link.uri = card.path
-	preview.texture = card.button.icon
+var card: ZudeToolsCard
 
-## Clear the hero panel variables and return them to defaults.
+func _ready() -> void:
+	label.text = "Select an item..."
+	link.uri = ""
+
+## Refresh the hero panel with the focused card.
+func refresh(focused_card: ZudeToolsCard) -> void:
+	preview.texture = focused_card.icon
+	label.text = focused_card.title
+	link.uri = focused_card.path
+
+## Clear the hero panel.
 func clear() -> void:
-	title.text = "Select an episode..."
-	preview.texture = null
+	label.text = "Select an item..."
+	link.uri = ""
 
 ## Toggle hero panel visibility.
 func toggle_visibility() -> void:

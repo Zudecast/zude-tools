@@ -34,7 +34,7 @@ func clear() -> void:
 			free_tab(tab)
 
 ## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
-func load_tab(tab_name: String) -> void:
+func load_tab(tab_name: String) -> ZudeToolsTab:
 	# Instantiate a new tab and add it to the node tree.
 	var tab: ZudeToolsTab = TAB.instantiate()
 	add_child(tab)
@@ -44,20 +44,19 @@ func load_tab(tab_name: String) -> void:
 	tab.items_counted.connect(bottom_bar.update_item_count)
 	# Add tab to the tabs dictionary.
 	tabs.merge({tab.name : tab})
+	# Show or hide nothing here label.
+	tab.refresh_label_visibility()
+	return tab
 
 ## Create a tab for each episode directory that a tab does not yet exist for.
 func load_tabs(episode: ZudeToolsCardEpisode) -> void:
 	for dir_name: String in episode.directories.keys():
-		if tabs.has(dir_name) == false:
-			load_tab(dir_name)
-		
-		var tab: ZudeToolsTab = tabs[dir_name]
-		# Populate each tab's item flow with relevant files.
-		for file_name: String in episode.files[dir_name]:
-			var file_path: String = episode.directories[dir_name].path_join(file_name)
-			tab.load_item(file_name, file_path)
-		
-		tab.refresh_label_visibility()
+		# Load a new tab if one with dir_name does not exist.else get the loaded tab with dir_name.
+		# Update the reference to the focused episode so the tab can refresh its items.
+		if not dir_name in tabs:
+			load_tab(dir_name).episode = episode
+		else:
+			tabs[dir_name].episode = episode
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab_name: String) -> void:

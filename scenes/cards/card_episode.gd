@@ -2,13 +2,6 @@
 class_name ZudeToolsCardEpisode
 extends ZudeToolsCard
 
-#region Onready Variables
-
-@onready var label: Label = %Label
-@onready var button: Button = %Button
-
-#endregion
-
 #region Variables
 
 ## Contains a directory name as key and its path as value.
@@ -22,58 +15,33 @@ func _ready() -> void:
 	get_directories()
 	get_files()
 	
-	update_label()
-	update_preview()
-	
-	button.focus_entered.connect(focus_changed)
-	button.mouse_entered.connect(show_label)
-	button.mouse_exited.connect(hide_label)
+	super()
 
 func _exit_tree() -> void:
-	button.focus_entered.disconnect(focus_changed)
-	button.mouse_entered.disconnect(show_label)
-	button.mouse_exited.disconnect(hide_label)
+	super()
 	
 	files.clear()
 	directories.clear()
 
-## Set the label node's text to the specified text.
-func update_label() -> void:
-	name = title
-	label.text = title
-	tooltip_text = title
-
-func show_label() -> void:
-	label.visible = true
-
-func hide_label() -> void:
-	label.visible = false
-
-## Set the preview node's image to the specified path.
-func update_preview(texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
-	var image = Image.new()
-	
+## Set the card texture.
+func update_texture(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 	# Check for a preview image candidate.
 	if files.has("main_thumb"):
 		var dir_files: PackedStringArray = files["main_thumb"]
-		
 		if dir_files.is_empty(): return
+		
+		var image = Image.new()
+		var file_path: String
 		
 		for file_name: String in dir_files:
 			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
-				var file_path = directories["main_thumb"].path_join(file_name)
+				file_path = directories["main_thumb"].path_join(file_name)
 				image.load(file_path)
 				if image.is_empty() == false:
-					texture = ImageTexture.create_from_image(image)
-	
-	## Use the config default preview if one exists and a candidate was not found above.
-	elif Config.settings.preview != null:
-		image.load(Config.settings.preview)
-		if image.is_empty() == false:
-			texture = ImageTexture.create_from_image(image)
+					new_texture = ImageTexture.create_from_image(image)
 	
 	## Set the final texture.
-	button.icon = texture
+	icon = new_texture
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(at_path: String = path) -> void:

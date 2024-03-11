@@ -1,45 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca4tupbrsiy46"]
+[gd_scene load_steps=3 format=3 uid="uid://ca4tupbrsiy46"]
 
 [ext_resource type="Script" path="res://scenes/hero_panel/hero_panel.gd" id="1_k4swi"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_ri2cg"]
 
 [node name="HeroPanel" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ri2cg")
 script = ExtResource("1_k4swi")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="Margin"]
-layout_mode = 2
-alignment = 1
-
-[node name="Video" type="VideoStreamPlayer" parent="Margin/VBox"]
+[node name="PreviewVBox" type="VBoxContainer" parent="Margin"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-expand = true
+size_flags_vertical = 4
 
-[node name="Image" type="TextureRect" parent="Margin/VBox"]
+[node name="Preview" type="TextureRect" parent="Margin/PreviewVBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 expand_mode = 5
 stretch_mode = 5
 
-[node name="ImageLink" type="LinkButton" parent="Margin/VBox/Image"]
+[node name="ButtonsVBox" type="VBoxContainer" parent="Margin/PreviewVBox"]
 unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/PreviewVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 2
+
+[node name="Link" type="LinkButton" parent="Margin/PreviewVBox/Label"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-underline = 2
-
-[node name="Title" type="LinkButton" parent="Margin/VBox"]
-unique_name_in_owner = true
-clip_contents = true
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
 size_flags_horizontal = 4
 underline = 2
