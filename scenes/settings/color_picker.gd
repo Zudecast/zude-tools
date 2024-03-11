@@ -20,17 +20,14 @@ func _ready() -> void:
 	Config.theme_color_set.connect(update_theme_color)
 	
 	color_changed.connect(Config.set_theme_color)
-	color_changed.connect(update_theme_color)
 	
 	# TODO - font_size.text_submitted.connect(set_global_font_size)
-	
 
 func _exit_tree():
 	Config.settings_refresh_requested.disconnect(update_theme_color)
 	Config.theme_color_set.disconnect(update_theme_color)
 	
 	color_changed.disconnect(Config.set_theme_color)
-	color_changed.disconnect(update_theme_color)
 	
 	# TODO - font_size.text_submitted.disconnect(set_global_font_size)
 
@@ -41,4 +38,4 @@ func set_global_font_size(text: String) -> void:
 
 func update_theme_color(color_html: String = Config.settings.theme_color) -> void:
 	color = Color(color_html)
-	PANEL_FLAT.bg_color = color * Color(0.5, 0.5, 0.5, 0.125)
+	PANEL_FLAT.bg_color = color * Color(1, 1, 1, 0.5)

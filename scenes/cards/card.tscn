@@ -18,10 +18,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_hy4td")
 theme_override_constants/icon_max_width = 0
-icon = ExtResource("2_qrw2k")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_1ulj2")
+
+[node name="Preview" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_qrw2k")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Panel" type="PanelContainer" parent="."]
 unique_name_in_owner = true

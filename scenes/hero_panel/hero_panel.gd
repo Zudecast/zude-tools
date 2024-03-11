@@ -19,7 +19,7 @@ func _ready() -> void:
 
 ## Refresh the hero panel with the focused card.
 func refresh(focused_card: ZudeToolsCard) -> void:
-	preview.texture = focused_card.icon
+	preview.texture = focused_card.preview.texture
 	label.text = focused_card.title
 	link.uri = focused_card.path
 

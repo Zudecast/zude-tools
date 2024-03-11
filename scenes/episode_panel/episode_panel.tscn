@@ -45,10 +45,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "More"
-flat = true
 
 [node name="LoadLessButton" type="Button" parent="Margin/Scroll/VBox/LoadButtonsBar"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Less"
-flat = true

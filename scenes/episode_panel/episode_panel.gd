@@ -64,7 +64,7 @@ func refresh_episode_titles() -> void:
 
 ## Load or free episodes based on the current state of the titles and buffer properties.
 func refresh_episode_flow() -> void:
-	free_unlisted_episodes()
+	free_episodes()
 	load_episodes()
 
 ## Check which buttons should be visible.
@@ -82,9 +82,27 @@ func refresh_button_visibility() -> void:
 ## Popup a text dialog and load a new episode with the provided text.
 func new_episode() -> void:
 	var dialog = TEXT_DIALOG.instantiate()
-	dialog.confirmed.connect(load_episode, CONNECT_ONE_SHOT)
-	dialog.confirmed.connect(refresh, CONNECT_ONE_SHOT)
+	dialog.confirmed.connect(build_directories, CONNECT_ONE_SHOT)
 	add_child(dialog)
+
+## Build directories based on the folders settings menu for new episodes.
+func build_directories(title: String) -> void:
+	var path = Config.settings.directory.path_join(title)
+	for parent_name: String in Config.settings.folder_tree.keys():
+		var parent_path: String
+		if parent_name == "root":
+			parent_path = path
+		else:
+			parent_path = path.path_join(parent_name)
+			
+		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
+		for child_dict: Dictionary in child_dict_array:
+			var child_name: String = child_dict.keys()[0]
+			var child_path = parent_path.path_join(child_name)
+			DirAccess.make_dir_recursive_absolute(child_path)
+	
+	prints("Created episode at:", path)
+	refresh()
 
 ## Instantiate an episode instance and add it to the episode buffer.
 func buffer_episode(title: String) -> ZudeToolsCardEpisode:

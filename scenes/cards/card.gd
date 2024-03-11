@@ -4,6 +4,7 @@ extends Button
 
 #region Onready Variables
 
+@onready var preview: TextureRect = %Preview
 @onready var panel: PanelContainer = %Panel
 @onready var margin: MarginContainer = %Margin
 @onready var label: Label = %Label
@@ -32,7 +33,7 @@ func _ready() -> void:
 	mouse_exited.connect(hide_panel)
 	
 	update_label()
-	update_texture()
+	update_preview()
 
 func _exit_tree() -> void:
 	focus_entered.disconnect(focus_changed)
@@ -54,14 +55,14 @@ func update_label() -> void:
 	tooltip_text = title
 
 ## Set the card texture.
-func update_texture(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 	var image = Image.new()
 	image.load(path)
 	
 	if image.is_empty() == false:
 		new_texture = ImageTexture.create_from_image(image)
 	
-	icon = new_texture
+	preview.texture = new_texture
 
 ## Show the overlay panel.
 func show_panel() -> void:

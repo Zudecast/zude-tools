@@ -20,7 +20,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 theme_override_constants/icon_max_width = 15
-toggle_mode = true
 icon = ExtResource("1_7wmcg")
 flat = true
 

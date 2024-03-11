@@ -234,8 +234,9 @@ size_flags_vertical = 3
 [node name="ColorPicker" type="ColorPicker" parent="Theme/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
 edit_alpha = false
-color_mode = 1
+color_mode = 3
 picker_shape = 4
 sampler_visible = false
 color_modes_visible = false

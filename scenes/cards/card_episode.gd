@@ -24,7 +24,7 @@ func _exit_tree() -> void:
 	directories.clear()
 
 ## Set the card texture.
-func update_texture(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 	# Check for a preview image candidate.
 	if files.has("main_thumb"):
 		var dir_files: PackedStringArray = files["main_thumb"]
@@ -41,7 +41,7 @@ func update_texture(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 					new_texture = ImageTexture.create_from_image(image)
 	
 	## Set the final texture.
-	icon = new_texture
+	preview.texture = new_texture
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(at_path: String = path) -> void:
@@ -51,28 +51,6 @@ func get_directories(at_path: String = path) -> void:
 		var dir_path: String = at_path.path_join(dir)
 		directories.merge({dir : dir_path})
 		get_directories(dir_path)
-	
-	if directories.size() == 0:
-		build_directories()
-
-## Build directories based on the folders settings menu for new episodes.
-func build_directories() -> void:
-	for parent_name: String in Config.settings.folder_tree.keys():
-		var parent_path: String
-		if parent_name == "root":
-			parent_path = path
-		else:
-			parent_path = path.path_join(parent_name)
-			
-		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
-		for child_dict: Dictionary in child_dict_array:
-			var child_name: String = child_dict.keys()[0]
-			var child_path = parent_path.path_join(child_name)
-			DirAccess.make_dir_recursive_absolute(child_path)
-	
-	prints("Created episode at:", path)
-	
-	get_directories()
 
 ## Get all files within the directories dictionary. Directory name is key and a PackedStringArray of files is value.
 func get_files() -> void:
