@@ -12,15 +12,15 @@
 	[ ] Only search the pre-configured thumbnail and hero video sub-directories on startup instead of loading all project files.
 - [x] View a "hero panel" of relevant info for the focused project.
 - [/] View a panel of tabs, each tab displaying the file contents of a sub-directory of the focused project.
-	- [ ] Display text files.
-	- [x] Display image files.
-	- [ ] Display video files.
-	- [ ] Display template files. (.psd, .kra, etc.)
-	- [/] Resize file previews with a slider.
+	- [ ] Display text files as cards.
+	- [x] Display image files as cards.
+	- [x] Display video files as cards.
+	- [x] Display template files as cards. (.psd, .kra, etc.)
+	- [x] Resize file previews with a slider.
 	- [x] Reuse tab instances.
 	- [ ] Asynchronous loading and freeing of files.
-- [ ] Generate any template file for any image, video, or text file using its name and any pre-configured tags.
 - [x] Create desired directory structure for projects.
+- [ ] Generate template files for any other file through a context menu using the file name and any pre-configured tags.
 - [ ] Enforce desired naming conventions for files based on their project sub-directory.
 - [ ] Resolve naming conflicts when enforcing file or folder rules.
 - [ ] Create timestamp sheets for video editors for video files.
@@ -29,7 +29,5 @@
 	- [x] Create a list of template files that can be generated based on any existing image, video, or text file.
 		- [x] Restrict the generation of template files to only generate based on specified file extensions.
 	- [X] Create a desired directory structure that can be enforced upon projects.
-		- [ ] Assign default sub-directories to search for the project thumbnail and hero video when loading a production directory.
 	- [ ] Assign the production a top level naming convention, or specify per project sub-directory based on pre-configured settings.
-		- [ ] Create specific naming rules and tags per project sub-directory.
 	- [x] Basic theme customization.

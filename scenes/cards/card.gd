@@ -44,8 +44,8 @@ func _exit_tree() -> void:
 func focus_changed() -> void:
 	focused.emit(self)
 
-## Receive focus state from parent tab. Override this and do something with it.
-func tab_focused(_is_focused: bool) -> void:
+## Receive visibility state from parent tab. Override this and do something with it.
+func tab_visible(_visibility: bool) -> void:
 	pass
 
 ## Set the label text.

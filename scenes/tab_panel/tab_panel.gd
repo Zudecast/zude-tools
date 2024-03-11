@@ -26,6 +26,7 @@ var tabs: Dictionary
 func refresh(episode: ZudeToolsCardEpisode) -> void:
 	free_tabs(episode)
 	load_tabs(episode)
+	refresh_tabs(episode)
 
 ## Free all tabs from the tab container and the tabs dictionary.
 func clear() -> void:
@@ -44,34 +45,36 @@ func load_tab(tab_name: String) -> ZudeToolsTab:
 	tab.items_counted.connect(bottom_bar.update_item_count)
 	# Add tab to the tabs dictionary.
 	tabs.merge({tab.name : tab})
-	# Show or hide nothing here label.
-	tab.refresh_label_visibility()
+	
 	return tab
 
 ## Create a tab for each episode directory that a tab does not yet exist for.
-func load_tabs(episode: ZudeToolsCardEpisode) -> void:
-	for dir_name: String in episode.directories.keys():
-		# Load a new tab if one with dir_name does not exist.else get the loaded tab with dir_name.
+func load_tabs(from_episode: ZudeToolsCardEpisode) -> void:
+	for dir_name: String in from_episode.directories.keys():
+		# Load a new tab if one with dir_name does not exist, else get the loaded tab with dir_name.
 		# Update the reference to the focused episode so the tab can refresh its items.
 		if not dir_name in tabs:
-			load_tab(dir_name).episode = episode
+			load_tab(dir_name).episode = from_episode
 		else:
-			tabs[dir_name].episode = episode
+			tabs[dir_name].episode = from_episode
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab_name: String) -> void:
 	var tab = tabs[tab_name]
+	
 	# Disconnect tab from update_item_count.
 	tab.items_counted.disconnect(bottom_bar.update_item_count)
-	
+	# Erase and queue_free().
 	tabs.erase(tab_name)
 	tab.queue_free()
 
-## Free tabs with names not listed in the episode directories, else free its items for reuse.
-func free_tabs(episode: ZudeToolsCardEpisode) -> void:
+## Free tabs with names not listed in the episode directories.
+func free_tabs(using_episode: ZudeToolsCardEpisode) -> void:
 	for tab_name: String in tabs.keys():
-		var tab: ZudeToolsTab = tabs.get(tab_name)
-		if episode.directories.has(tab_name):
-			tab.free_items()
-		else:
+		if using_episode.directories.has(tab_name) == false:
 			free_tab(tab_name)
+
+## Refresh all tabs, freein their items and loding relevant ones.
+func refresh_tabs(episode: ZudeToolsCardEpisode) -> void:
+	for tab: ZudeToolsTab in tabs.values():
+		tab.refresh(episode)

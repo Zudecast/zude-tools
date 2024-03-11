@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Zude Tools"
 config/description="A set of file management and post-production tools for YouTubers."
-config/version="0.2"
+config/version="0.3a"
 run/main_scene="res://zude_tools.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false

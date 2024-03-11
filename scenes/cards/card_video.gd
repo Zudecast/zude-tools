@@ -24,11 +24,10 @@ func _ready() -> void:
 	label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	
+	stream.file = path
 	video.stream = stream
-	
-	update_video()
-	add_child(video)
 	video.visible = false
+	add_child(video)
 	
 	margin.add_child(transport)
 	transport.playback_slider.max_value = video.get_stream_length()
@@ -50,14 +49,10 @@ func _exit_tree() -> void:
 	if video.is_playing():
 		video.stop()
 
-## Receive focus state from the tab, stop playback when unfocused.
-func tab_focused(is_focused: bool) -> void:
-	if is_focused == false:
+## Receive visibility state from the parent tab. Stop playback when tab is not visible.
+func tab_visible(visibility: bool) -> void:
+	if visibility == false:
 		end_playback()
-
-## Set the video stream file to the path property.
-func update_video() -> void:
-	video.stream.file = path
 
 ## play stream from beginning.
 func begin_playback() -> void:
@@ -95,10 +90,5 @@ func toggle_playback() -> void:
 
 ## Set playback position via the slider.
 func set_playback_position(value: float) -> void:
-	video.set_stream_position(value)
 	toggle_playback()
-	if video.stream_position == video.get_stream_length():
-		end_playback()
-
-
-
+	video.set_stream_position(value)

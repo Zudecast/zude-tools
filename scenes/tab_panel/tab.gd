@@ -7,6 +7,7 @@ extends Control
 const CARD: PackedScene = preload("res://scenes/cards/card.tscn")
 const CardImage: Script = preload("res://scenes/cards/card_image.gd")
 const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
+
 #endregion
 
 #region Onready Variables
@@ -18,7 +19,7 @@ const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
 
 #region Variables
 
-var episode: ZudeToolsCardEpisode: set = load_items
+var episode: ZudeToolsCardEpisode: set = refresh
 
 #endregion
 
@@ -26,20 +27,27 @@ var episode: ZudeToolsCardEpisode: set = load_items
 
 ## Emitted via count_items when the visibility_changed signal is also emitted.
 signal items_counted(int)
-## Emitted via check_focus when the visibility_changed signal is also emitted.
-signal focused(bool)
+## Emitted via check_visible when the visibility_changed signal is also emitted.
+signal visibility(bool)
 
 #endregion
 
 func _ready() -> void:
-	visibility_changed.connect(check_focus)
+	visibility_changed.connect(check_visible)
 	visibility_changed.connect(count_items)
 	visibility_changed.connect(refresh_label_visibility)
 
 func _exit_tree():
-	visibility_changed.disconnect(check_focus)
+	visibility_changed.disconnect(check_visible)
 	visibility_changed.disconnect(count_items)
 	visibility_changed.disconnect(refresh_label_visibility)
+
+## Free all items, load new ones from episode, then refresh label.
+func refresh(from_episode: ZudeToolsCardEpisode = episode) -> void:
+	episode = from_episode
+	free_items()
+	load_items(from_episode)
+	refresh_label_visibility()
 
 ## Update the nothing_label's visibility based on if there are children in the flow.
 func refresh_label_visibility() -> void:
@@ -68,12 +76,12 @@ func load_item(file_name: String, file_path: String) -> void:
 		
 		# Define lambda function for disconnecting signals on tree exit.
 		var disconnect_signals = func() -> void:
-			focused.disconnect(card.tab_focused)
+			visibility.disconnect(card.tab_visible)
 			card.focused.disconnect(tab_panel.hero_panel.refresh)
 			tab_panel.bottom_bar.preview_size_slider.value_changed.disconnect(card.set_min_size)
 		
 		# Connect signals.
-		focused.connect(card.tab_focused)
+		visibility.connect(card.tab_visible)
 		card.focused.connect(tab_panel.hero_panel.refresh)
 		tab_panel.bottom_bar.preview_size_slider.value_changed.connect(card.set_min_size)
 		card.tree_exiting.connect(disconnect_signals)
@@ -114,14 +122,16 @@ func free_items() -> void:
 	for child in flow.get_children():
 		free_item(child)
 
-## Get the number of items in the flow, emit item count through items_counted.
+## Emit item count to bottom_bar through items_counted so it can refresh its label.
 func count_items() -> void:
 	if visible:
 		items_counted.emit(flow.get_child_count())
 
-## Get the visiblity of this tab and emit its state through focused.
-func check_focus() -> void:
+## Emit this tab's visibility to its children through focused.
+func check_visible() -> void:
 	if visible:
-		focused.emit(true)
+		visibility.emit(true)
 	else:
-		focused.emit(false)
+		visibility.emit(false)
+	
+	refresh_label_visibility()

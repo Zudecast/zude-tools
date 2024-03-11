@@ -32,6 +32,7 @@ func _ready():
 	new_episode_button.pressed.connect(episode_panel.new_episode)
 	
 	refresh_button.pressed.connect(editor.refresh_top)
+	refresh_button.pressed.connect(editor.refresh_btm)
 	settings_button.pressed.connect(editor.toggle_interface)
 	settings_button.pressed.connect(settings.toggle_interface)
 
@@ -42,6 +43,7 @@ func _exit_tree() -> void:
 	new_episode_button.pressed.disconnect(episode_panel.new_episode)
 	
 	refresh_button.pressed.disconnect(editor.refresh_top)
+	refresh_button.pressed.disconnect(editor.refresh_btm)
 	settings_button.pressed.disconnect(editor.toggle_interface)
 	settings_button.pressed.disconnect(settings.toggle_interface)
 
