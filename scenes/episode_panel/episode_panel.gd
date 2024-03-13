@@ -55,11 +55,10 @@ func refresh() -> void:
 
 ## Gets all episode directories as a PackedStringArry and sets it to titles.
 func refresh_episode_titles() -> void:
-	if Config.settings.directory == null:
+	if Config.directory == null:
 		print("No directory selected!")
 		return
-	
-	titles = DirAccess.get_directories_at(Config.settings.directory)
+	titles = DirAccess.get_directories_at(Config.directory)
 	titles.reverse()
 
 ## Load or free episodes based on the current state of the titles and buffer properties.
@@ -81,24 +80,25 @@ func refresh_button_visibility() -> void:
 
 ## Popup a text dialog and load a new episode with the provided text.
 func new_episode() -> void:
-	var dialog = TEXT_DIALOG.instantiate()
+	var dialog: ZudeToolsTextDialog = TEXT_DIALOG.instantiate()
 	dialog.confirmed.connect(build_directories, CONNECT_ONE_SHOT)
 	add_child(dialog)
 
 ## Build directories based on the folders settings menu for new episodes.
 func build_directories(title: String) -> void:
-	var path = Config.settings.directory.path_join(title)
-	for parent_name: String in Config.settings.folder_tree.keys():
+	var path: String = Config.directory.path_join(title)
+	
+	for parent_name: String in Config.folders.keys():
 		var parent_path: String
 		if parent_name == "root":
 			parent_path = path
 		else:
 			parent_path = path.path_join(parent_name)
-			
-		var child_dict_array: Array = Config.settings.folder_tree.get(parent_name)
+
+		var child_dict_array: Array = Config.folders.get(parent_name)
 		for child_dict: Dictionary in child_dict_array:
 			var child_name: String = child_dict.keys()[0]
-			var child_path = parent_path.path_join(child_name)
+			var child_path: String = parent_path.path_join(child_name)
 			DirAccess.make_dir_recursive_absolute(child_path)
 	
 	prints("Created episode at:", path)
@@ -130,13 +130,14 @@ func load_episode(title: String) -> void:
 		return
 	
 	# Buffer a new episode instance.
-	var episode = buffer_episode(title)
+	var episode: ZudeToolsCardEpisode = buffer_episode(title)
 	# Early return if buffer_episode returned null.
 	if episode == null: return
 	
 	# Set the title and path.
 	episode.title = title
-	episode.path = Config.settings.directory.path_join(title)
+	var directory: String = Config.directory
+	episode.path = directory.path_join(title)
 	# Connect the episode focused signal to the relevant update methods.
 	episode.focused.connect(editor.refresh_btm)
 	# Add the episode to the episode flow node tree.
@@ -159,7 +160,7 @@ func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
 
 ## Unbuffer an episode instance and call queue_free on it.
 func free_episode(title: String) -> void:
-	var episode = unbuffer_episode(title)
+	var episode: ZudeToolsCardEpisode = unbuffer_episode(title)
 	
 	# Early return if buffer_episode returned null.
 	if episode == null: return
@@ -197,7 +198,7 @@ func reset_buffer_size() -> void:
 
 ## Removes surplus buffer items.
 func cull_buffer() -> void:
-	for episode_title in buffer.keys():
+	for episode_title: String in buffer.keys():
 		if buffer.keys().find(episode_title) >= buffer_size:
 			free_episode(episode_title)
 

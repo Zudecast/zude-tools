@@ -16,7 +16,7 @@ const PATH_SETTING: PackedScene = preload("res://scenes/settings/path_setting.ts
 @onready var templates: VBoxContainer = %TemplatesVBox
 @onready var add_template_button: Button = %AddTemplateButton
 
-@onready var folder_tree: Tree = %FolderTree
+@onready var folder_tree: ZudeToolsFolderTree = %FolderTree
 @onready var add_folder_button: Button = %AddFolderButton
 
 #endregion
@@ -61,8 +61,8 @@ func toggle_interface() -> void:
 
 ## Update all global settings from config.
 func refresh_global_menu() -> void:
-	if Config.settings.preview != null:
-		default_preview.path.text = Config.settings.preview
+	if Config.preview != null:
+		default_preview.path.text = Config.preview
 
 ## Clear template PathSettings from the templates settings menu then rebuild them from config.
 func refresh_template_menu() -> void:
@@ -70,9 +70,9 @@ func refresh_template_menu() -> void:
 		if child != add_template_button:
 			child.queue_free()
 		
-	if Config.settings.templates.is_empty() == false:
-		for label: String in Config.settings.templates:
-			var path: String = Config.settings.templates.get(label)
+	if Config.templates.is_empty() == false:
+		for label: String in Config.templates:
+			var path: String = Config.templates.get(label)
 			create_template_setting(label, path)
 
 ## Instantiate and configure a new PathSetting and add it to the templates settings menu.

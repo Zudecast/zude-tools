@@ -31,8 +31,8 @@ func refresh(episode: ZudeToolsCardEpisode) -> void:
 ## Free all tabs from the tab container and the tabs dictionary.
 func clear() -> void:
 	if tabs.is_empty() == false:
-		for tab in tabs.values():
-			free_tab(tab)
+		for tab_name: String in tabs.keys():
+			free_tab(tab_name)
 
 ## Instantiate a tab with the specified name and add it to the node tree and the tabs dictionary.
 func load_tab(tab_name: String) -> ZudeToolsTab:
@@ -60,7 +60,7 @@ func load_tabs(from_episode: ZudeToolsCardEpisode) -> void:
 
 ## Free a tab with the specified name from the node tree and erase it from the tabs dictionary.
 func free_tab(tab_name: String) -> void:
-	var tab = tabs[tab_name]
+	var tab: ZudeToolsTab = tabs[tab_name]
 	
 	# Disconnect tab from update_item_count.
 	tab.items_counted.disconnect(bottom_bar.update_item_count)

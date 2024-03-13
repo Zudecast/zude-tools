@@ -30,12 +30,13 @@ func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
 		var dir_files: PackedStringArray = files["main_thumb"]
 		if dir_files.is_empty(): return
 		
-		var image = Image.new()
+		var image := Image.new()
 		var file_path: String
 		
 		for file_name: String in dir_files:
 			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
-				file_path = directories["main_thumb"].path_join(file_name)
+				file_path = directories["main_thumb"]
+				file_path = file_path.path_join(file_name)
 				image.load(file_path)
 				if image.is_empty() == false:
 					new_texture = ImageTexture.create_from_image(image)

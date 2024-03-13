@@ -16,23 +16,20 @@ script = ExtResource("1_k4swi")
 [node name="PanelMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 
-[node name="Scroll" type="ScrollContainer" parent="PanelMargin"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-
-[node name="PreviewVBox" type="VBoxContainer" parent="PanelMargin/Scroll"]
+[node name="PreviewVBox" type="VBoxContainer" parent="PanelMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 6
+size_flags_vertical = 4
 
-[node name="Preview" type="TextureRect" parent="PanelMargin/Scroll/PreviewVBox"]
+[node name="Preview" type="TextureRect" parent="PanelMargin/PreviewVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="PanelMargin/Scroll/PreviewVBox"]
+[node name="Label" type="Label" parent="PanelMargin/PreviewVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
@@ -42,10 +39,8 @@ vertical_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
 
-[node name="Link" type="LinkButton" parent="PanelMargin/Scroll/PreviewVBox/Label"]
+[node name="Link" type="LinkButton" parent="PanelMargin/PreviewVBox/Label"]
 unique_name_in_owner = true
-clip_contents = true
-custom_minimum_size = Vector2(0, 25)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,9 +48,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-underline = 2
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="PanelMargin/Scroll/PreviewVBox"]
+[node name="ButtonsVBox" type="VBoxContainer" parent="PanelMargin/PreviewVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1

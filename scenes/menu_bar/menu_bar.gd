@@ -25,7 +25,7 @@ extends Control
 
 #endregion
 
-func _ready():
+func _ready() -> void:
 	Config.settings_refresh_requested.connect(set_production_link)
 	Config.settings_refresh_requested.connect(refresh_buttons_visibility)
 	open_production_button.pressed.connect(Dialog.popup_directory_dialog)
@@ -48,7 +48,7 @@ func _exit_tree() -> void:
 	settings_button.pressed.disconnect(settings.toggle_interface)
 
 func refresh_buttons_visibility() -> void:
-	if Config.settings.directory == null:
+	if Config.directory == null:
 		new_episode_button.visible = false
 		production_link.visible = false
 	else:
@@ -56,5 +56,5 @@ func refresh_buttons_visibility() -> void:
 		production_link.visible = true
 
 func set_production_link() -> void:
-	production_link.text = Config.settings.directory
-	production_link.uri = Config.settings.directory
+	production_link.text = Config.directory
+	production_link.uri = Config.directory

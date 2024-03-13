@@ -12,20 +12,17 @@ const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_p
 
 #region Variables
 
-## The contents of the config file.
-var settings: Dictionary = {
-	"theme_color" : null,
-	"directory" : null,
-	"preview" : null,
-	"templates" : {},
-	"folder_tree" : {
-		"clips": [{ "clips_img": "" },{ "clips_thumb": "" }],
-		"img": [{ "instagram_flyer": "" }],
-		"main": [{ "main_thumb": "" }, { "main_img": "" }],
-		"reels": [{ "reels_img": "" }],
-		"root": [{ "ftg": "" }, { "main": "" }, { "clips": "" }, { "img": "" }, { "reels": "" }, { "super": "" }, { "srt": "" }]
-	}
+var color: String = "0f0f0f"
+var directory: String
+var folders: Dictionary = {
+	"clips": [{ "clips_img": "" },{ "clips_thumb": "" }],
+	"img": [{ "instagram_flyer": "" }],
+	"main": [{ "main_thumb": "" }, { "main_img": "" }],
+	"reels": [{ "reels_img": "" }],
+	"root": [{ "ftg": "" }, { "main": "" }, { "clips": "" }, { "img": "" }, { "reels": "" }, { "super": "" }, { "srt": "" }]
 }
+var preview: String
+var templates: Dictionary
 
 #endregion
 
@@ -35,10 +32,10 @@ var settings: Dictionary = {
 signal settings_refresh_requested
 signal editor_refresh_requested
 signal theme_color_set
-signal directory_set
-signal preview_set
-signal templates_set
-signal folder_tree_set
+signal directory_set()
+signal preview_set()
+signal templates_set()
+signal folder_tree_set()
 
 #endregion
 
@@ -47,13 +44,18 @@ func read() -> void:
 	if FileAccess.file_exists(CONFIG_FILE) == false:
 		write()
 	
-	var config_file = FileAccess.get_file_as_string(CONFIG_FILE)
-	settings = JSON.parse_string(config_file)
+	var stringified := FileAccess.get_file_as_string(CONFIG_FILE)
+	var config: Dictionary = JSON.parse_string(stringified)
+	
+	color = config.color
+	directory = config.directory
+	folders = config.folders
+	preview = config.preview
+	templates = config.templates
 	
 	print()
 	print("-- Config Read --")
-	for setting in settings:
-		print(setting, ": ", settings.get(setting))
+	print(stringified)
 	print("-- Config End --")
 	print()
 	
@@ -62,14 +64,24 @@ func read() -> void:
 
 ## Read the settings property and write it to the config file.
 func write() -> void:
-	var config_file = FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
-	config_file.store_string(JSON.stringify(settings))
+	var config_file := FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
+	
+	## The contents of the config file.
+	var config: Dictionary = {
+		"color" : color,
+		"directory" : directory,
+		"folders" : folders,
+		"preview" : preview,
+		"templates" : templates
+	}
+	
+	var stringified := JSON.stringify(config, "	")
+	config_file.store_string(stringified)
 	config_file.close()
 	
 	print()
 	print("-- Config Written --")
-	for setting in settings:
-		print(setting, ": ", settings.get(setting))
+	print(stringified)
 	print("-- Config End --")
 	print()
 	
@@ -79,13 +91,13 @@ func write() -> void:
 
 ## Set the specified path to the config.directory then write to config file.
 func set_directory(new_path: String) -> void:
-	settings.directory = new_path
+	directory = new_path
 	write()
 	directory_set.emit()
 
 ## Set the specified path to the config.preview, then write to config file.
 func set_preview(new_path: String) -> void:
-	settings.preview = new_path
+	preview = new_path
 	write()
 	preview_set.emit()
 
@@ -96,19 +108,19 @@ func set_preview(new_path: String) -> void:
 ## Set a template file with a new label, or create one if it doesn't exist.
 func set_template_label(new_label: String, old_label: String, path: String) -> void:
 	remove_template(old_label)
-	settings.templates.merge({new_label : path})
+	templates.merge({new_label : path})
 	write()
 	templates_set.emit()
 
 ## Set a template file with a new path, or create one if it doesn't exist.
 func set_template_path(new_path: String, label: String) -> void:
-	settings.templates.merge({label : new_path}, true)
+	templates.merge({label : new_path}, true)
 	write()
 	templates_set.emit()
 
 ## Remove an entry from config.templates.
 func remove_template(label: String) -> void:
-	settings.templates.erase(label)
+	templates.erase(label)
 	write()
 	templates_set.emit()
 
@@ -116,8 +128,8 @@ func remove_template(label: String) -> void:
 
 #region Folders
 
-func set_folder_tree(tree: Dictionary) -> void:
-	settings.folder_tree = tree
+func set_folders(tree: Dictionary) -> void:
+	folders = tree
 	write()
 	folder_tree_set.emit()
 
@@ -125,8 +137,8 @@ func set_folder_tree(tree: Dictionary) -> void:
 
 #region Theme
 
-func set_theme_color(color: Color) -> void:
-	settings.theme_color = color.to_html()
+func set_color(new_color: Color) -> void:
+	color = new_color.to_html()
 	write()
 	theme_color_set.emit()
 

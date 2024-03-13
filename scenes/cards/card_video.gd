@@ -12,8 +12,8 @@ const TRANSPORT: PackedScene = preload("res://scenes/transport/transport_control
 
 #region Onready Variables
 
-@onready var video = VideoStreamPlayer.new()
-@onready var stream = FFmpegVideoStream.new()
+@onready var video := VideoStreamPlayer.new()
+@onready var stream := FFmpegVideoStream.new()
 @onready var transport: ZudeToolsVideoTransport = TRANSPORT.instantiate()
 
 #endregion

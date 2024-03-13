@@ -61,8 +61,8 @@ extends Control
 
 signal label_updated(new_label: String, prev_label: String, path: String)
 signal path_updated(new_path: String, label: String)
-signal dialog_requested(ZudeToolsPathSetting)
-signal setting_deleted(ZudeToolsPathSetting)
+signal dialog_requested(setting: ZudeToolsPathSetting)
+signal setting_deleted(setting: ZudeToolsPathSetting)
 
 #endregion
 

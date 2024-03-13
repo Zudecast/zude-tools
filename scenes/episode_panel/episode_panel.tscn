@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm8te31wedhp2"]
+[gd_scene load_steps=3 format=3 uid="uid://cm8te31wedhp2"]
 
 [ext_resource type="Script" path="res://scenes/episode_panel/episode_panel.gd" id="1_152j6"]
+[ext_resource type="Theme" uid="uid://blbl1uhbtj7qj" path="res://resources/theme/zude_tools_theme.tres" id="1_ncrqi"]
 
 [node name="EpisodePanel" type="PanelContainer"]
 anchors_preset = 15
@@ -9,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme = ExtResource("1_ncrqi")
 script = ExtResource("1_152j6")
 
 [node name="Margin" type="MarginContainer" parent="."]

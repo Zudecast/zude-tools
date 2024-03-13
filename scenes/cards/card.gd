@@ -23,7 +23,7 @@ var path: String
 #region Signals
 
 ## Emitted via focus_changed when the focus_entered signal is also emitted.
-signal focused(ZudeToolsCard)
+signal focused(card: ZudeToolsCard)
 
 #endregion
 
@@ -56,7 +56,7 @@ func update_label() -> void:
 
 ## Set the card texture.
 func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
-	var image = Image.new()
+	var image := Image.new()
 	image.load(path)
 	
 	if image.is_empty() == false:

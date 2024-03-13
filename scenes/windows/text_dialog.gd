@@ -1,4 +1,5 @@
 @tool
+class_name ZudeToolsTextDialog
 extends Window
 
 #region Onready Variables
@@ -9,7 +10,7 @@ extends Window
 
 #endregion
 
-signal confirmed(String)
+signal confirmed(text: String)
 
 func _ready() -> void:
 	confirm_button.pressed.connect(confirm, CONNECT_ONE_SHOT)

@@ -1,1 +1,59 @@
-{"directory":"Z:\\My Drive\\Project Files\\Zudecast","folder_tree":{"clips":[{"clips_img":""},{"clips_thumb":""}],"img":[{"instagram_flyer":""}],"main":[{"main_img":""},{"main_thumb":""}],"reels":[{"reels_img":""}],"root":[{"ftg":""},{"main":""},{"clips":""},{"img":""},{"reels":""},{"super":""},{"srt":""}]},"preview":null,"templates":{"Zudecast IG Flyer":"Z:\\My Drive\\Assets\\Templates\\Krita\\Instagram Flyer.krz","Zudecast Thumbnail":"Z:\\My Drive\\Assets\\Templates\\Krita\\Zudecast Episode.krz"},"theme_color":"07191fff"}
+{
+	"color": "00150fff",
+	"directory": "Z:\\My Drive\\Project Files\\Zudecast",
+	"folders": {
+		"clips": [
+			{
+				"clips_img": ""
+			},
+			{
+				"clips_thumb": ""
+			}
+		],
+		"img": [
+			{
+				"instagram_flyer": ""
+			}
+		],
+		"main": [
+			{
+				"main_thumb": ""
+			},
+			{
+				"main_img": ""
+			}
+		],
+		"reels": [
+			{
+				"reels_img": ""
+			}
+		],
+		"root": [
+			{
+				"ftg": ""
+			},
+			{
+				"main": ""
+			},
+			{
+				"clips": ""
+			},
+			{
+				"img": ""
+			},
+			{
+				"reels": ""
+			},
+			{
+				"super": ""
+			},
+			{
+				"srt": ""
+			}
+		]
+	},
+	"preview": "",
+	"templates": {
+
+	}
+}

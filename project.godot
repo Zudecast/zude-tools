@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Zude Tools"
 config/description="A set of file management and post-production tools for YouTubers."
-config/version="0.3a"
+config/version="0.3"
 run/main_scene="res://zude_tools.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
@@ -22,6 +22,14 @@ config/icon="res://zude_tools.svg"
 
 Config="*res://singletons/config.gd"
 Dialog="*res://singletons/file_dialog.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_property_access=2
+gdscript/warnings/unsafe_method_access=2
+gdscript/warnings/unsafe_cast=1
+gdscript/warnings/unsafe_call_argument=2
 
 [display]
 
@@ -36,7 +44,9 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/
 [importer_defaults]
 
 texture={
-"compress/mode": 2
+"compress/mode": 2,
+"compress/normal_map": 2,
+"roughness/mode": 1
 }
 
 [input]

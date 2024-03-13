@@ -4,7 +4,7 @@ extends Control
 
 enum {TEMPLATE}
 
-@onready var popup_menu = %PopupMenu
+@onready var popup_menu: PopupMenu = %PopupMenu
 
 #region Variables
 
@@ -24,7 +24,7 @@ func _exit() -> void:
 	
 	popup_menu.index_pressed.disconnect(handle_metadata)
 
-func _input(event: InputEvent):
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			mouse_position = get_global_mouse_position()
@@ -32,14 +32,16 @@ func _input(event: InputEvent):
 
 func populate_templates() -> void:
 	popup_menu.add_separator("Templates")
-	for template_name in Config.settings.templates.keys():
-		var template_path = Config.settings.templates.get(template_name)
+	var template_path: String
+	
+	for template_name: String in Config.templates.keys():
+		template_path = Config.templates.get(template_name)
 		popup_menu.add_item(template_name)
 		popup_menu.set_item_metadata(-1, {TEMPLATE : template_path})
 
 func handle_metadata(index: int) -> void:
-	var metadata = popup_menu.get_item_metadata(index)
-	var meta_value = metadata.values()[0]
+	var metadata: Dictionary = popup_menu.get_item_metadata(index)
+	var meta_value: String = metadata.values()[0]
 	match metadata.keys()[0]:
 		TEMPLATE:
 			# FIXME - generate_template(meta_value)
