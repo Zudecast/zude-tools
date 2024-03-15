@@ -80,29 +80,9 @@ func refresh_button_visibility() -> void:
 
 ## Popup a text dialog and load a new episode with the provided text.
 func new_episode() -> void:
-	var dialog: ZudeToolsTextDialog = TEXT_DIALOG.instantiate()
-	dialog.confirmed.connect(build_directories, CONNECT_ONE_SHOT)
-	add_child(dialog)
-
-## Build directories based on the folders settings menu for new episodes.
-func build_directories(title: String) -> void:
-	var path: String = Config.directory.path_join(title)
-	
-	for parent_name: String in Config.folders.keys():
-		var parent_path: String
-		if parent_name == "root":
-			parent_path = path
-		else:
-			parent_path = path.path_join(parent_name)
-
-		var child_dict_array: Array = Config.folders.get(parent_name)
-		for child_dict: Dictionary in child_dict_array:
-			var child_name: String = child_dict.keys()[0]
-			var child_path: String = parent_path.path_join(child_name)
-			DirAccess.make_dir_recursive_absolute(child_path)
-	
-	prints("Created episode at:", path)
-	refresh()
+	var text_dialog: ZudeToolsTextDialog = TEXT_DIALOG.instantiate()
+	text_dialog.confirmed.connect(FileUtils.make_directories, CONNECT_ONE_SHOT)
+	add_child(text_dialog)
 
 ## Instantiate an episode instance and add it to the episode buffer.
 func buffer_episode(title: String) -> ZudeToolsCardFolder:
@@ -138,7 +118,6 @@ func load_episode(title: String) -> void:
 	episode.title = title
 	episode.path = Config.directory.path_join(title)
 	episode.directory = Config.directory
-	episode.focused.connect(editor.refresh_btm)
 	
 	# Add the episode to the episode flow.
 	flow.add_child(episode)
@@ -164,9 +143,6 @@ func free_episode(title: String) -> void:
 	
 	# Early return if buffer_episode returned null.
 	if episode == null: return
-	
-	# Disconnect the episode focused signal from the relevant update methods.
-	episode.focused.disconnect(editor.refresh_btm)
 	
 	episode.queue_free()
 

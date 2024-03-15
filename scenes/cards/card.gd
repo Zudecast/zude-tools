@@ -30,7 +30,7 @@ signal focused(card: ZudeToolsCard)
 #endregion
 
 func _ready() -> void:
-	
+	focused.connect(Focused.set_card)
 	focus_entered.connect(focus_changed)
 	mouse_entered.connect(show_panel)
 	mouse_exited.connect(hide_panel)
@@ -39,6 +39,7 @@ func _ready() -> void:
 	update_preview()
 
 func _exit_tree() -> void:
+	focused.disconnect(Focused.set_card)
 	focus_entered.disconnect(focus_changed)
 	mouse_entered.disconnect(show_panel)
 	mouse_exited.disconnect(hide_panel)

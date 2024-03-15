@@ -18,12 +18,6 @@ const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
 
 #endregion
 
-#region Variables
-
-# FIXME - We just made a focused card singleton, use that
-var episode: ZudeToolsCardFolder: set = refresh
-
-#endregion
 
 #region Signals
 
@@ -45,11 +39,12 @@ func _exit_tree() -> void:
 	visibility_changed.disconnect(refresh_label_visibility)
 
 ## Free all items, load new ones from episode, then refresh label.
-func refresh(from_episode: ZudeToolsCardFolder = episode) -> void:
-	episode = from_episode
-	free_items()
-	load_items(from_episode)
-	refresh_label_visibility()
+func refresh() -> void:
+	if Focused.card is ZudeToolsCardFolder:
+		var push_card: ZudeToolsCardFolder = Focused.card
+		free_items()
+		load_items(push_card)
+		refresh_label_visibility()
 
 ## Update the nothing_label's visibility based on if there are children in the flow.
 func refresh_label_visibility() -> void:
@@ -72,13 +67,13 @@ func add_card(script: Script, file_name: String, file_path: String, file_dir: St
 	# Define lambda function for disconnecting signals on tree exit.
 	var disconnect_signals := func() -> void:
 		visibility.disconnect(new_card.tab_visible)
-		new_card.focused.disconnect(tab_panel.hero_panel.refresh)
 		tab_panel.bottom_bar.preview_size_slider.value_changed.disconnect(new_card.set_min_size)
 	
 	# Connect signals.
 	visibility.connect(new_card.tab_visible)
-	new_card.focused.connect(tab_panel.hero_panel.refresh)
 	tab_panel.bottom_bar.preview_size_slider.value_changed.connect(new_card.set_min_size)
+	
+	# Connect disconnection lamba.
 	new_card.tree_exiting.connect(disconnect_signals, CONNECT_ONE_SHOT)
 
 # FIXME - Certain images are still failing validity checks when being loaded into a card.
@@ -104,13 +99,13 @@ func load_item(file_name: String, file_path: String, file_dir: String) -> void:
 		add_card(CardVideo, file_name, file_path, file_dir)
 
 ## Loads items when the episode reference is set.
-func load_items(from_episode: ZudeToolsCardFolder = episode) -> void:
+func load_items(focused_folder: ZudeToolsCardFolder) -> void:
 	var file_dir: String
 	var file_path: String
 	
 	# Populate each tab's item flow with relevant files.
-	for file_name: String in from_episode.files.get(name):
-		file_dir = from_episode.directories.get(name)
+	for file_name: String in focused_folder.files.get(name):
+		file_dir = focused_folder.directories.get(name)
 		file_path = file_dir.path_join(file_name)
 		load_item(file_name, file_path, file_dir)
 

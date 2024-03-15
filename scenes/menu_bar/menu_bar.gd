@@ -31,8 +31,7 @@ func _ready() -> void:
 	open_production_button.pressed.connect(Dialog.popup_directory_dialog)
 	new_episode_button.pressed.connect(episode_panel.new_episode)
 	
-	refresh_button.pressed.connect(editor.refresh_top)
-	refresh_button.pressed.connect(editor.refresh_btm)
+	refresh_button.pressed.connect(editor.refresh)
 	settings_button.pressed.connect(editor.toggle_interface)
 	settings_button.pressed.connect(settings.toggle_interface)
 
@@ -42,8 +41,7 @@ func _exit_tree() -> void:
 	open_production_button.pressed.disconnect(Dialog.popup_directory_dialog)
 	new_episode_button.pressed.disconnect(episode_panel.new_episode)
 	
-	refresh_button.pressed.disconnect(editor.refresh_top)
-	refresh_button.pressed.disconnect(editor.refresh_btm)
+	refresh_button.pressed.disconnect(editor.refresh)
 	settings_button.pressed.disconnect(editor.toggle_interface)
 	settings_button.pressed.disconnect(settings.toggle_interface)
 

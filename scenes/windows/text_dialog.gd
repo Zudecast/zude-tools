@@ -12,7 +12,7 @@ extends Window
 
 #endregion
 
-signal confirmed(text: String)
+signal confirmed(path: String)
 
 func _ready() -> void:
 	confirm_button.pressed.connect(confirm, CONNECT_ONE_SHOT)
@@ -26,6 +26,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	visible = false
 
+## Emit the fill path of the file to be created thru confirmed.
 func confirm() -> void:
 	var production: String = Config.production
 	var ep_number: String = episode_number.text
@@ -37,7 +38,7 @@ func confirm() -> void:
 	if ep_title == "":
 		ep_title = episode_title.placeholder_text
 	
-	var joined_title: String = " ".join([production, ep_number, "-", ep_title])
+	var new_title: String = " ".join([production, ep_number, "-", ep_title])
 	
-	confirmed.emit(joined_title)
+	confirmed.emit(Config.directory.path_join(new_title))
 	queue_free()

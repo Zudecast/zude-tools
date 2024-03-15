@@ -40,22 +40,24 @@ func _exit() -> void:
 	templates_popup.index_pressed.disconnect(generate_template)
 
 ## Refresh the hero panel with the focused card.
-func refresh(focused_card: ZudeToolsCard) -> void:
-	card = focused_card
+func refresh() -> void:
+	clear()
 	
-	label.text = focused_card.label.text
-	preview.texture = focused_card.preview.texture
+	card = Focused.card
 	
-	if focused_card is ZudeToolsCardFolder:
-		link.uri = focused_card.path
+	label.text = card.label.text
+	preview.texture = card.preview.texture
+	
+	if card is ZudeToolsCardFolder:
+		link.uri = card.path
 	else:
-		link.uri = focused_card.directory
+		link.uri = card.directory
 
 ## Clear the hero panel.
 func clear() -> void:
 	card = null
-	preview.texture = null
 	label.text = "Select an item..."
+	preview.texture = null
 	link.uri = ""
 
 ## Toggle hero panel visibility.

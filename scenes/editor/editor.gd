@@ -11,30 +11,21 @@ extends Control
 #endregion
 
 func _ready() -> void:
-	Config.editor_refresh_requested.connect(refresh_top)
-	Config.directory_set.connect(reset_interface)
-	Config.preview_set.connect(refresh_top)
+	Config.directory_set.connect(refresh)
+	Config.preview_set.connect(episode_panel.refresh)
+	Config.editor_refresh_requested.connect(episode_panel.refresh)
 
 func _exit_tree() -> void:
-	Config.editor_refresh_requested.disconnect(refresh_top)
-	Config.directory_set.disconnect(reset_interface)
-	Config.preview_set.disconnect(refresh_top)
+	Config.directory_set.disconnect(refresh)
+	Config.preview_set.disconnect(episode_panel.refresh)
+	Config.editor_refresh_requested.disconnect(episode_panel.refresh)
 
-## Refresh episode panel.
-func refresh_top() -> void:
+## Refresh all editor UI elements.
+func refresh() -> void:
 	episode_panel.refresh()
+	hero_panel.refresh()
+	tab_panel.refresh()
 
-## Refresh hero panel and tabs container.
-func refresh_btm(episode: ZudeToolsCardFolder) -> void:
-	hero_panel.refresh(episode)
-	tab_panel.refresh(episode)
-
-## Clear and reload all interface properties.
-func reset_interface() -> void:
-	hero_panel.clear()
-	tab_panel.clear()
-	refresh_top()
-
-## Hide the editor and show the settings menu.
+## Hide the editor so the settings menu can be shown.
 func toggle_interface() -> void:
 	visible = !visible

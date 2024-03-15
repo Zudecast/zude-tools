@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Zude Tools"
 config/description="A set of file management and post-production tools for YouTubers."
-config/version="0.3"
+config/version="0.4"
 run/main_scene="res://zude_tools.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
@@ -22,8 +22,8 @@ config/icon="res://zude_tools.svg"
 
 Config="*res://singletons/config.gd"
 FileUtils="*res://singletons/file_utils.gd"
+Focused="*res://singletons/focused.gd"
 Dialog="*res://singletons/file_dialog.gd"
-Focused="*res://singletons/focused_card.gd"
 
 [debug]
 
