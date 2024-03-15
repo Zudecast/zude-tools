@@ -20,15 +20,14 @@
 	- [x] Reuse tab instances.
 	- [ ] Asynchronous loading and freeing of files.
 - [x] Create desired directory structure for projects.
-	- [ ] Save and load folder structure templates. 
-- [ ] Generate template files for any other file using the its name and pre-configured tags.
-- [ ] Enforce desired naming conventions for files based on their project sub-directory.
-- [ ] Resolve naming conflicts when enforcing file or folder rules.
+	- [/] Save and load folder structure templates. 
+- [x] Generate template files for any other file using the its name and pre-configured tags.
+- [ ] Easy resolve conflicts when converting to new folder rules though a graph UI.
 - [ ] Create timestamp sheets for video editors for video files.
 - [/] Settings customization.
 	- [x] Assign a default thumbnail preview in the event the a project directory does not have a suitable candidate.
 	- [x] Create a list of template files that can be generated based on any existing image, video, or text file.
-		- [x] Restrict the generation of template files to only generate based on specified file extensions.
+		- [ ] Restrict the generation of template files to only generate based on specified file extensions.
 	- [X] Create a desired directory structure that can be enforced upon projects.
 	- [ ] Assign the production a top level naming convention, or specify per project sub-directory based on pre-configured settings.
 	- [x] Basic theme customization.

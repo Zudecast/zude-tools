@@ -25,7 +25,7 @@ func refresh_top() -> void:
 	episode_panel.refresh()
 
 ## Refresh hero panel and tabs container.
-func refresh_btm(episode: ZudeToolsCardEpisode) -> void:
+func refresh_btm(episode: ZudeToolsCardFolder) -> void:
 	hero_panel.refresh(episode)
 	tab_panel.refresh(episode)
 

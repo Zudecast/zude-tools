@@ -23,7 +23,7 @@ var tabs: Dictionary
 #endregions
 
 ## Load or free tabs for to reflect the focused episode's directories. Populate with files if created.
-func refresh(episode: ZudeToolsCardEpisode) -> void:
+func refresh(episode: ZudeToolsCardFolder) -> void:
 	free_tabs(episode)
 	load_tabs(episode)
 	refresh_tabs(episode)
@@ -49,7 +49,7 @@ func load_tab(tab_name: String) -> ZudeToolsTab:
 	return tab
 
 ## Create a tab for each episode directory that a tab does not yet exist for.
-func load_tabs(from_episode: ZudeToolsCardEpisode) -> void:
+func load_tabs(from_episode: ZudeToolsCardFolder) -> void:
 	for dir_name: String in from_episode.directories.keys():
 		# Load a new tab if one with dir_name does not exist, else get the loaded tab with dir_name.
 		# Update the reference to the focused episode so the tab can refresh its items.
@@ -69,12 +69,12 @@ func free_tab(tab_name: String) -> void:
 	tab.queue_free()
 
 ## Free tabs with names not listed in the episode directories.
-func free_tabs(using_episode: ZudeToolsCardEpisode) -> void:
+func free_tabs(using_episode: ZudeToolsCardFolder) -> void:
 	for tab_name: String in tabs.keys():
 		if using_episode.directories.has(tab_name) == false:
 			free_tab(tab_name)
 
 ## Refresh all tabs, freein their items and loding relevant ones.
-func refresh_tabs(episode: ZudeToolsCardEpisode) -> void:
+func refresh_tabs(episode: ZudeToolsCardFolder) -> void:
 	for tab: ZudeToolsTab in tabs.values():
 		tab.refresh(episode)

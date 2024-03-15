@@ -11,6 +11,7 @@ const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
 #endregion
 
 #region Onready Variables
+
 @onready var tab_panel: ZudeToolsTabPanel = get_parent()
 @onready var flow: HFlowContainer = %TabFlow
 @onready var nothing_label: Label = %NothingLabel
@@ -19,7 +20,8 @@ const CardVideo: Script = preload("res://scenes/cards/card_video.gd")
 
 #region Variables
 
-var episode: ZudeToolsCardEpisode: set = refresh
+# FIXME - We just made a focused card singleton, use that
+var episode: ZudeToolsCardFolder: set = refresh
 
 #endregion
 
@@ -43,7 +45,7 @@ func _exit_tree() -> void:
 	visibility_changed.disconnect(refresh_label_visibility)
 
 ## Free all items, load new ones from episode, then refresh label.
-func refresh(from_episode: ZudeToolsCardEpisode = episode) -> void:
+func refresh(from_episode: ZudeToolsCardFolder = episode) -> void:
 	episode = from_episode
 	free_items()
 	load_items(from_episode)
@@ -57,13 +59,14 @@ func refresh_label_visibility() -> void:
 		nothing_label.set_visible(false)
 
 ## Configure card and add it to the episode flow.
-func add_card(script: Script, file_name: String, file_path: String) -> void:
+func add_card(script: Script, file_name: String, file_path: String, file_dir: String) -> void:
 	var new_card: ZudeToolsCard = CARD.instantiate()
 	new_card.set_script(script)
 	
 	# Configure card and add it to the episode flow.
 	new_card.title = file_name
 	new_card.path = file_path
+	new_card.directory = file_dir
 	flow.add_child(new_card)
 	
 	# Define lambda function for disconnecting signals on tree exit.
@@ -80,7 +83,7 @@ func add_card(script: Script, file_name: String, file_path: String) -> void:
 
 # FIXME - Certain images are still failing validity checks when being loaded into a card.
 ## Parse items and call add_card() on items containing the filtered file extensions.
-func load_item(file_name: String, file_path: String) -> void:
+func load_item(file_name: String, file_path: String, file_dir: String) -> void:
 	# Early return if item is not a valid file.
 	if file_name.is_valid_filename() == false:
 		return
@@ -90,25 +93,26 @@ func load_item(file_name: String, file_path: String) -> void:
 	
 	# Handle image files.
 	if extension in ["png", "jpg", "webp"]:
-		add_card(CardImage, file_name, file_path)
+		add_card(CardImage, file_name, file_path, file_dir)
 	
 	# Handle image template files.
 	elif extension in ["psd", "krz", "kra"]:
-		add_card(CardImage, file_name, file_path)
+		add_card(CardImage, file_name, file_path, file_dir)
 	
 	#  Handle video files.
 	elif extension in ["mp4"]:
-		add_card(CardVideo, file_name, file_path)
+		add_card(CardVideo, file_name, file_path, file_dir)
 
 ## Loads items when the episode reference is set.
-func load_items(from_episode: ZudeToolsCardEpisode = episode) -> void:
+func load_items(from_episode: ZudeToolsCardFolder = episode) -> void:
+	var file_dir: String
 	var file_path: String
 	
 	# Populate each tab's item flow with relevant files.
-	for file_name: String in from_episode.files[name]:
-		file_path = from_episode.directories[name]
-		file_path = file_path.path_join(file_name)
-		load_item(file_name, file_path)
+	for file_name: String in from_episode.files.get(name):
+		file_dir = from_episode.directories.get(name)
+		file_path = file_dir.path_join(file_name)
+		load_item(file_name, file_path, file_dir)
 
 ## Remove an item from the flow at the specified index.
 func free_item(item: Node) -> void:

@@ -122,7 +122,7 @@ border_blend = true
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
-[sub_resource type="Theme" id="Theme_83p3w"]
+[sub_resource type="Theme" id="Theme_knq2w"]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 15
@@ -170,7 +170,7 @@ layout_mode = 2
 [node name="DefaultProjectPreview" parent="Global/GlobalVBox" instance=ExtResource("4_gatcq")]
 unique_name_in_owner = true
 layout_mode = 2
-theme = SubResource("Theme_83p3w")
+theme = SubResource("Theme_knq2w")
 editable_label = false
 label_text = "Default Project Preview"
 path_placeholder = "\"image.jpg\""

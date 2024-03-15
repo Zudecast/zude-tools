@@ -6,7 +6,7 @@ extends Control
 
 const TEXT_DIALOG: PackedScene = preload("res://scenes/windows/text_dialog.tscn")
 const CARD: PackedScene = preload("res://scenes/cards/card.tscn")
-const CardEpisode: Script = preload("res://scenes/cards/card_episode.gd")
+const CardFolder: Script = preload("res://scenes/cards/card_folder.gd")
 
 #endregion
 
@@ -53,7 +53,7 @@ func refresh() -> void:
 	refresh_button_visibility()
 	print("Episode panel refreshed.")
 
-## Gets all episode directories as a PackedStringArry and sets it to titles.
+## Gets all episode directories as a PackedStringArray and sets it to titles.
 func refresh_episode_titles() -> void:
 	if Config.directory == null:
 		print("No directory selected!")
@@ -105,7 +105,7 @@ func build_directories(title: String) -> void:
 	refresh()
 
 ## Instantiate an episode instance and add it to the episode buffer.
-func buffer_episode(title: String) -> ZudeToolsCardEpisode:
+func buffer_episode(title: String) -> ZudeToolsCardFolder:
 	# Early return if the episode buffer is full.
 	if buffer.size() >= buffer_size:
 		return
@@ -114,9 +114,9 @@ func buffer_episode(title: String) -> ZudeToolsCardEpisode:
 	if buffer.has(title):
 		return
 	
-	# Instantiate and name the CardEpisode.
+	# Instantiate and name the CardFolder.
 	var card: ZudeToolsCard = CARD.instantiate()
-	card.set_script(CardEpisode)
+	card.set_script(CardFolder)
 	
 	# Append episode to the episode buffer.
 	buffer.merge({title : card})
@@ -130,16 +130,17 @@ func load_episode(title: String) -> void:
 		return
 	
 	# Buffer a new episode instance.
-	var episode: ZudeToolsCardEpisode = buffer_episode(title)
+	var episode: ZudeToolsCardFolder = buffer_episode(title)
 	# Early return if buffer_episode returned null.
 	if episode == null: return
 	
-	# Set the title and path.
+	# Configure the card.
 	episode.title = title
 	episode.path = Config.directory.path_join(title)
-	# Connect the episode focused signal to the relevant update methods.
+	episode.directory = Config.directory
 	episode.focused.connect(editor.refresh_btm)
-	# Add the episode to the episode flow node tree.
+	
+	# Add the episode to the episode flow.
 	flow.add_child(episode)
 
 ## Get episode titles and fill the episode flow with an episode instance for each that doesn't yet exist.
@@ -149,9 +150,9 @@ func load_episodes() -> void:
 			load_episode(episode_title)
 
 ## Free an episode instance from the episode buffer.
-func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
+func unbuffer_episode(title: String) -> ZudeToolsCardFolder:
 	if buffer.has(title):
-		var episode: ZudeToolsCardEpisode = buffer.get(title)
+		var episode: ZudeToolsCardFolder = buffer.get(title)
 		buffer.erase(title)
 		return episode
 	
@@ -159,7 +160,7 @@ func unbuffer_episode(title: String) -> ZudeToolsCardEpisode:
 
 ## Unbuffer an episode instance and call queue_free on it.
 func free_episode(title: String) -> void:
-	var episode: ZudeToolsCardEpisode = unbuffer_episode(title)
+	var episode: ZudeToolsCardFolder = unbuffer_episode(title)
 	
 	# Early return if buffer_episode returned null.
 	if episode == null: return

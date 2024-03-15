@@ -21,6 +21,7 @@ config/icon="res://zude_tools.svg"
 [autoload]
 
 Config="*res://singletons/config.gd"
+FileUtils="*res://singletons/file_utils.gd"
 Dialog="*res://singletons/file_dialog.gd"
 Focused="*res://singletons/focused_card.gd"
 

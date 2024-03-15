@@ -13,10 +13,12 @@ extends Button
 
 #region Variables
 
-## This card's title.
+## This card's file title.
 var title: String
-## This card's path.
+## This card's file path.
 var path: String
+## This card's file directory.
+var directory: String
 
 #endregion
 
@@ -28,6 +30,7 @@ signal focused(card: ZudeToolsCard)
 #endregion
 
 func _ready() -> void:
+	
 	focus_entered.connect(focus_changed)
 	mouse_entered.connect(show_panel)
 	mouse_exited.connect(hide_panel)

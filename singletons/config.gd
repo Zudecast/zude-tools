@@ -155,21 +155,20 @@ func remove_template(label: String) -> void:
 
 #region Folders
 
+# TODO - Add me to folder tree as a ui element.
 func save_folder_preset(path: String) -> void:
 	var new_preset := FileAccess.open(path, FileAccess.WRITE)
 	var stringified := JSON.stringify(new_preset, "	")
 	new_preset.store_string(stringified)
 	new_preset.close()
 
+# TODO - Add me to folder tree as a ui element.
 func load_folder_preset(path: String) -> void:
 	var stringified := FileAccess.get_file_as_string(DEFAULT_FOLDERS)
 	folders = JSON.parse_string(stringified)
 
 func set_folders(tree: Dictionary = folders) -> void:
 	folders = tree
-	
-	if folders.is_empty():
-		load_folder_preset(DEFAULT_FOLDERS)
 	
 	write()
 	folder_tree_set.emit()
@@ -180,9 +179,6 @@ func set_folders(tree: Dictionary = folders) -> void:
 
 func set_color(new_color: Color = color) -> void:
 	color = new_color.to_html()
-	
-	if color.is_empty():
-		color = "0f0f0f"
 	
 	write()
 	theme_color_set.emit()
