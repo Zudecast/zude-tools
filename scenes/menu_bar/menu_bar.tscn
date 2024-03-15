@@ -52,6 +52,9 @@ alignment = 1
 [node name="ProductionLink" type="LinkButton" parent="BarCenter"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+underline = 2
 
 [node name="BarRight" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

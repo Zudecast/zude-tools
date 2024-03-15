@@ -11,7 +11,7 @@ const PATH_SETTING: PackedScene = preload("res://scenes/settings/path_setting.ts
 #region Onready Variables
 
 @onready var global: VBoxContainer = %GlobalVBox
-@onready var default_preview: ZudeToolsPathSetting = %DefaultPreview
+@onready var default_preview: ZudeToolsPathSetting = %DefaultProjectPreview
 
 @onready var templates: VBoxContainer = %TemplatesVBox
 @onready var add_template_button: Button = %AddTemplateButton

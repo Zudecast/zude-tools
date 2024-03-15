@@ -36,6 +36,7 @@ func set_global_font_size(text: String) -> void:
 	ZUDE_TOOLS_THEME.set_default_font_size(int(text))
 	ZUDE_TOOLS_THEME.set_font_size("Label", "Label", int(text))
 
+## Set interface theme color.
 func update_theme_color(color_html: String = Config.color) -> void:
 	color = Color(color_html)
 	PANEL_FLAT.bg_color = color * Color(1, 1, 1, 0.5)

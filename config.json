@@ -1,59 +1,34 @@
 {
-	"color": "00150fff",
+	"color": "0f0f0f",
 	"directory": "Z:\\My Drive\\Project Files\\Zudecast",
 	"folders": {
 		"clips": [
-			{
-				"clips_img": ""
-			},
-			{
-				"clips_thumb": ""
-			}
+			"clips_img",
+			"clips_thumb"
 		],
 		"img": [
-			{
-				"instagram_flyer": ""
-			}
+			"instagram_flyer"
 		],
 		"main": [
-			{
-				"main_thumb": ""
-			},
-			{
-				"main_img": ""
-			}
+			"main_thumb",
+			"main_img"
 		],
 		"reels": [
-			{
-				"reels_img": ""
-			}
+			"reels_img"
 		],
 		"root": [
-			{
-				"ftg": ""
-			},
-			{
-				"main": ""
-			},
-			{
-				"clips": ""
-			},
-			{
-				"img": ""
-			},
-			{
-				"reels": ""
-			},
-			{
-				"super": ""
-			},
-			{
-				"srt": ""
-			}
+			"ftg",
+			"main",
+			"clips",
+			"img",
+			"reels",
+			"super",
+			"srt"
 		]
 	},
-	"preview": "",
+	"preview": "Z:\\My Drive\\Assets\\Krita\\Zudecast Stock Thumbnail 2024\\Zudecast Stock Thumbnail 2024.jpg",
 	"templates": {
-
+		"Zudecast Flyers": "Z:\\My Drive\\Assets\\Krita\\Templates\\Instagram Flyer.krz",
+		"Zudecast Thumb": "Z:\\My Drive\\Assets\\Krita\\Templates\\Zudecast Episode.krz"
 	}
 }

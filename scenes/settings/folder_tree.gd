@@ -26,9 +26,6 @@ func _ready() -> void:
 	set_column_title(0, "Folder Name")
 	set_column_title_alignment(0, HORIZONTAL_ALIGNMENT_LEFT)
 	
-	set_column_title(1, "Tags")
-	set_column_title_alignment(1, HORIZONTAL_ALIGNMENT_LEFT)
-	
 	item_edited.connect(update_tree)
 	tree_updated.connect(Config.set_folders)
 	button_clicked.connect(handle_buttons)
@@ -54,7 +51,7 @@ func create_tree_root() -> void:
 	root.set_editable(0, false)
 
 ## Create the a tree item witht the specified parameters.
-func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder", tags: String = "") -> TreeItem:
+func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder") -> TreeItem:
 	var selected: TreeItem = get_selected()
 	var item: TreeItem
 	
@@ -67,41 +64,32 @@ func create_tree_item(parent: TreeItem = null, folder_name: String = "new_folder
 	item.set_editable(0, true)
 	item.set_icon_max_width(0, 25)
 	
-	item.set_text(1, tags)
-	item.set_editable(1, true)
-	item.set_icon_max_width(1, 25)
-	
-	item.add_button(1, UP, 0, false, "move up")
-	item.add_button(1, DOWN, 1, false, "move down")
-	item.add_button(1, TRASH, 2, false, "delete")
-	item.set_button_color(1, 2, Color.FIREBRICK)
+	item.add_button(0, UP, 0, false, "move up")
+	item.add_button(0, DOWN, 1, false, "move down")
+	item.add_button(0, TRASH, 2, false, "delete")
+	item.set_button_color(0, 2, Color.FIREBRICK)
 	
 	return item
 
-## Recursively build children of the specified item as defined in the config file.
+## Recursively build children as defined in Config.
 func build_tree(item: TreeItem = get_root()) -> void:
 	var item_name: String = item.get_text(0)
 	for parent_name: String in Config.folders.keys():
-		var child_dict_array: Array = Config.folders.get(parent_name)
+		var child_array: Array = Config.folders.get(parent_name)
 		if item_name == parent_name:
-			for child_dict: Dictionary in child_dict_array:
-				var child_name: String = child_dict.keys()[0]
-				var child_tags: String = child_dict.values()[0]
-				var child: TreeItem = create_tree_item(item, child_name, child_tags)
+			for child_name: String in child_array:
+				var child: TreeItem = create_tree_item(item, child_name)
 				build_tree(child)
 
-## Recursively collect children of the specified item and store them in the tree dictionary.
+## Recursively collect children and store them in the tree dictionary.
 func collect_tree(item: TreeItem = get_root()) -> void:
 	var item_name: String = item.get_text(0)
 	tree.merge({item_name : []}, true)
 	
 	for child: TreeItem in item.get_children():
 		var child_name: String = child.get_text(0)
-		var child_tags: String = child.get_text(1)
-		var child_dict: Dictionary = {child_name : child_tags}
-		
-		var item_children: Array = tree[item_name]
-		item_children.append(child_dict)
+		var child_array: Array = tree.get(item_name)
+		child_array.append(child_name)
 		
 		if child.get_child_count() > 0:
 			collect_tree(child)

@@ -6,7 +6,6 @@ extends Control
 
 @onready var label: Label = %Label
 @onready var link: LinkButton = %Link
-@onready var buttons_v_box: VBoxContainer = %ButtonsVBox
 @onready var preview: TextureRect = %Preview
 
 #endregion
@@ -22,6 +21,14 @@ func refresh(focused_card: ZudeToolsCard) -> void:
 	preview.texture = focused_card.preview.texture
 	label.text = focused_card.title
 	link.uri = focused_card.path
+	
+	match focused_card:
+		ZudeToolsCardEpisode:
+			pass
+		ZudeToolsCardImage:
+			pass
+		ZudeToolsCardVideo:
+			pass
 
 ## Clear the hero panel.
 func clear() -> void:

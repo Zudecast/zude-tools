@@ -6,21 +6,19 @@ extends Node
 ## The config file path.
 const CONFIG_FILE: String = "res://config.json"
 ## Default image card preview.
-const DEFAULT_PREVIEW: NoiseTexture2D = preload("res://resources/theme/default_preview.tres")
+const DEFAULT_PREVIEW: String = "res://resources/theme/default_preview.tres"
+## Default folder structure preset for new projects.
+const DEFAULT_FOLDERS: String = "res://resources/config/default_folders.json"
 
 #endregion
 
 #region Variables
 
-var color: String = "0f0f0f"
+var production: String
+
+var color: String
 var directory: String
-var folders: Dictionary = {
-	"clips": [{ "clips_img": "" },{ "clips_thumb": "" }],
-	"img": [{ "instagram_flyer": "" }],
-	"main": [{ "main_thumb": "" }, { "main_img": "" }],
-	"reels": [{ "reels_img": "" }],
-	"root": [{ "ftg": "" }, { "main": "" }, { "clips": "" }, { "img": "" }, { "reels": "" }, { "super": "" }, { "srt": "" }]
-}
+var folders: Dictionary
 var preview: String
 var templates: Dictionary
 
@@ -28,18 +26,24 @@ var templates: Dictionary
 
 #region Signals
 
-## Emit when these nodes need to be refreshed.
+## Emitted when settings nodes need to be refreshed.
 signal settings_refresh_requested
+## Emitted when settings nodes need to be refreshed.
 signal editor_refresh_requested
+## Emitted when theme color need to be refreshed.
 signal theme_color_set
-signal directory_set()
-signal preview_set()
-signal templates_set()
-signal folder_tree_set()
+## Emitted when Zude Tools need to be refreshed.
+signal directory_set
+## Emitted when previews need to be refreshed.
+signal preview_set
+## Emitted when template settings need to be refreshed.
+signal templates_set
+## Emitted when folder settings need to be refreshed.
+signal folder_tree_set
 
 #endregion
 
-## Read the config file and write it to the settings property.
+## Read the config file and write it to the config properties.
 func read() -> void:
 	if FileAccess.file_exists(CONFIG_FILE) == false:
 		write()
@@ -51,7 +55,17 @@ func read() -> void:
 	directory = config.directory
 	folders = config.folders
 	preview = config.preview
+	production = directory.get_slice("\\", directory.get_slice_count("\\") - 1)
 	templates = config.templates
+	
+	if color.is_empty():
+		color = "0f0f0f"
+	
+	if folders.is_empty():
+		load_folder_preset(DEFAULT_FOLDERS)
+	
+	if preview.is_empty():
+		preview = DEFAULT_PREVIEW
 	
 	print()
 	print("-- Config Read --")
@@ -62,9 +76,18 @@ func read() -> void:
 	settings_refresh_requested.emit()
 	editor_refresh_requested.emit()
 
-## Read the settings property and write it to the config file.
+## Read the config properties and write them to the config file.
 func write() -> void:
 	var config_file := FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
+	
+	if color.is_empty():
+		color = "0f0f0f"
+	
+	if folders.is_empty():
+		load_folder_preset(DEFAULT_FOLDERS)
+	
+	if preview.is_empty():
+		preview = DEFAULT_PREVIEW
 	
 	## The contents of the config file.
 	var config: Dictionary = {
@@ -90,14 +113,18 @@ func write() -> void:
 #region Global
 
 ## Set the specified path to the config.directory then write to config file.
-func set_directory(new_path: String) -> void:
+func set_directory(new_path: String = directory) -> void:
 	directory = new_path
 	write()
 	directory_set.emit()
 
 ## Set the specified path to the config.preview, then write to config file.
-func set_preview(new_path: String) -> void:
+func set_preview(new_path: String = preview) -> void:
 	preview = new_path
+	
+	if preview.is_empty():
+		preview = DEFAULT_PREVIEW
+	
 	write()
 	preview_set.emit()
 
@@ -128,8 +155,22 @@ func remove_template(label: String) -> void:
 
 #region Folders
 
-func set_folders(tree: Dictionary) -> void:
+func save_folder_preset(path: String) -> void:
+	var new_preset := FileAccess.open(path, FileAccess.WRITE)
+	var stringified := JSON.stringify(new_preset, "	")
+	new_preset.store_string(stringified)
+	new_preset.close()
+
+func load_folder_preset(path: String) -> void:
+	var stringified := FileAccess.get_file_as_string(DEFAULT_FOLDERS)
+	folders = JSON.parse_string(stringified)
+
+func set_folders(tree: Dictionary = folders) -> void:
 	folders = tree
+	
+	if folders.is_empty():
+		load_folder_preset(DEFAULT_FOLDERS)
+	
 	write()
 	folder_tree_set.emit()
 
@@ -137,8 +178,12 @@ func set_folders(tree: Dictionary) -> void:
 
 #region Theme
 
-func set_color(new_color: Color) -> void:
+func set_color(new_color: Color = color) -> void:
 	color = new_color.to_html()
+	
+	if color.is_empty():
+		color = "0f0f0f"
+	
 	write()
 	theme_color_set.emit()
 

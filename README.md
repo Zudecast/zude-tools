@@ -20,7 +20,8 @@
 	- [x] Reuse tab instances.
 	- [ ] Asynchronous loading and freeing of files.
 - [x] Create desired directory structure for projects.
-- [ ] Generate template files for any other file through a context menu using the file name and any pre-configured tags.
+	- [ ] Save and load folder structure templates. 
+- [ ] Generate template files for any other file using the its name and pre-configured tags.
 - [ ] Enforce desired naming conventions for files based on their project sub-directory.
 - [ ] Resolve naming conflicts when enforcing file or folder rules.
 - [ ] Create timestamp sheets for video editors for video files.

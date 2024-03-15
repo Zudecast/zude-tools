@@ -1,10 +1,18 @@
 @tool
 class_name ZudeToolsContextMenu
-extends Control
+extends MenuButton
+
+#region Enumerations
 
 enum {TEMPLATE}
 
-@onready var popup_menu: PopupMenu = %PopupMenu
+#endregion
+
+#region Onready Variables
+
+@onready var popup_menu: PopupMenu = get_popup()
+
+#endregion
 
 #region Variables
 
@@ -24,12 +32,6 @@ func _exit() -> void:
 	
 	popup_menu.index_pressed.disconnect(handle_metadata)
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			mouse_position = get_global_mouse_position()
-			popup_menu.popup_on_parent(Rect2(mouse_position.x, mouse_position.y, popup_menu.size.x, popup_menu.size.y))
-
 func populate_templates() -> void:
 	popup_menu.add_separator("Templates")
 	var template_path: String
@@ -47,5 +49,6 @@ func handle_metadata(index: int) -> void:
 			# FIXME - generate_template(meta_value)
 			pass
 
+# TODO - Generate tempalte with naming conventions.
 func generate_template(title: String, path: String, template_path: String) -> void:
 	pass

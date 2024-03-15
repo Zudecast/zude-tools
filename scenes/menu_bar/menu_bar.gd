@@ -56,5 +56,5 @@ func refresh_buttons_visibility() -> void:
 		production_link.visible = true
 
 func set_production_link() -> void:
-	production_link.text = Config.directory
+	production_link.text = Config.production
 	production_link.uri = Config.directory

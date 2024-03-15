@@ -136,8 +136,7 @@ func load_episode(title: String) -> void:
 	
 	# Set the title and path.
 	episode.title = title
-	var directory: String = Config.directory
-	episode.path = directory.path_join(title)
+	episode.path = Config.directory.path_join(title)
 	# Connect the episode focused signal to the relevant update methods.
 	episode.focused.connect(editor.refresh_btm)
 	# Add the episode to the episode flow node tree.

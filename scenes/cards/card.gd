@@ -55,13 +55,15 @@ func update_label() -> void:
 	tooltip_text = title
 
 ## Set the card texture.
-func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
-	var image := Image.new()
-	image.load(path)
+func update_preview() -> void:
+	var new_image := Image.new()
+	var new_texture: Texture2D
 	
-	if image.is_empty() == false:
-		new_texture = ImageTexture.create_from_image(image)
+	if path == null:
+		path = Config.preview
 	
+	new_image.load(path)
+	new_texture = ImageTexture.create_from_image(new_image)
 	preview.texture = new_texture
 
 ## Show the overlay panel.

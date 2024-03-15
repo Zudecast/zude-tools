@@ -24,25 +24,25 @@ func _exit_tree() -> void:
 	directories.clear()
 
 ## Set the card texture.
-func update_preview(new_texture: Texture2D = Config.DEFAULT_PREVIEW) -> void:
+func update_preview() -> void:
+	var file_path: String = Config.preview
+	
 	# Check for a preview image candidate.
 	if files.has("main_thumb"):
-		var dir_files: PackedStringArray = files["main_thumb"]
-		if dir_files.is_empty(): return
-		
-		var image := Image.new()
-		var file_path: String
-		
-		for file_name: String in dir_files:
-			if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
-				file_path = directories["main_thumb"]
-				file_path = file_path.path_join(file_name)
-				image.load(file_path)
-				if image.is_empty() == false:
-					new_texture = ImageTexture.create_from_image(image)
+		var dir_files: PackedStringArray = files.get("main_thumb")
+		if dir_files.is_empty() == false:
+			for file_name: String in dir_files:
+				if file_name.is_valid_filename() and file_name.get_extension() in ["jpg"]:
+					file_path = directories.get("main_thumb")
+					file_path = file_path.path_join(file_name)
 	
-	## Set the final texture.
-	preview.texture = new_texture
+	# Check if we generated a file_path other than Config.preview
+	if file_path.get_extension() in ["tres"]:
+		preview.texture = load(file_path)
+	else:
+		var image := Image.new()
+		image.load(file_path)
+		preview.texture = ImageTexture.create_from_image(image)
 
 ## Get all directories within this episode's directory. Directory name is key and its path is value.
 func get_directories(at_path: String = path) -> void:

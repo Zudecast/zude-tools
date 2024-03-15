@@ -22,6 +22,7 @@ config/icon="res://zude_tools.svg"
 
 Config="*res://singletons/config.gd"
 Dialog="*res://singletons/file_dialog.gd"
+Focused="*res://singletons/focused_card.gd"
 
 [debug]
 

@@ -122,7 +122,7 @@ border_blend = true
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 
-[sub_resource type="Theme" id="Theme_grv8k"]
+[sub_resource type="Theme" id="Theme_83p3w"]
 resource_local_to_scene = true
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 15
@@ -157,22 +157,20 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme = ExtResource("1_fgagf")
-current_tab = 2
 drag_to_rearrange_enabled = true
 script = ExtResource("2_wokt4")
 
 [node name="Global" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 2
 
 [node name="GlobalVBox" type="VBoxContainer" parent="Global"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DefaultPreview" parent="Global/GlobalVBox" instance=ExtResource("4_gatcq")]
+[node name="DefaultProjectPreview" parent="Global/GlobalVBox" instance=ExtResource("4_gatcq")]
 unique_name_in_owner = true
 layout_mode = 2
-theme = SubResource("Theme_grv8k")
+theme = SubResource("Theme_83p3w")
 editable_label = false
 label_text = "Default Project Preview"
 path_placeholder = "\"image.jpg\""
@@ -197,6 +195,7 @@ size_flags_horizontal = 4
 text = "+"
 
 [node name="Folders" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Folders"]
@@ -213,7 +212,6 @@ text = "+"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-columns = 2
 column_titles_visible = true
 allow_reselect = true
 drop_mode_flags = 3
