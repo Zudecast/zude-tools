@@ -53,6 +53,8 @@ func refresh(focused_card: ZudeToolsCard) -> void:
 
 ## Clear the hero panel.
 func clear() -> void:
+	card = null
+	preview.texture = null
 	label.text = "Select an item..."
 	link.uri = ""
 
@@ -73,6 +75,9 @@ func refresh_templates() -> void:
 
 ## Generate the selected template menu item using the card name and directory.
 func generate_template(index: int) -> void:
+	if card == null:
+		return
+	
 	var template_path: String = templates_popup.get_item_metadata(index)
 	var extension: String = template_path.get_extension()
 	var title: String = card.title.get_basename()

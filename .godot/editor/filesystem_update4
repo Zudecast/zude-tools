@@ -5,3 +5,4 @@ res://resources/theme/default_preview.tres
 res://resources/theme/card_label_settings.tres
 res://singletons/file_utils.gd
 res://README.md
+res://scenes/hero_panel/hero_panel.gd
