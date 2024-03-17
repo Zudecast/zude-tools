@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Zude Tools"
-config/description="A set of file management and post-production tools for YouTubers."
-config/version="0.4"
+config/description="A set of project file management tools for content creators."
+config/version="0.5"
 run/main_scene="res://zude_tools.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false

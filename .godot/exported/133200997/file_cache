@@ -3,9 +3,9 @@ res://addons/Todo_Manager/UI/Dock.tscn::f1f1a9bf820107c9db484f3ae3a94a60::170969
 res://addons/Todo_Manager/UI/Pattern.tscn::a453051a4d53b57192109d6bc6f82444::1709698059::res://.godot/exported/133200997/export-4d99d6f3f830696d03c7cdb046642adb-Pattern.scn
 res://resources/theme/card_label_settings.tres::070acb84122f6c666c1c9e3f75804aa8::1710475680::res://.godot/exported/133200997/export-32c15add3e0ebc6e2034495e206322bd-card_label_settings.res
 res://resources/theme/card_label_style_box_flat.tres::07c61234460bf0d6a43757f0afde982c::1710111281::res://.godot/exported/133200997/export-5882b61301f297ecc528f8ad4addbaff-card_label_style_box_flat.res
-res://resources/theme/default_preview.tres::2a38c8b2f11e3560664f27f990bb808d::1710475680::res://.godot/exported/133200997/export-eb8a90e42f20eea267794f64b6878f97-default_preview.res
-res://resources/theme/panel_flat.tres::2ec8bc75597b4fea8710835a179dadcb::1710475839::res://.godot/exported/133200997/export-703822d59125bb61992da37faffe7262-panel_flat.res
-res://resources/theme/zude_tools_theme.tres::2819a7df97769801fcde040efd7bd83c::1710475680::res://.godot/exported/133200997/export-ace3fc66e51267666a2e3846da0aa0bc-zude_tools_theme.res
+res://resources/theme/default_preview.tres::2a38c8b2f11e3560664f27f990bb808d::1710715067::res://.godot/exported/133200997/export-eb8a90e42f20eea267794f64b6878f97-default_preview.res
+res://resources/theme/panel_flat.tres::2ec8bc75597b4fea8710835a179dadcb::1710715067::res://.godot/exported/133200997/export-703822d59125bb61992da37faffe7262-panel_flat.res
+res://resources/theme/zude_tools_theme.tres::c4695813baa2c121ec584e998c036dcb::1710715067::res://.godot/exported/133200997/export-ace3fc66e51267666a2e3846da0aa0bc-zude_tools_theme.res
 res://scenes/bottom_bar/bottom_bar.tscn::1725f834ec6d4202c1a4383c2315ed1e::1710142496::res://.godot/exported/133200997/export-f08c60b938570f75c277db2e1700b057-bottom_bar.scn
 res://scenes/cards/card.tscn::5e60466a942710adbd633c64b5b5acee::1710456012::res://.godot/exported/133200997/export-1434ee45eb13583567bcc00da4d3687e-card.scn
 res://scenes/context_menu/context_menu.tscn::6d5ab037a187ba54b18df612a084577c::1710455974::res://.godot/exported/133200997/export-74eca1604d6a74dc413eecc1868e8009-context_menu.scn
@@ -21,4 +21,4 @@ res://scenes/tab_panel/tab.tscn::f1a7fd6133a6ba1939a96760017f8975::1710062106::r
 res://scenes/tab_panel/tab_panel.tscn::7e3773a68170c38828018d4c6741721a::1709863379::res://.godot/exported/133200997/export-4453a8a1e921fe9acbaaa99a531a7388-tab_panel.scn
 res://scenes/transport/transport_controls.tscn::8f1f53e0aefd4d31d66ef17eb18a7035::1710142375::res://.godot/exported/133200997/export-a5bb66ca9a97c25b1fafca9769e50b16-transport_controls.scn
 res://scenes/windows/text_dialog.tscn::106986fb57005bf8ecba478084718cd7::1710305817::res://.godot/exported/133200997/export-e324bd6170f9ebaa98c5609d59efcec2-text_dialog.scn
-res://zude_tools.tscn::cda99090207a7503ee896f457fdd3093::1710476231::res://.godot/exported/133200997/export-3d1687b41f593f02f136ae9484f7cbb5-zude_tools.scn
+res://zude_tools.tscn::1a578ac04bc8ae09d829ae3976f85177::1710715067::res://.godot/exported/133200997/export-3d1687b41f593f02f136ae9484f7cbb5-zude_tools.scn

@@ -2,16 +2,4 @@ res://zude_tools.tscn
 res://resources/theme/panel_flat.tres
 res://resources/theme/zude_tools_theme.tres
 res://resources/theme/default_preview.tres
-res://resources/theme/card_label_settings.tres
-res://singletons/file_utils.gd
 res://README.md
-res://scenes/hero_panel/hero_panel.gd
-res://singletons/focused_card.gd
-res://scenes/episode_panel/episode_panel.gd
-res://scenes/tab_panel/tab.gd
-res://singletons/focused.gd
-res://scenes/editor/editor.gd
-res://scenes/tab_panel/tab_panel.gd
-res://scenes/cards/card.gd
-res://scenes/menu_bar/menu_bar.gd
-res://scenes/windows/text_dialog.gd
