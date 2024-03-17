@@ -3,8 +3,8 @@
 ## A tool for assisting in podcast post-production. Made with love in Godot.
 
 ### Planned Release Features:
-- [x] Automatically load last known directory for ease of use.
 - [x] View all projects in a resizable gallery display with thumbnail previews.
+	- [x] Automatically load last known directory for ease of use.
 - [x] Create custom folder structure for new projects using a tree UI in the settings.
 	- [/] Save and load folder structure presets.
 		- (currently implemented in code only)
@@ -23,8 +23,7 @@
 ### Long Term Features:
 - [ ] Asynchronous loading and freeing of files.
 - [ ] Assign naming styles to files based on a list of user-created templates.
-- [ ] Easily update files with naming templates
-- [ ] Easy resolve conflicts when converting to new folder rules though a graph UI.
+- [ ] Resolve conflicts when converting to new folder rules though a graph UI.
 - [ ] Create timestamp sheets for video editors for video files.
 
 ### QoL Ideas
